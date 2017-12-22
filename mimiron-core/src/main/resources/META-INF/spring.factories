@@ -1,0 +1,6 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  cn.zhangxd.mimiron.core.config.apidoc.SwaggerConfiguration,\
+  cn.zhangxd.mimiron.core.config.metrics.GraphiteRegistry,\
+  cn.zhangxd.mimiron.core.config.metrics.PrometheusRegistry,\
+  cn.zhangxd.mimiron.core.config.MimironProperties,\
+  cn.zhangxd.mimiron.core.security.uaa.UaaAutoConfiguration

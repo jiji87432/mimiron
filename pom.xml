@@ -13,5 +13,7 @@
         <module>mimiron-dependencies</module>
         <module>mimiron-core</module>
         <module>mimiron-uaa</module>
+        <module>mimiron-gateway</module>
+        <module>mimiron-service</module>
     </modules>
 </project>

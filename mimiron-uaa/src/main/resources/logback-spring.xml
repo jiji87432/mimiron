@@ -22,9 +22,9 @@
     </appender>
 -->
 
-    <logger name="cn.zhangxd.mimiron" level="#logback.loglevel#"/>
+    <logger name="cn.mimiron.uaa" level="#logback.loglevel#"/>
 
-    <logger name="cn.zhangxd.mimiron.core" level="#logback.loglevel#"/>
+    <logger name="cn.mimiron.core" level="#logback.loglevel#"/>
 
     <logger name="javax.activation" level="WARN"/>
     <logger name="javax.mail" level="WARN"/>

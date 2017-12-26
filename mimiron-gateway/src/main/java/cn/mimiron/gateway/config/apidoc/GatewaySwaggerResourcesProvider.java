@@ -1,6 +1,6 @@
 package cn.mimiron.gateway.config.apidoc;
 
-import io.github.jhipster.config.JHipsterConstants;
+import cn.mimiron.core.config.MimironConstants;
 import org.springframework.cloud.netflix.zuul.filters.Route;
 import org.springframework.cloud.netflix.zuul.filters.RouteLocator;
 import org.springframework.context.annotation.Primary;
@@ -18,7 +18,7 @@ import java.util.List;
  */
 @Component
 @Primary
-@Profile(JHipsterConstants.SPRING_PROFILE_SWAGGER)
+@Profile(MimironConstants.SPRING_PROFILE_SWAGGER)
 public class GatewaySwaggerResourcesProvider implements SwaggerResourcesProvider {
 
     private final RouteLocator routeLocator;

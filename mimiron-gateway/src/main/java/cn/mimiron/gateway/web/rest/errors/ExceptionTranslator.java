@@ -1,8 +1,6 @@
 package cn.mimiron.gateway.web.rest.errors;
 
 import cn.mimiron.gateway.web.rest.util.HeaderUtil;
-
-import org.springframework.dao.ConcurrencyFailureException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -12,7 +10,6 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.zalando.problem.DefaultProblem;
 import org.zalando.problem.Problem;
 import org.zalando.problem.ProblemBuilder;
-import org.zalando.problem.Status;
 import org.zalando.problem.spring.web.advice.ProblemHandling;
 import org.zalando.problem.spring.web.advice.validation.ConstraintViolationProblem;
 
@@ -87,12 +84,4 @@ public class ExceptionTranslator implements ProblemHandling {
         return create(ex, request, HeaderUtil.createFailureAlert(ex.getEntityName(), ex.getErrorKey(), ex.getMessage()));
     }
 
-    @ExceptionHandler(ConcurrencyFailureException.class)
-    public ResponseEntity<Problem> handleConcurrencyFailure(ConcurrencyFailureException ex, NativeWebRequest request) {
-        Problem problem = Problem.builder()
-            .withStatus(Status.CONFLICT)
-            .with("message", ErrorConstants.ERR_CONCURRENCY_FAILURE)
-            .build();
-        return create(ex, problem, request);
-    }
 }

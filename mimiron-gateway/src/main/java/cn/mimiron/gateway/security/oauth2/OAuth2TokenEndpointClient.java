@@ -5,6 +5,7 @@ import org.springframework.security.oauth2.common.OAuth2AccessToken;
 /**
  * Client talking to an OAuth2 Authorization server token endpoint.
  *
+ * @author zhangxd
  * @see UaaTokenEndpointClient
  * @see OAuth2TokenEndpointClientAdapter
  */

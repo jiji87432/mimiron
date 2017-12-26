@@ -1,7 +1,7 @@
 package cn.mimiron.gateway.security.oauth2;
 
+import cn.mimiron.core.config.MimironProperties;
 import cn.mimiron.gateway.config.oauth2.OAuth2Properties;
-import io.github.jhipster.config.JHipsterProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
@@ -23,12 +23,12 @@ import org.springframework.web.client.RestTemplate;
 public abstract class OAuth2TokenEndpointClientAdapter implements OAuth2TokenEndpointClient {
     private final Logger log = LoggerFactory.getLogger(OAuth2TokenEndpointClientAdapter.class);
     protected final RestTemplate restTemplate;
-    protected final JHipsterProperties jHipsterProperties;
+    protected final MimironProperties mimironProperties;
     protected final OAuth2Properties oAuth2Properties;
 
-    public OAuth2TokenEndpointClientAdapter(RestTemplate restTemplate, JHipsterProperties jHipsterProperties, OAuth2Properties oAuth2Properties) {
+    public OAuth2TokenEndpointClientAdapter(RestTemplate restTemplate, MimironProperties mimironProperties, OAuth2Properties oAuth2Properties) {
         this.restTemplate = restTemplate;
-        this.jHipsterProperties = jHipsterProperties;
+        this.mimironProperties = mimironProperties;
         this.oAuth2Properties = oAuth2Properties;
     }
 
@@ -56,8 +56,7 @@ public abstract class OAuth2TokenEndpointClientAdapter implements OAuth2TokenEnd
             log.debug("failed to authenticate user with OAuth2 token endpoint, status: {}", responseEntity.getStatusCodeValue());
             throw new HttpClientErrorException(responseEntity.getStatusCode());
         }
-        OAuth2AccessToken accessToken = responseEntity.getBody();
-        return accessToken;
+        return responseEntity.getBody();
     }
 
     /**
@@ -110,7 +109,7 @@ public abstract class OAuth2TokenEndpointClientAdapter implements OAuth2TokenEnd
      * @return the OAuth2 token endpoint URI.
      */
     protected String getTokenEndpoint() {
-        String tokenEndpointUrl = jHipsterProperties.getSecurity().getClientAuthorization().getAccessTokenUri();
+        String tokenEndpointUrl = mimironProperties.getSecurity().getClientAuthorization().getAccessTokenUri();
         if(tokenEndpointUrl == null) {
             throw new InvalidClientException("no token endpoint configured in application properties");
         }

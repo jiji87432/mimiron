@@ -1,7 +1,6 @@
 package cn.mimiron.gateway.config;
 
-import io.github.jhipster.config.locale.AngularCookieLocaleResolver;
-
+import cn.mimiron.core.config.locale.AngularCookieLocaleResolver;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +10,9 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 
+/**
+ * @author zhangxd
+ */
 @Configuration
 public class LocaleConfiguration extends WebMvcConfigurerAdapter implements EnvironmentAware {
 

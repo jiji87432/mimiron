@@ -41,11 +41,9 @@ public final class SecurityUtils {
     public static boolean isAuthenticated() {
         SecurityContext securityContext = SecurityContextHolder.getContext();
         Authentication authentication = securityContext.getAuthentication();
-        if (authentication != null) {
-            return authentication.getAuthorities().stream()
+        return authentication != null &&
+            authentication.getAuthorities().stream()
                 .noneMatch(grantedAuthority -> grantedAuthority.getAuthority().equals(AuthoritiesConstants.ANONYMOUS));
-        }
-        return false;
     }
 
     /**
@@ -59,10 +57,8 @@ public final class SecurityUtils {
     public static boolean isCurrentUserInRole(String authority) {
         SecurityContext securityContext = SecurityContextHolder.getContext();
         Authentication authentication = securityContext.getAuthentication();
-        if (authentication != null) {
-            return authentication.getAuthorities().stream()
+        return authentication != null &&
+            authentication.getAuthorities().stream()
                 .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals(authority));
-        }
-        return false;
     }
 }

@@ -1,11 +1,9 @@
 package cn.mimiron.gateway.config;
 
-import cn.mimiron.gateway.gateway.accesscontrol.AccessControlFilter;
-import io.github.jhipster.config.JHipsterProperties;
-
-import cn.mimiron.gateway.gateway.ratelimiting.RateLimitingFilter;
-import cn.mimiron.gateway.gateway.responserewriting.SwaggerBasePathRewritingFilter;
-
+import cn.mimiron.core.config.MimironProperties;
+import cn.mimiron.gateway.filter.accesscontrol.AccessControlFilter;
+import cn.mimiron.gateway.filter.ratelimiting.RateLimitingFilter;
+import cn.mimiron.gateway.filter.responserewriting.SwaggerBasePathRewritingFilter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.cloud.netflix.zuul.filters.RouteLocator;
 import org.springframework.context.annotation.Bean;
@@ -30,8 +28,8 @@ public class GatewayConfiguration {
     public static class AccessControlFilterConfiguration {
 
         @Bean
-        public AccessControlFilter accessControlFilter(RouteLocator routeLocator, JHipsterProperties jHipsterProperties){
-            return new AccessControlFilter(routeLocator, jHipsterProperties);
+        public AccessControlFilter accessControlFilter(RouteLocator routeLocator, MimironProperties mimironProperties){
+            return new AccessControlFilter(routeLocator, mimironProperties);
         }
     }
 
@@ -41,18 +39,18 @@ public class GatewayConfiguration {
      * This uses Bucket4J to limit the API calls, see {@link RateLimitingFilter}.
      */
     @Configuration
-    @ConditionalOnProperty("jhipster.gateway.rate-limiting.enabled")
+    @ConditionalOnProperty("mimiron.gateway.rate-limiting.enabled")
     public static class RateLimitingConfiguration {
 
-        private final JHipsterProperties jHipsterProperties;
+        private final MimironProperties mimironProperties;
 
-        public RateLimitingConfiguration(JHipsterProperties jHipsterProperties) {
-            this.jHipsterProperties = jHipsterProperties;
+        public RateLimitingConfiguration(MimironProperties mimironProperties) {
+            this.mimironProperties = mimironProperties;
         }
 
         @Bean
         public RateLimitingFilter rateLimitingFilter() {
-            return new RateLimitingFilter(jHipsterProperties);
+            return new RateLimitingFilter(mimironProperties);
         }
     }
 }

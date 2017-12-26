@@ -1,9 +1,7 @@
 package cn.mimiron.gateway.security.oauth2;
 
+import cn.mimiron.core.config.MimironProperties;
 import cn.mimiron.gateway.config.oauth2.OAuth2Properties;
-import io.github.jhipster.config.JHipsterProperties;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
@@ -15,14 +13,14 @@ import java.nio.charset.StandardCharsets;
 
 /**
  * Client talking to UAA's token endpoint to do different OAuth2 grants.
+ * @author zhangxd
  */
 @Component
 public class UaaTokenEndpointClient extends OAuth2TokenEndpointClientAdapter implements OAuth2TokenEndpointClient {
-    private final Logger log = LoggerFactory.getLogger(UaaTokenEndpointClient.class);
 
     public UaaTokenEndpointClient(@Qualifier("loadBalancedRestTemplate") RestTemplate restTemplate,
-                                  JHipsterProperties jHipsterProperties, OAuth2Properties oAuth2Properties) {
-        super(restTemplate, jHipsterProperties, oAuth2Properties);
+                                  MimironProperties mimironProperties, OAuth2Properties oAuth2Properties) {
+        super(restTemplate, mimironProperties, oAuth2Properties);
     }
 
     @Override

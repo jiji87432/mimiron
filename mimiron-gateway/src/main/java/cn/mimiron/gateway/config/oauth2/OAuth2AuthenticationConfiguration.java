@@ -17,6 +17,7 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 
 /**
  * Configures the RefreshFilter refreshing expired OAuth2 token Cookies.
+ *
  * @author zhangxd
  */
 @Configuration

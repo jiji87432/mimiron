@@ -1,18 +1,21 @@
 package cn.mimiron.gateway.config;
 
+import cn.mimiron.core.config.MimironConstants;
 import cn.mimiron.gateway.aop.logging.LoggingAspect;
 
-import io.github.jhipster.config.JHipsterConstants;
 
 import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
 
+/**
+ * @author zhangxd
+ */
 @Configuration
 @EnableAspectJAutoProxy
 public class LoggingAspectConfiguration {
 
     @Bean
-    @Profile(JHipsterConstants.SPRING_PROFILE_DEVELOPMENT)
+    @Profile(MimironConstants.SPRING_PROFILE_DEVELOPMENT)
     public LoggingAspect loggingAspect(Environment env) {
         return new LoggingAspect(env);
     }

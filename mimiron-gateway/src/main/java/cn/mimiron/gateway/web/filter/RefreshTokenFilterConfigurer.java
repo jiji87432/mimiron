@@ -11,6 +11,7 @@ import org.springframework.security.web.DefaultSecurityFilterChain;
 /**
  * Configures a RefreshTokenFilter to refresh access tokens if they are about to expire.
  *
+ * @author zhangxd
  * @see RefreshTokenFilter
  */
 public class RefreshTokenFilterConfigurer extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {

@@ -11,6 +11,8 @@ import java.util.Map;
 
 /**
  * Improved JwtAccessTokenConverter that can handle lazy fetching of public verifier keys.
+ *
+ * @author zhangxd
  */
 public class OAuth2JwtAccessTokenConverter extends JwtAccessTokenConverter {
     private final Logger log = LoggerFactory.getLogger(OAuth2JwtAccessTokenConverter.class);
@@ -66,7 +68,7 @@ public class OAuth2JwtAccessTokenConverter extends JwtAccessTokenConverter {
         }
         try {
             SignatureVerifier verifier = signatureVerifierClient.getSignatureVerifier();
-            if(verifier!=null) {
+            if (verifier != null) {
                 setVerifier(verifier);
                 lastKeyFetchTimestamp = t;
                 log.debug("Public key retrieved from OAuth2 server to create SignatureVerifier");

@@ -1,8 +1,8 @@
 package cn.mimiron.gateway;
 
+import cn.mimiron.core.config.MimironConstants;
 import cn.mimiron.gateway.config.ApplicationProperties;
 import cn.mimiron.gateway.config.DefaultProfileUtil;
-import io.github.jhipster.config.JHipsterConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -45,12 +45,11 @@ public class GatewayApp {
      * <p>
      * Spring profiles can be configured with a program arguments --spring.profiles.active=your-active-profile
      * <p>
-     * You can find more information on how profiles work with JHipster on <a href="http://www.jhipster.tech/profiles/">http://www.jhipster.tech/profiles/</a>.
      */
     @PostConstruct
     public void initApplication() {
         Collection<String> activeProfiles = Arrays.asList(env.getActiveProfiles());
-        if (activeProfiles.contains(JHipsterConstants.SPRING_PROFILE_DEVELOPMENT) && activeProfiles.contains(JHipsterConstants.SPRING_PROFILE_PRODUCTION)) {
+        if (activeProfiles.contains(MimironConstants.SPRING_PROFILE_DEVELOPMENT) && activeProfiles.contains(MimironConstants.SPRING_PROFILE_PRODUCTION)) {
             log.error("You have misconfigured your application! It should not run " +
                 "with both the 'dev' and 'prod' profiles at the same time.");
         }

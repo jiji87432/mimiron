@@ -23,6 +23,8 @@ import java.io.IOException;
 
 /**
  * Filters incoming requests and refreshes the access token before it expires.
+ *
+ * @author zhangxd
  */
 public class RefreshTokenFilter extends GenericFilterBean {
     /**
@@ -72,12 +74,13 @@ public class RefreshTokenFilter extends GenericFilterBean {
      * @return a new request to use downstream that contains the new cookies, if they had to be refreshed.
      * @throws InvalidTokenException if the tokens could not be refreshed.
      */
-    public HttpServletRequest refreshTokensIfExpiring(HttpServletRequest httpServletRequest, HttpServletResponse
-        httpServletResponse) {
+    public HttpServletRequest refreshTokensIfExpiring(HttpServletRequest httpServletRequest,
+                                                      HttpServletResponse httpServletResponse) {
         HttpServletRequest newHttpServletRequest = httpServletRequest;
         //get access token from cookie
         Cookie accessTokenCookie = OAuth2CookieHelper.getAccessTokenCookie(httpServletRequest);
-        if (mustRefreshToken(accessTokenCookie)) {        //we either have no access token, or it is expired, or it is about to expire
+        //we either have no access token, or it is expired, or it is about to expire
+        if (mustRefreshToken(accessTokenCookie)) {
             //get the refresh token cookie and, if present, request new tokens
             Cookie refreshCookie = OAuth2CookieHelper.getRefreshTokenCookie(httpServletRequest);
             if (refreshCookie != null) {
@@ -110,9 +113,6 @@ public class RefreshTokenFilter extends GenericFilterBean {
         }
         OAuth2AccessToken token = tokenStore.readAccessToken(accessTokenCookie.getValue());
         //check if token is expired or about to expire
-        if (token.isExpired() || token.getExpiresIn() < REFRESH_WINDOW_SECS) {
-            return true;
-        }
-        return false;       //access token is still fine
+        return token.isExpired() || token.getExpiresIn() < REFRESH_WINDOW_SECS;
     }
 }

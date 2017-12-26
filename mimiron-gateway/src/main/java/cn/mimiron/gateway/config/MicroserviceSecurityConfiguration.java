@@ -1,10 +1,9 @@
 package cn.mimiron.gateway.config;
 
+import cn.mimiron.gateway.config.oauth2.OAuth2JwtAccessTokenConverter;
 import cn.mimiron.gateway.config.oauth2.OAuth2Properties;
 import cn.mimiron.gateway.security.AuthoritiesConstants;
-import cn.mimiron.gateway.config.oauth2.OAuth2JwtAccessTokenConverter;
 import cn.mimiron.gateway.security.oauth2.OAuth2SignatureVerifierClient;
-
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cloud.client.loadbalancer.RestTemplateCustomizer;
 import org.springframework.context.annotation.Bean;
@@ -17,11 +16,13 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.csrf.CsrfFilter;
-import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.filter.CorsFilter;
 
+/**
+ * @author zhangxd
+ */
 @Configuration
 @EnableResourceServer
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
@@ -39,9 +40,9 @@ public class MicroserviceSecurityConfiguration extends ResourceServerConfigurerA
     public void configure(HttpSecurity http) throws Exception {
         http
             .csrf()
-            .ignoringAntMatchers("/h2-console/**")
-            .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-        .and()
+            .disable()
+//            .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+//        .and()
             .addFilterBefore(corsFilter, CsrfFilter.class)
             .headers()
             .frameOptions()

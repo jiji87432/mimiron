@@ -5,6 +5,8 @@ import org.springframework.stereotype.Component;
 
 /**
  * OAuth2 properties define properties for OAuth2-based microservices.
+ *
+ * @author zhangxd
  */
 @Component
 @ConfigurationProperties(prefix = "oauth2", ignoreUnknownFields = false)

@@ -10,7 +10,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>mimiron-dependencies</module>
+        <module>mimiron-bom</module>
         <module>mimiron-core</module>
         <module>mimiron-uaa</module>
         <module>mimiron-gateway</module>

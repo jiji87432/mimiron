@@ -3,43 +3,16 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>cn.mimiron</groupId>
+    <parent>
+        <groupId>cn.mimiron</groupId>
+        <artifactId>mimiron-bom</artifactId>
+        <version>1.0.0</version>
+        <relativePath/>
+    </parent>
+
 	<artifactId>mimiron-core</artifactId>
 	<version>1.0.0</version>
 	<packaging>jar</packaging>
-
-	<properties>
-		<!-- Build properties -->
-		<java.version>1.8</java.version>
-		<maven.version>3.0.0</maven.version>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
-		<maven.compiler.source>${java.version}</maven.compiler.source>
-		<maven.compiler.target>${java.version}</maven.compiler.target>
-
-		<!-- Plugin versions -->
-		<maven-compiler-plugin.version>3.6.0</maven-compiler-plugin.version>
-		<maven-eclipse-plugin.version>2.10</maven-eclipse-plugin.version>
-		<maven-enforcer-plugin.version>1.4.1</maven-enforcer-plugin.version>
-		<maven-javadoc-plugin.version>2.10.4</maven-javadoc-plugin.version>
-		<maven-source-plugin.version>2.4</maven-source-plugin.version>
-
-		<!-- Dependency versions -->
-		<mimiron-dependencies.version>0.0.1</mimiron-dependencies.version>
-	</properties>
-
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>cn.mimiron</groupId>
-				<artifactId>mimiron-dependencies</artifactId>
-				<version>${mimiron-dependencies.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
 
 	<dependencies>
 		<dependency>
@@ -110,7 +83,6 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
-				<version>${maven-source-plugin.version}</version>
 				<executions>
 					<execution>
 						<id>attach-sources</id>
@@ -123,7 +95,6 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>${maven-javadoc-plugin.version}</version>
 				<executions>
 					<execution>
 						<id>attach-javadocs</id>
@@ -136,40 +107,13 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>${maven-compiler-plugin.version}</version>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-eclipse-plugin</artifactId>
-				<version>${maven-eclipse-plugin.version}</version>
 				<configuration>
 					<downloadSources>true</downloadSources>
 					<downloadJavadocs>true</downloadJavadocs>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-enforcer-plugin</artifactId>
-				<version>${maven-enforcer-plugin.version}</version>
-				<executions>
-					<execution>
-						<id>enforce-versions</id>
-						<goals>
-							<goal>enforce</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<rules>
-						<requireMavenVersion>
-							<message>You are running an older version of Maven. Mimiron requires at least Maven ${maven.version}</message>
-							<version>[${maven.version},)</version>
-						</requireMavenVersion>
-						<requireJavaVersion>
-							<message>You are running an older version of Java. Mimiron requires at least JDK ${java.version}</message>
-							<version>[${java.version}.0,)</version>
-						</requireJavaVersion>
-					</rules>
 				</configuration>
 			</plugin>
 		</plugins>

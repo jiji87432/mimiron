@@ -1,6 +1,6 @@
 package cn.mimiron.gateway.filter.accesscontrol;
 
-import cn.mimiron.core.config.MimironProperties;
+import cn.mimiron.gateway.config.ApplicationProperties;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import org.slf4j.Logger;
@@ -14,6 +14,7 @@ import java.util.Map;
 
 /**
  * Zuul filter for restricting access to backend micro-services endpoints.
+ *
  * @author zhangxd
  */
 public class AccessControlFilter extends ZuulFilter {
@@ -22,11 +23,11 @@ public class AccessControlFilter extends ZuulFilter {
 
     private final RouteLocator routeLocator;
 
-    private final MimironProperties mimironProperties;
+    private final ApplicationProperties applicationProperties;
 
-    public AccessControlFilter(RouteLocator routeLocator, MimironProperties mimironProperties) {
+    public AccessControlFilter(RouteLocator routeLocator, ApplicationProperties applicationProperties) {
         this.routeLocator = routeLocator;
-        this.mimironProperties = mimironProperties;
+        this.applicationProperties = applicationProperties;
     }
 
     @Override
@@ -54,14 +55,14 @@ public class AccessControlFilter extends ZuulFilter {
             // If this route correspond to the current request URI
             // We do a substring to remove the "**" at the end of the route URL
             if (requestUri.startsWith(serviceUrl.substring(0, serviceUrl.length() - 2))) {
-				return !isAuthorizedRequest(serviceUrl, serviceName, requestUri);
+                return !isAuthorizedRequest(serviceUrl, serviceName, requestUri);
             }
         }
         return true;
     }
 
     private boolean isAuthorizedRequest(String serviceUrl, String serviceName, String requestUri) {
-        Map<String, List<String>> authorizedMicroservicesEndpoints = mimironProperties.getGateway()
+        Map<String, List<String>> authorizedMicroservicesEndpoints = applicationProperties.getGateway()
             .getAuthorizedMicroservicesEndpoints();
 
         // If the authorized endpoints list was left empty for this route, all access are allowed

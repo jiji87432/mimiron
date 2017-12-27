@@ -16,6 +16,7 @@ import java.util.zip.GZIPInputStream;
 
 /**
  * Zuul filter to rewrite micro-services Swagger URL Base Path.
+ *
  * @author zhangxd
  */
 public class SwaggerBasePathRewritingFilter extends SendResponseFilter {
@@ -67,8 +68,8 @@ public class SwaggerBasePathRewritingFilter extends SendResponseFilter {
             if (response != null) {
                 LinkedHashMap<String, Object> map = this.mapper.readValue(response, LinkedHashMap.class);
 
-                String basePath = requestUri.replace(Swagger2Controller.DEFAULT_URL,"");
-                map.put("basePath",basePath);
+                String basePath = requestUri.replace(Swagger2Controller.DEFAULT_URL, "");
+                map.put("basePath", basePath);
                 log.debug("Swagger-docs: rewritten Base URL with correct micro-service route: {}", basePath);
                 return mapper.writeValueAsString(map);
             }

@@ -1,6 +1,5 @@
 package cn.mimiron.gateway.config;
 
-import cn.mimiron.core.config.MimironProperties;
 import cn.mimiron.gateway.filter.accesscontrol.AccessControlFilter;
 import cn.mimiron.gateway.filter.ratelimiting.RateLimitingFilter;
 import cn.mimiron.gateway.filter.responserewriting.SwaggerBasePathRewritingFilter;
@@ -19,7 +18,7 @@ public class GatewayConfiguration {
     public static class SwaggerBasePathRewritingConfiguration {
 
         @Bean
-        public SwaggerBasePathRewritingFilter swaggerBasePathRewritingFilter(){
+        public SwaggerBasePathRewritingFilter swaggerBasePathRewritingFilter() {
             return new SwaggerBasePathRewritingFilter();
         }
     }
@@ -28,8 +27,8 @@ public class GatewayConfiguration {
     public static class AccessControlFilterConfiguration {
 
         @Bean
-        public AccessControlFilter accessControlFilter(RouteLocator routeLocator, MimironProperties mimironProperties){
-            return new AccessControlFilter(routeLocator, mimironProperties);
+        public AccessControlFilter accessControlFilter(RouteLocator routeLocator, ApplicationProperties applicationProperties) {
+            return new AccessControlFilter(routeLocator, applicationProperties);
         }
     }
 
@@ -39,18 +38,18 @@ public class GatewayConfiguration {
      * This uses Bucket4J to limit the API calls, see {@link RateLimitingFilter}.
      */
     @Configuration
-    @ConditionalOnProperty("mimiron.gateway.rate-limiting.enabled")
+    @ConditionalOnProperty("application.gateway.rate-limiting.enabled")
     public static class RateLimitingConfiguration {
 
-        private final MimironProperties mimironProperties;
+        private final ApplicationProperties applicationProperties;
 
-        public RateLimitingConfiguration(MimironProperties mimironProperties) {
-            this.mimironProperties = mimironProperties;
+        public RateLimitingConfiguration(ApplicationProperties applicationProperties) {
+            this.applicationProperties = applicationProperties;
         }
 
         @Bean
         public RateLimitingFilter rateLimitingFilter() {
-            return new RateLimitingFilter(mimironProperties);
+            return new RateLimitingFilter(applicationProperties);
         }
     }
 }

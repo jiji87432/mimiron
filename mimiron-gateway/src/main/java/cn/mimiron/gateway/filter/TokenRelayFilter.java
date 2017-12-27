@@ -6,6 +6,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.Set;
 
+/**
+ * @author zhangxd
+ */
 @Component
 public class TokenRelayFilter extends ZuulFilter {
 

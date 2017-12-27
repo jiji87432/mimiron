@@ -1,6 +1,6 @@
 package cn.mimiron.gateway.filter.ratelimiting;
 
-import cn.mimiron.core.config.MimironProperties;
+import cn.mimiron.gateway.config.ApplicationProperties;
 import cn.mimiron.gateway.security.SecurityUtils;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
@@ -26,10 +26,11 @@ import java.util.function.Supplier;
 
 /**
  * Zuul filter for limiting the number of HTTP calls per client.
- *
+ * <p>
  * See the Bucket4j documentation at https://github.com/vladimir-bukhtoyarov/bucket4j
  * https://github.com/vladimir-bukhtoyarov/bucket4j/blob/master/doc-pages/jcache-usage
  * .md#example-1---limiting-access-to-http-server-by-ip-address
+ *
  * @author zhangxd
  */
 public class RateLimitingFilter extends ZuulFilter {
@@ -38,14 +39,14 @@ public class RateLimitingFilter extends ZuulFilter {
 
     public final static String GATEWAY_RATE_LIMITING_CACHE_NAME = "gateway-rate-limiting";
 
-    private final MimironProperties mimironProperties;
+    private final ApplicationProperties applicationProperties;
 
     private javax.cache.Cache<String, GridBucketState> cache;
 
     private ProxyManager<String> buckets;
 
-    public RateLimitingFilter(MimironProperties mimironProperties) {
-        this.mimironProperties = mimironProperties;
+    public RateLimitingFilter(ApplicationProperties applicationProperties) {
+        this.applicationProperties = applicationProperties;
 
         CachingProvider cachingProvider = Caching.getCachingProvider();
         CacheManager cacheManager = cachingProvider.getCacheManager();
@@ -91,8 +92,8 @@ public class RateLimitingFilter extends ZuulFilter {
 
     private Supplier<BucketConfiguration> getConfigSupplier() {
         return () -> {
-            MimironProperties.Gateway.RateLimiting rateLimitingProperties =
-                mimironProperties.getGateway().getRateLimiting();
+            ApplicationProperties.Gateway.RateLimiting rateLimitingProperties =
+                applicationProperties.getGateway().getRateLimiting();
 
             return Bucket4j.configurationBuilder()
                 .addLimit(Bandwidth.simple(rateLimitingProperties.getLimit(),

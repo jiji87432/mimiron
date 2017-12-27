@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
  * Extracts the access token from a cookie.
  * Falls back to a <code>BearerTokenExtractor</code> extracting information from the Authorization header, if no
  * cookie was found.
+ *
  * @author zhangxd
  */
 public class CookieTokenExtractor extends BearerTokenExtractor {

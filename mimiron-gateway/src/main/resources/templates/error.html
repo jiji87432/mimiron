@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org ">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Your request cannot be processed</title>
+    <style>
+        * {
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+        abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp,
+        small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li,
+        fieldset, form, label, legend, caption, article, aside, canvas, details, figcaption, figure, footer, header, hgroup,
+        menu, nav, section, summary, time, mark, audio, video {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            outline: 0;
+            vertical-align: baseline;
+            background: transparent;
+        }
+
+        article, aside, details, figcaption, figure, footer, header, nav, section {
+            display: block;
+        }
+
+        html {
+            font-size: 16px;
+            line-height: 24px;
+            width: 100%;
+            height: 100%;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+            overflow-y: scroll;
+            overflow-x: hidden;
+        }
+
+        img {
+            vertical-align: middle;
+            max-width: 100%;
+            height: auto;
+            border: 0;
+            -ms-interpolation-mode: bicubic;
+        }
+
+        body {
+            min-height: 100%;
+            -webkit-font-smoothing: subpixel-antialiased;
+        }
+
+    </style>
+    <style>
+        body.background.error-page-wrapper {
+            font-family: 'Source Sans Pro', sans-serif;
+            background-size: cover;
+            position: relative;
+        }
+
+        .background.error-page-wrapper .content-container {
+            border-radius: 6px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(0, 0, 0, .2);
+            padding: 50px;
+            background-color: #fff;
+            width: 100%;
+            max-width: 525px;
+            position: absolute;
+            left: 50%;
+            margin-left: -262px;
+            margin-top: 100px;
+        }
+
+        .background.error-page-wrapper .head-line {
+            transition: color .2s linear;
+            font-size: 48px;
+            line-height: 60px;
+            letter-spacing: -1px;
+            margin-bottom: 5px;
+            color: #ccc;
+        }
+
+        .background.error-page-wrapper .subheader {
+            transition: color .2s linear;
+            font-size: 36px;
+            line-height: 46px;
+            color: #333;
+        }
+
+        .background.error-page-wrapper .hr {
+            height: 1px;
+            background-color: #ddd;
+            width: 60%;
+            max-width: 250px;
+            margin: 35px auto;
+        }
+
+        .background.error-page-wrapper .context {
+            transition: color .2s linear;
+            font-size: 18px;
+            line-height: 27px;
+            color: #bbb;
+        }
+
+        .background.error-page-wrapper .context p {
+            margin: 0;
+        }
+
+        .background.error-page-wrapper .context p:nth-child(n+2) {
+            margin-top: 16px;
+        }
+
+        .background.error-page-wrapper .buttons-container a {
+            transition: text-indent .2s ease-out, color .2s linear, background-color .2s linear;
+            text-indent: 0px;
+            font-size: 14px;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: #fff;
+            background-color: #2ecc71;
+            border-radius: 99px;
+            padding: 12px 0 13px;
+            text-align: center;
+            display: inline-block;
+            overflow: hidden;
+            position: relative;
+            width: 45%;
+        }
+
+        .background.error-page-wrapper .buttons-container a:hover {
+            text-indent: 15px;
+        }
+
+        .background.error-page-wrapper .buttons-container a:nth-child(1) {
+            float: left;
+        }
+
+        .background.error-page-wrapper .buttons-container a:nth-child(2) {
+            float: right;
+        }
+
+        .background.error-page-wrapper .buttons-container.single-button a {
+            float: none !important;
+        }
+
+        @media screen and (max-width: 555px) {
+            .background.error-page-wrapper {
+                padding: 30px 5%;
+            }
+
+            .background.error-page-wrapper .content-container {
+                padding: 37px;
+                position: static;
+                left: 0;
+                margin-left: 0;
+            }
+
+            .background.error-page-wrapper .head-line {
+                font-size: 36px;
+            }
+
+            .background.error-page-wrapper .subheader {
+                font-size: 27px;
+                line-height: 37px;
+            }
+
+            .background.error-page-wrapper .hr {
+                margin: 30px auto;
+                width: 215px;
+            }
+
+            .background.error-page-wrapper .buttons-container a:hover {
+                text-indent: 0;
+            }
+        }
+
+        @media screen and (max-width: 450px) {
+            .background.error-page-wrapper {
+                padding: 30px;
+            }
+
+            .background.error-page-wrapper .head-line {
+                font-size: 32px;
+            }
+
+            .background.error-page-wrapper .hr {
+                margin: 25px auto;
+                width: 180px;
+            }
+
+            .background.error-page-wrapper .context {
+                font-size: 15px;
+                line-height: 22px;
+            }
+
+            .background.error-page-wrapper .context p:nth-child(n+2) {
+                margin-top: 10px;
+            }
+
+            .background.error-page-wrapper .buttons-container a {
+                float: none !important;
+                width: 65%;
+                margin: 0 auto;
+                font-size: 13px;
+                padding: 9px 0;
+            }
+
+            .background.error-page-wrapper .buttons-container a:nth-child(2) {
+                margin-top: 12px;
+            }
+        }
+    </style>
+
+    <style>
+        .primary-text-color {
+            color: #494949 !important;
+        }
+
+        .secondary-text-color {
+            color: #AAAAAA !important;
+        }
+
+        .shadow {
+            box-shadow: 0 0 59px #000000;
+        }
+    </style>
+</head>
+<body class="background error-page-wrapper background-color background-image">
+<div class="content-container shadow">
+    <div class="head-line secondary-text-color">
+        <span th:text="${status}"></span>
+    </div>
+    <div class="subheader primary-text-color">
+        Sorry, Your request cannot be processed.
+    </div>
+    <div class="hr"></div>
+    <div class="context secondary-text-color">
+        <p th:if="${!#strings.isEmpty(message)}">
+            <span th:text="${message}"></span>
+        </p>
+    </div>
+</div>
+</body>
+</html>

@@ -14,6 +14,7 @@ import java.util.List;
 
 /**
  * Retrieves all registered microservices Swagger resources.
+ *
  * @author zhangxd
  */
 @Component

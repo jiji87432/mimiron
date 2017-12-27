@@ -75,7 +75,7 @@ public abstract class OAuth2TokenEndpointClientAdapter implements OAuth2TokenEnd
         HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(params, headers);
         log.debug("contacting OAuth2 token endpoint to refresh OAuth2 JWT tokens");
         ResponseEntity<OAuth2AccessToken> responseEntity = restTemplate.postForEntity(getTokenEndpoint(), entity,
-                                                                                      OAuth2AccessToken.class);
+            OAuth2AccessToken.class);
         if (responseEntity.getStatusCode() != HttpStatus.OK) {
             log.debug("failed to refresh tokens: {}", responseEntity.getStatusCodeValue());
             throw new HttpClientErrorException(responseEntity.getStatusCode());
@@ -89,7 +89,7 @@ public abstract class OAuth2TokenEndpointClientAdapter implements OAuth2TokenEnd
 
     protected String getClientSecret() {
         String clientSecret = oAuth2Properties.getWebClientConfiguration().getSecret();
-        if(clientSecret == null) {
+        if (clientSecret == null) {
             throw new InvalidClientException("no client-secret configured in application properties");
         }
         return clientSecret;
@@ -97,7 +97,7 @@ public abstract class OAuth2TokenEndpointClientAdapter implements OAuth2TokenEnd
 
     protected String getClientId() {
         String clientId = oAuth2Properties.getWebClientConfiguration().getClientId();
-        if(clientId == null) {
+        if (clientId == null) {
             throw new InvalidClientException("no client-id configured in application properties");
         }
         return clientId;
@@ -110,7 +110,7 @@ public abstract class OAuth2TokenEndpointClientAdapter implements OAuth2TokenEnd
      */
     protected String getTokenEndpoint() {
         String tokenEndpointUrl = mimironProperties.getSecurity().getClientAuthorization().getAccessTokenUri();
-        if(tokenEndpointUrl == null) {
+        if (tokenEndpointUrl == null) {
             throw new InvalidClientException("no token endpoint configured in application properties");
         }
         return tokenEndpointUrl;

@@ -1,14 +1,14 @@
 configserver:
-    name: Docker Consul Service
-    status: Connected to Consul Server running in Docker
+  name: Docker Consul Service
+  status: Connected to Consul Server running in Docker
 
 mimiron:
-    security:
-        authentication:
-            jwt:
-                secret: my-secret-token-to-change-in-production
+  security:
+    authentication:
+      jwt:
+        secret: my-secret-token-to-change-in-production
 spring:
-    cloud:
-        consul:
-            host: localhost
-            port: 8500
+  cloud:
+    consul:
+      host: localhost
+      port: 8500

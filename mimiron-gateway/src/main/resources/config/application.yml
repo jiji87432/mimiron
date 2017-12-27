@@ -47,7 +47,6 @@ info:
   project:
     version: #project.version#
 
-
 mimiron:
   #cors:
     #allowed-origins: "*"

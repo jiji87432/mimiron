@@ -2,6 +2,8 @@ package cn.mimiron.uaa.security;
 
 /**
  * Constants for Spring Security authorities.
+ *
+ * @author zhangxd
  */
 public final class AuthoritiesConstants {
 

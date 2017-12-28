@@ -2,13 +2,11 @@ package cn.mimiron.uaa.config;
 
 import cn.mimiron.core.config.MimironConstants;
 import cn.mimiron.core.config.MimironProperties;
-import io.undertow.UndertowOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
 import org.springframework.boot.context.embedded.MimeMappings;
-import org.springframework.boot.context.embedded.undertow.UndertowEmbeddedServletContainerFactory;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,6 +21,8 @@ import javax.servlet.ServletRegistration;
 
 /**
  * Configuration of web application with Servlet 3.0 APIs.
+ *
+ * @author zhangxd
  */
 @Configuration
 public class WebConfigurer implements ServletContextInitializer, EmbeddedServletContainerCustomizer {
@@ -57,22 +57,7 @@ public class WebConfigurer implements ServletContextInitializer, EmbeddedServlet
     public void customize(ConfigurableEmbeddedServletContainer container) {
         MimeMappings mappings = new MimeMappings(MimeMappings.DEFAULT);
         mappings.add("html", "text/html;charset=utf-8");
-        mappings.add("json", "text/html;charset=utf-8");
         container.setMimeMappings(mappings);
-
-        /*
-         * Enable HTTP/2 for Undertow - https://twitter.com/ankinson/status/829256167700492288
-         * HTTP/2 requires HTTPS, so HTTP requests will fallback to HTTP/1.1.
-         * See the MimironProperties class and your application-*.yml configuration files
-         * for more information.
-         */
-        if (mimironProperties.getHttp().getVersion().equals(MimironProperties.Http.Version.V_2_0) &&
-            container instanceof UndertowEmbeddedServletContainerFactory) {
-
-            ((UndertowEmbeddedServletContainerFactory) container)
-                .addBuilderCustomizers(builder ->
-                    builder.setServerOption(UndertowOptions.ENABLE_HTTP2, true));
-        }
     }
 
     @Bean
@@ -94,7 +79,7 @@ public class WebConfigurer implements ServletContextInitializer, EmbeddedServlet
         log.debug("Initialize H2 console");
         ServletRegistration.Dynamic h2ConsoleServlet = servletContext.addServlet("H2Console", new org.h2.server.web.WebServlet());
         h2ConsoleServlet.addMapping("/h2-console/*");
-        h2ConsoleServlet.setInitParameter("-properties", "src/main/resources/");
+        h2ConsoleServlet.setInitParameter("-properties", "mimiron-uaa/src/main/resources/");
         h2ConsoleServlet.setLoadOnStartup(1);
     }
 

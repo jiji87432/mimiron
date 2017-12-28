@@ -30,6 +30,8 @@
         <spring-boot.version>1.5.9.RELEASE</spring-boot.version>
         <spring-cloud.version>Dalston.SR4</spring-cloud.version>
         <springfox.version>2.7.0</springfox.version>
+        <hibernate.version>5.2.10.Final</hibernate.version>
+        <hazelcast-hibernate52.version>1.2</hazelcast-hibernate52.version>
         <bucket4j.version>3.0.1</bucket4j.version>
         <spring-cloud-zipkin.version>1.2.5.RELEASE</spring-cloud-zipkin.version>
 
@@ -74,6 +76,12 @@
                 <groupId>io.springfox</groupId>
                 <artifactId>springfox-swagger-ui</artifactId>
                 <version>${springfox.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.hazelcast</groupId>
+                <artifactId>hazelcast-hibernate52</artifactId>
+                <version>${hazelcast-hibernate52.version}</version>
             </dependency>
 
             <dependency>

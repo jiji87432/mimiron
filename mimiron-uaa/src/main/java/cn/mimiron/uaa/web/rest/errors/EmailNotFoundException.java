@@ -1,11 +1,12 @@
 package cn.mimiron.uaa.web.rest.errors;
 
-import org.zalando.problem.AbstractThrowableProblem;
-import org.zalando.problem.Status;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
-public class EmailNotFoundException extends AbstractThrowableProblem {
+/**
+ * @author zhangxd
+ */
+@ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "Email address not registered")
+public class EmailNotFoundException extends RuntimeException {
 
-    public EmailNotFoundException() {
-        super(ErrorConstants.EMAIL_NOT_FOUND_TYPE, "Email address not registered", Status.BAD_REQUEST);
-    }
 }

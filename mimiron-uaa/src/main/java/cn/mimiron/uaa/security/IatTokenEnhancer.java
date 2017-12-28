@@ -12,6 +12,8 @@ import java.util.Map;
 /**
  * Adds the standard "iat" claim to tokens so we know when they have been created.
  * This is needed for a session timeout due to inactivity (ignored in case of "remember-me").
+ *
+ * @author zhangxd
  */
 @Component
 public class IatTokenEnhancer implements TokenEnhancer {

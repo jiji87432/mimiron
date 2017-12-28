@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 @ConfigurationProperties(prefix = "mimiron", ignoreUnknownFields = false)
 public class MimironProperties {
 
-    private final Http http = new Http();
+    private final Cache cache = new Cache();
 
     private final Mail mail = new Mail();
 
@@ -22,18 +22,14 @@ public class MimironProperties {
 
     private final Swagger swagger = new Swagger();
 
-    private final Metrics metrics = new Metrics();
-
     private final CorsConfiguration cors = new CorsConfiguration();
-
-    private final Social social = new Social();
 
     private final Ribbon ribbon = new Ribbon();
 
     private final Registry registry = new Registry();
 
-    public Http getHttp() {
-        return http;
+    public Cache getCache() {
+        return cache;
     }
 
     public Mail getMail() {
@@ -52,57 +48,45 @@ public class MimironProperties {
         return swagger;
     }
 
-    public Metrics getMetrics() {
-        return metrics;
-    }
-
     public CorsConfiguration getCors() {
         return cors;
-    }
-
-    public Social getSocial() {
-        return social;
     }
 
     public Ribbon getRibbon() {
         return ribbon;
     }
 
-    public static class Http {
+    public static class Cache {
 
-        public enum Version {V_1_1, V_2_0}
+        private final Hazelcast hazelcast = new Hazelcast();
 
-        private final Cache cache = new Cache();
-
-        /**
-         * HTTP version, must be "V_1_1" (for HTTP/1.1) or V_2_0 (for (HTTP/2)
-         */
-        public Version version = Version.V_1_1;
-
-        public Cache getCache() {
-            return cache;
+        public Hazelcast getHazelcast() {
+            return hazelcast;
         }
 
-        public Version getVersion() {
-            return version;
-        }
+        public static class Hazelcast {
 
-        public void setVersion(Version version) {
-            this.version = version;
-        }
+            private int timeToLiveSeconds = 3600;
 
-        public static class Cache {
+            private int backupCount = 1;
 
-            private int timeToLiveInDays = 1461;
-
-            public int getTimeToLiveInDays() {
-                return timeToLiveInDays;
+            public int getTimeToLiveSeconds() {
+                return timeToLiveSeconds;
             }
 
-            public void setTimeToLiveInDays(int timeToLiveInDays) {
-                this.timeToLiveInDays = timeToLiveInDays;
+            public void setTimeToLiveSeconds(int timeToLiveSeconds) {
+                this.timeToLiveSeconds = timeToLiveSeconds;
+            }
+
+            public int getBackupCount() {
+                return backupCount;
+            }
+
+            public void setBackupCount(int backupCount) {
+                this.backupCount = backupCount;
             }
         }
+
     }
 
     public static class Mail {
@@ -368,147 +352,6 @@ public class MimironProperties {
 
         public void setProtocols(final String[] protocols) {
             this.protocols = protocols;
-        }
-    }
-
-    public static class Metrics {
-
-        private final Jmx jmx = new Jmx();
-
-        private final Logs logs = new Logs();
-
-        public Jmx getJmx() {
-            return jmx;
-        }
-
-        public Logs getLogs() {
-            return logs;
-        }
-
-        public static class Jmx {
-
-            private boolean enabled = true;
-
-            public boolean isEnabled() {
-                return enabled;
-            }
-
-            public void setEnabled(boolean enabled) {
-                this.enabled = enabled;
-            }
-        }
-
-        public static class Logs {
-
-            private boolean enabled = false;
-
-            private long reportFrequency = 60;
-
-            public long getReportFrequency() {
-                return reportFrequency;
-            }
-
-            public void setReportFrequency(int reportFrequency) {
-                this.reportFrequency = reportFrequency;
-            }
-
-            public boolean isEnabled() {
-                return enabled;
-            }
-
-            public void setEnabled(boolean enabled) {
-                this.enabled = enabled;
-            }
-        }
-    }
-
-    private final Logging logging = new Logging();
-
-    public Logging getLogging() {
-        return logging;
-    }
-
-    public static class Logging {
-
-        private final Logstash logstash = new Logstash();
-
-        public Logstash getLogstash() {
-            return logstash;
-        }
-
-        public static class Logstash {
-
-            private boolean enabled = false;
-
-            private String host = "localhost";
-
-            private int port = 5000;
-
-            private int queueSize = 512;
-
-            public boolean isEnabled() {
-                return enabled;
-            }
-
-            public void setEnabled(boolean enabled) {
-                this.enabled = enabled;
-            }
-
-            public String getHost() {
-                return host;
-            }
-
-            public void setHost(String host) {
-                this.host = host;
-            }
-
-            public int getPort() {
-                return port;
-            }
-
-            public void setPort(int port) {
-                this.port = port;
-            }
-
-            public int getQueueSize() {
-                return queueSize;
-            }
-
-            public void setQueueSize(int queueSize) {
-                this.queueSize = queueSize;
-            }
-        }
-
-        private final SpectatorMetrics spectatorMetrics = new SpectatorMetrics();
-
-        public SpectatorMetrics getSpectatorMetrics() {
-            return spectatorMetrics;
-        }
-
-        public static class SpectatorMetrics {
-
-            private boolean enabled = false;
-
-            public boolean isEnabled() {
-                return enabled;
-            }
-
-            public void setEnabled(boolean enabled) {
-                this.enabled = enabled;
-            }
-        }
-    }
-
-    public static class Social {
-
-        private String redirectAfterSignIn = "/#/home";
-
-        public String getRedirectAfterSignIn() {
-            return redirectAfterSignIn;
-        }
-
-        public void setRedirectAfterSignIn(String redirectAfterSignIn) {
-            this.redirectAfterSignIn = redirectAfterSignIn;
         }
     }
 

@@ -1,8 +1,12 @@
 package cn.mimiron.uaa.web.rest.errors;
 
-public class LoginAlreadyUsedException extends BadRequestAlertException {
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
-    public LoginAlreadyUsedException() {
-        super(ErrorConstants.LOGIN_ALREADY_USED_TYPE, "Login already in use", "userManagement", "userexists");
-    }
+/**
+ * @author zhangxd
+ */
+@ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "Login already in use")
+public class LoginAlreadyUsedException extends RuntimeException {
+
 }

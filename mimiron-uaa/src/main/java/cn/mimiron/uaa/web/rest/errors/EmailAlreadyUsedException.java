@@ -1,8 +1,12 @@
 package cn.mimiron.uaa.web.rest.errors;
 
-public class EmailAlreadyUsedException extends BadRequestAlertException {
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
-    public EmailAlreadyUsedException() {
-        super(ErrorConstants.EMAIL_ALREADY_USED_TYPE, "Email address already in use", "userManagement", "emailexists");
-    }
+/**
+ * @author zhangxd
+ */
+@ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "Email address already in use")
+public class EmailAlreadyUsedException extends RuntimeException {
+
 }

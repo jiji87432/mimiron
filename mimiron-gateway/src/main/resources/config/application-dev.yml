@@ -26,8 +26,6 @@ server:
   port: 8080
 
 mimiron:
-  http:
-    version: V_1_1 # To use HTTP/2 you will need SSL support (see above the "server.ssl" configuration)
   # CORS is only enabled by default with the "dev" profile, so BrowserSync can access the API
   cors:
     allowed-origins: "*"

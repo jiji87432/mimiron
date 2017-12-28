@@ -1,14 +1,17 @@
 package cn.mimiron.uaa.web.rest.errors;
 
-import org.zalando.problem.AbstractThrowableProblem;
-import org.zalando.problem.Status;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
  * Simple exception with a message, that returns an Internal Server Error code.
+ *
+ * @author zhangxd
  */
-public class InternalServerErrorException extends AbstractThrowableProblem {
+@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+public class InternalServerErrorException extends RuntimeException {
 
     public InternalServerErrorException(String message) {
-        super(ErrorConstants.DEFAULT_TYPE, message, Status.INTERNAL_SERVER_ERROR);
+        super(message);
     }
 }

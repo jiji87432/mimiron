@@ -10,6 +10,7 @@ import java.util.Map;
 /**
  * Persist AuditEvent managed by the Spring Boot actuator
  *
+ * @author zhangxd
  * @see org.springframework.boot.actuate.audit.AuditEvent
  */
 @Entity

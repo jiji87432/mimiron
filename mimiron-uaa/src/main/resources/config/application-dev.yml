@@ -1,15 +1,3 @@
-# ===================================================================
-# Spring Boot configuration for the "dev" profile.
-#
-# This configuration overrides the application.yml file.
-# ===================================================================
-
-# ===================================================================
-# Standard Spring Boot properties.
-# Full reference is available at:
-# http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
-# ===================================================================
-
 spring:
   profiles:
     active: dev
@@ -29,14 +17,14 @@ spring:
       port: 8500
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:h2:file:./target/h2db/db/uaa;DB_CLOSE_DELAY=-1
+    url: jdbc:h2:file:./mimiron-uaa/target/h2db/db/uaa;DB_CLOSE_DELAY=-1
     username: uaa
     password:
   h2:
     console:
       enabled: false
   jpa:
-    database-platform: cn.zhangxd.mimiron.core.domain.util.FixedH2Dialect
+    database-platform: org.hibernate.dialect.H2Dialect
     database: H2
     show-sql: true
     properties:
@@ -51,8 +39,8 @@ spring:
   mail:
     host: smtp.163.com
     port: 25
-    username: zhangxd_2011sz@163.com
-    password:
+    username: mimiron_service@163.com
+    password: 13671240120
   messages:
     cache-seconds: 1
   thymeleaf:
@@ -64,36 +52,10 @@ spring:
       discovery:
         enabled: true
 
-liquibase:
-  contexts: dev
-
-# ===================================================================
-# To enable SSL, generate a certificate using:
-# keytool -genkey -alias uaa -storetype PKCS12 -keyalg RSA -keysize 2048 -keystore keystore.p12 -validity 3650
-#
-# You can also use Let's Encrypt:
-# https://maximilian-boehm.com/hp2121/Create-a-Java-Keystore-JKS-from-Let-s-Encrypt-Certificates.htm
-#
-# Then, modify the server.ssl properties so your "server" configuration looks like:
-#
-#server:
-#  port: 8443
-#  ssl:
-#    key-store: keystore.p12
-#    key-store-password: <your-password>
-#    keyStoreType: PKCS12
-#    keyAlias: uaa
-# ===================================================================
 server:
   port: 9999
 
-# ===================================================================
-# Mimiron specific properties
-# ===================================================================
-
 mimiron:
-  http:
-    version: V_1_1 # To use HTTP/2 you will need SSL support (see above the "server.ssl" configuration)
   cache: # Cache configuration
     hazelcast: # Hazelcast distributed cache
       time-to-live-seconds: 3600
@@ -111,19 +73,8 @@ mimiron:
       client-id: internal
       client-secret: internal
   mail: # specific Mimiron mail property, for standard properties see MailProperties
-    from: zhangxd_2011sz@163.com
+    from: mimiron_service@163.com
     base-url: http://127.0.0.1:9999
-  metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
-    jmx.enabled: true
-    logs: # Reports Dropwizard metrics in the logs
-      enabled: false
-      report-frequency: 60 # in seconds
-  logging:
-    logstash: # Forward logs to logstash over a socket, used by LoggingConfiguration
-      enabled: false
-      host: localhost
-      port: 5000
-      queue-size: 512
 
 uaa:
   key-store:
@@ -137,11 +88,3 @@ uaa:
     refresh-token-validity-in-seconds-for-remember-me: 604800
     client-id: web_app
     secret: changeit
-
-# ===================================================================
-# Application specific properties
-# Add your own application properties here, see the ApplicationProperties class
-# to have type-safe configuration
-# ===================================================================
-
-application:

@@ -30,6 +30,8 @@ import java.util.stream.Collectors;
 
 /**
  * Service class for managing users.
+ *
+ * @author zhangxd
  */
 @Service
 @Transactional

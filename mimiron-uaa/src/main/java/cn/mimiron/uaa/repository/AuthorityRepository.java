@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  * Spring Data JPA repository for the Authority entity.
+ * @author zhangxd
  */
 public interface AuthorityRepository extends JpaRepository<Authority, String> {
 }

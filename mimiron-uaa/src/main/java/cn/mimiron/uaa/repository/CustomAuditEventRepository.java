@@ -18,6 +18,7 @@ import java.util.Map;
 
 /**
  * An implementation of Spring Boot's AuditEventRepository.
+ * @author zhangxd
  */
 @Repository
 public class CustomAuditEventRepository implements AuditEventRepository {

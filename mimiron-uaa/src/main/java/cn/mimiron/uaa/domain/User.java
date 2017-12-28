@@ -21,6 +21,8 @@ import java.util.Set;
 
 /**
  * A user.
+ *
+ * @author zhangxd
  */
 @Entity
 @Table(name = "mmr_user")

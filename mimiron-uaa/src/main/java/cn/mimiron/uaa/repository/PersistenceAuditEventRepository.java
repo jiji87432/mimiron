@@ -10,6 +10,8 @@ import java.util.List;
 
 /**
  * Spring Data JPA repository for the PersistentAuditEvent entity.
+ *
+ * @author zhangxd
  */
 public interface PersistenceAuditEventRepository extends JpaRepository<PersistentAuditEvent, Long> {
 

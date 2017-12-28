@@ -7,7 +7,7 @@ import cn.mimiron.uaa.security.AuthoritiesConstants;
 import cn.mimiron.uaa.service.MailService;
 import cn.mimiron.uaa.service.UserService;
 import cn.mimiron.uaa.service.dto.UserDTO;
-import cn.mimiron.uaa.web.rest.errors.BadRequestAlertException;
+import cn.mimiron.uaa.web.rest.errors.BadRequestException;
 import cn.mimiron.uaa.web.rest.errors.EmailAlreadyUsedException;
 import cn.mimiron.uaa.web.rest.errors.LoginAlreadyUsedException;
 import cn.mimiron.uaa.web.rest.util.HeaderUtil;
@@ -84,7 +84,7 @@ public class UserResource {
      * @param managedUserVM the user to create
      * @return the ResponseEntity with status 201 (Created) and with body the new user, or with status 400 (Bad Request) if the login or email is already in use
      * @throws URISyntaxException       if the Location URI syntax is incorrect
-     * @throws BadRequestAlertException 400 (Bad Request) if the login or email is already in use
+     * @throws BadRequestException 400 (Bad Request) if the login or email is already in use
      */
     @PostMapping("/users")
     @Secured(AuthoritiesConstants.ADMIN)
@@ -92,7 +92,7 @@ public class UserResource {
         log.debug("REST request to save User : {}", managedUserVM);
 
         if (managedUserVM.getId() != null) {
-            throw new BadRequestAlertException("A new user cannot already have an ID", "userManagement", "idexists");
+            throw new BadRequestException("A new user cannot already have an ID");
             // Lowercase the user login before comparing with database
         } else if (userRepository.findOneByLogin(managedUserVM.getLogin().toLowerCase()).isPresent()) {
             throw new LoginAlreadyUsedException();

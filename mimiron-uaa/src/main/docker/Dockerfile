@@ -1,10 +1,10 @@
-FROM openjdk:8-jre-alpine
+FROM java:8
 
 ENV SPRING_OUTPUT_ANSI_ENABLED=ALWAYS \
     MIMIRON_SLEEP=0 \
     JAVA_OPTS=""
 
-ADD *.jar /app.jar
+ADD mimiron-uaa.jar /app.jar
 
 EXPOSE 9999 5701/udp
 CMD echo "The application will start in ${MIMIRON_SLEEP}s..." && \

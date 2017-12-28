@@ -14,6 +14,8 @@ import java.util.Optional;
 
 /**
  * Spring Data JPA repository for the User entity.
+ *
+ * @author zhangxd
  */
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {

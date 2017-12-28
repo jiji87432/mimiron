@@ -56,7 +56,7 @@ mimiron:
     #allow-credentials: true
     #max-age: 1800
   swagger:
-    default-include-pattern: /auth/.*
+    default-include-pattern: /api/.*
     title: gateway API
     description: gateway API documentation
     version: 0.0.1

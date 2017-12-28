@@ -4,219 +4,116 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>cn.mimiron</groupId>
+    <parent>
+        <groupId>cn.mimiron</groupId>
+        <artifactId>mimiron-bom</artifactId>
+        <version>1.0.0</version>
+        <relativePath/>
+    </parent>
+
     <artifactId>mimiron-uaa</artifactId>
     <version>1.0-SNAPSHOT</version>
     <description>User Account and Authentication (UAA) Server</description>
-
-    <properties>
-        <mimiron.dependencies.version>0.0.1</mimiron.dependencies.version>
-        <assertj.version>3.6.2</assertj.version>
-        <awaitility.version>2.0.0</awaitility.version>
-        <commons-io.version>2.5</commons-io.version>
-        <dockerfile-maven-plugin.version>1.3.4</dockerfile-maven-plugin.version>
-        <!-- Overridden to get metrics-jcache -->
-        <dropwizard-metrics.version>3.2.2</dropwizard-metrics.version>
-        <hazelcast-hibernate52.version>1.2</hazelcast-hibernate52.version>
-        <hibernate.version>5.2.10.Final</hibernate.version>
-        <hikaricp.version>2.6.0</hikaricp.version>
-        <java.version>1.8</java.version>
-        <liquibase-hibernate5.version>3.6</liquibase-hibernate5.version>
-        <liquibase-slf4j.version>2.0.0</liquibase-slf4j.version>
-        <logstash-logback-encoder.version>4.11</logstash-logback-encoder.version>
-        <mapstruct.version>1.1.0.Final</mapstruct.version>
-        <maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
-        <maven-enforcer-plugin.version>3.0.0-M1</maven-enforcer-plugin.version>
-        <maven-resources-plugin.version>3.0.1</maven-resources-plugin.version>
-        <maven.compiler.source>${java.version}</maven.compiler.source>
-        <maven.compiler.target>${java.version}</maven.compiler.target>
-        <maven.version>3.0.0</maven.version>
-        <metrics-spring.version>3.1.3</metrics-spring.version>
-        <problem-spring-web.version>0.21.0</problem-spring-web.version>
-        <spring-cloud-zipkin.version>1.2.5.RELEASE</spring-cloud-zipkin.version>
-        <!-- These remain empty unless the corresponding profile is active -->
-        <profile.no-liquibase/>
-        <profile.swagger/>
-
-        <!-- Spring properties -->
-        <springfox.version>2.7.0</springfox.version>
-        <validation-api.version>1.1.0.Final</validation-api.version>
-    </properties>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>cn.mimiron</groupId>
-                <artifactId>mimiron-dependencies</artifactId>
-                <version>${mimiron.dependencies.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-dependencies</artifactId>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <dependencies>
         <dependency>
             <groupId>cn.mimiron</groupId>
             <artifactId>mimiron-core</artifactId>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>io.dropwizard.metrics</groupId>-->
-            <!--<artifactId>metrics-core</artifactId>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>io.dropwizard.metrics</groupId>-->
-            <!--<artifactId>metrics-annotation</artifactId>-->
-            <!--<version>${dropwizard-metrics.version}</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>io.dropwizard.metrics</groupId>-->
-            <!--<artifactId>metrics-json</artifactId>-->
-            <!--<version>${dropwizard-metrics.version}</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>io.dropwizard.metrics</groupId>-->
-            <!--<artifactId>metrics-jvm</artifactId>-->
-            <!--<version>${dropwizard-metrics.version}</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>io.dropwizard.metrics</groupId>-->
-            <!--<artifactId>metrics-servlet</artifactId>-->
-            <!--<version>${dropwizard-metrics.version}</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>io.dropwizard.metrics</groupId>-->
-            <!--<artifactId>metrics-servlets</artifactId>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>com.fasterxml.jackson.datatype</groupId>-->
-            <!--<artifactId>jackson-datatype-hibernate5</artifactId>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>com.fasterxml.jackson.datatype</groupId>-->
-            <!--<artifactId>jackson-datatype-hppc</artifactId>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>com.fasterxml.jackson.datatype</groupId>-->
-            <!--<artifactId>jackson-datatype-jsr310</artifactId>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>com.fasterxml.jackson.datatype</groupId>-->
-            <!--<artifactId>jackson-datatype-json-org</artifactId>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>com.fasterxml.jackson.module</groupId>-->
-            <!--<artifactId>jackson-module-afterburner</artifactId>-->
-        <!--</dependency>-->
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-hibernate5</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-hppc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-json-org</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.module</groupId>
+            <artifactId>jackson-module-afterburner</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>com.hazelcast</groupId>-->
-            <!--<artifactId>hazelcast</artifactId>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>com.hazelcast</groupId>-->
-            <!--<artifactId>hazelcast-hibernate52</artifactId>-->
-            <!--<version>${hazelcast-hibernate52.version}</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>com.hazelcast</groupId>-->
-            <!--<artifactId>hazelcast-spring</artifactId>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>org.awaitility</groupId>-->
-            <!--<artifactId>awaitility</artifactId>-->
-            <!--<version>${awaitility.version}</version>-->
-            <!--<scope>test</scope>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>com.jayway.jsonpath</groupId>-->
-            <!--<artifactId>json-path</artifactId>-->
-            <!--<scope>test</scope>-->
-            <!--&lt;!&ndash; parent POM declares this dependency in default (compile) scope &ndash;&gt;-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>io.springfox</groupId>-->
-            <!--<artifactId>springfox-swagger2</artifactId>-->
-            <!--<version>${springfox.version}</version>-->
-            <!--<exclusions>-->
-                <!--<exclusion>-->
-                    <!--<groupId>org.mapstruct</groupId>-->
-                    <!--<artifactId>mapstruct</artifactId>-->
-                <!--</exclusion>-->
-            <!--</exclusions>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>io.springfox</groupId>-->
-            <!--<artifactId>springfox-bean-validators</artifactId>-->
-            <!--<version>${springfox.version}</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>com.mattbertolini</groupId>-->
-            <!--<artifactId>liquibase-slf4j</artifactId>-->
-            <!--<version>${liquibase-slf4j.version}</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>com.ryantenney.metrics</groupId>-->
-            <!--<artifactId>metrics-spring</artifactId>-->
-            <!--<version>${metrics-spring.version}</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>com.zaxxer</groupId>-->
-            <!--<artifactId>HikariCP</artifactId>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>com.hazelcast</groupId>
+            <artifactId>hazelcast</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.hazelcast</groupId>
+            <artifactId>hazelcast-hibernate52</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.hazelcast</groupId>
+            <artifactId>hazelcast-spring</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-bean-validators</artifactId>
+        </dependency>
 
-        <!--<dependency>-->
-            <!--<groupId>commons-io</groupId>-->
-            <!--<artifactId>commons-io</artifactId>-->
-            <!--<version>${commons-io.version}</version>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>javax.cache</groupId>-->
-            <!--<artifactId>cache-api</artifactId>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>mysql</groupId>-->
-            <!--<artifactId>mysql-connector-java</artifactId>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>org.assertj</groupId>-->
-            <!--<artifactId>assertj-core</artifactId>-->
-            <!--<scope>test</scope>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>javax.cache</groupId>
+            <artifactId>cache-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-envers</artifactId>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>org.hibernate</groupId>-->
-            <!--<artifactId>hibernate-validator</artifactId>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>org.liquibase</groupId>-->
-            <!--<artifactId>liquibase-core</artifactId>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>org.mapstruct</groupId>-->
-            <!--<artifactId>mapstruct-jdk8</artifactId>-->
-            <!--<version>${mapstruct.version}</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>org.springframework</groupId>-->
-            <!--<artifactId>spring-context-support</artifactId>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jolokia</groupId>
+            <artifactId>jolokia-core</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-actuator</artifactId>
@@ -230,51 +127,18 @@
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>org.springframework.boot</groupId>-->
-            <!--<artifactId>spring-boot-loader-tools</artifactId>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-loader-tools</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <artifactId>spring-boot-starter-logging</artifactId>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>org.springframework.boot</groupId>-->
-            <!--<artifactId>spring-boot-starter-logging</artifactId>-->
-        <!--</dependency>-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-mail</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-        <!--<dependency>-->
-            <!--<groupId>org.springframework.boot</groupId>-->
-            <!--<artifactId>spring-boot-starter-test</artifactId>-->
-            <!--<scope>test</scope>-->
-            <!--<exclusions>-->
-                <!--<exclusion>-->
-                    <!--<groupId>com.vaadin.external.google</groupId>-->
-                    <!--<artifactId>android-json</artifactId>-->
-                <!--</exclusion>-->
-            <!--</exclusions>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>org.springframework.security</groupId>-->
-            <!--<artifactId>spring-security-test</artifactId>-->
-            <!--<scope>test</scope>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>org.springframework.boot</groupId>-->
-            <!--<artifactId>spring-boot-test</artifactId>-->
-            <!--<scope>test</scope>-->
-        <!--</dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
@@ -282,59 +146,38 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-tomcat</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-undertow</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.zalando</groupId>
-            <artifactId>problem-spring-web</artifactId>
-            <version>${problem-spring-web.version}</version>
+            <groupId>org.springframework.retry</groupId>
+            <artifactId>spring-retry</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.security.oauth</groupId>
-            <artifactId>spring-security-oauth2</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
+
+        <!-- Spring Cloud -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-jwt</artifactId>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-ribbon</artifactId>
         </dependency>
-        <!--&lt;!&ndash; Spring Cloud &ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>org.springframework.cloud</groupId>-->
-            <!--<artifactId>spring-cloud-starter</artifactId>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>org.springframework.cloud</groupId>-->
-            <!--<artifactId>spring-cloud-starter-ribbon</artifactId>-->
-            <!--&lt;!&ndash; netty's native is pulled, but is useless unless you explicitly add the native binary dependency.-->
-                 <!--Having it in the classpath without the binary can cause warnings &ndash;&gt;-->
-            <!--<exclusions>-->
-                <!--<exclusion>-->
-                    <!--<groupId>io.netty</groupId>-->
-                    <!--<artifactId>netty-transport-native-epoll</artifactId>-->
-                <!--</exclusion>-->
-            <!--</exclusions>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>org.springframework.cloud</groupId>-->
-            <!--<artifactId>spring-cloud-starter-hystrix</artifactId>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>org.springframework.cloud</groupId>-->
-            <!--<artifactId>spring-cloud-starter-spectator</artifactId>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>org.springframework.retry</groupId>-->
-            <!--<artifactId>spring-retry</artifactId>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-hystrix</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-consul-discovery</artifactId>
@@ -343,44 +186,24 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-consul-config</artifactId>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>org.springframework.cloud</groupId>-->
-            <!--<artifactId>spring-cloud-security</artifactId>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>org.springframework.cloud</groupId>-->
-            <!--<artifactId>spring-cloud-starter-feign</artifactId>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>net.logstash.logback</groupId>-->
-            <!--<artifactId>logstash-logback-encoder</artifactId>-->
-            <!--<version>${logstash-logback-encoder.version}</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>org.springframework.boot</groupId>-->
-            <!--<artifactId>spring-boot-starter-cloud-connectors</artifactId>-->
-        <!--</dependency>-->
-        <!--&lt;!&ndash; security &ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>org.springframework.security</groupId>-->
-            <!--<artifactId>spring-security-data</artifactId>-->
-        <!--</dependency>-->
-        <!-- mimiron-needle-maven-add-dependency -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-feign</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-oauth2</artifactId>
+        </dependency>
     </dependencies>
     <build>
         <defaultGoal>spring-boot:run</defaultGoal>
+        <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven-compiler-plugin.version}</version>
                 <configuration>
                     <annotationProcessorPaths>
-                        <path>
-                            <groupId>org.mapstruct</groupId>
-                            <artifactId>mapstruct-processor</artifactId>
-                            <version>${mapstruct.version}</version>
-                        </path>
                         <!-- For JPA static metamodel generation -->
                         <path>
                             <groupId>org.hibernate</groupId>
@@ -400,33 +223,7 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-enforcer-plugin</artifactId>
-                <version>${maven-enforcer-plugin.version}</version>
-                <executions>
-                    <execution>
-                        <id>enforce-versions</id>
-                        <goals>
-                            <goal>enforce</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <rules>
-                        <requireMavenVersion>
-                            <message>You are running an older version of Maven. Mimiron requires at least Maven ${maven.version}</message>
-                            <version>[${maven.version},)</version>
-                        </requireMavenVersion>
-                        <requireJavaVersion>
-                            <message>You are running an older version of Java. Mimiron requires at least JDK ${java.version}</message>
-                            <version>[${java.version}.0,)</version>
-                        </requireJavaVersion>
-                    </rules>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
-                <version>${maven-resources-plugin.version}</version>
                 <executions>
                     <execution>
                         <id>default-resources</id>
@@ -484,36 +281,25 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <!--
-                    Enable the line below to have remote debugging of your application on port 5005
-                    <jvmArguments>-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005</jvmArguments>
-                    -->
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>com.spotify</groupId>
                 <artifactId>dockerfile-maven-plugin</artifactId>
-                <version>${dockerfile-maven-plugin.version}</version>
-                <!--
-                Uncomment the section below to build the docker image with mvn package and and push it with mvn deploy
-                -->
                 <executions>
                     <execution>
-                    <id>default</id>
-                    <goals>
-                        <goal>build</goal>
-                        <!--<goal>push</goal>-->
-                    </goals>
+                        <id>default</id>
+                        <goals>
+                            <goal>build</goal>
+                            <!--<goal>push</goal>-->
+                        </goals>
                     </execution>
                 </executions>
                 <configuration>
-                    <repository>uaa</repository>
+                    <repository>${project.artifactId}</repository>
                     <tag>latest</tag>
                     <contextDirectory>${project.build.directory}</contextDirectory>
                 </configuration>
             </plugin>
-            <!-- mimiron-needle-maven-add-plugin -->
         </plugins>
     </build>
     <profiles>
@@ -539,7 +325,7 @@
                 <!-- log configuration -->
                 <logback.loglevel>DEBUG</logback.loglevel>
                 <!-- default Spring profiles -->
-                <spring.profiles.active>dev,swagger${profile.no-liquibase}</spring.profiles.active>
+                <spring.profiles.active>dev,swagger</spring.profiles.active>
             </properties>
         </profile>
         <profile>
@@ -575,22 +361,6 @@
                 <dependency>
                     <groupId>org.springframework.cloud</groupId>
                     <artifactId>spring-cloud-starter-zipkin</artifactId>
-                    <version>${spring-cloud-zipkin.version}</version>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <!--
-                Profile for applying IDE-specific configuration.
-                At the moment it only configures MapStruct, which you need when working
-                with DTOs.
-            -->
-            <id>IDE</id>
-            <dependencies>
-                <dependency>
-                    <groupId>org.mapstruct</groupId>
-                    <artifactId>mapstruct-processor</artifactId>
-                    <version>${mapstruct.version}</version>
                 </dependency>
             </dependencies>
         </profile>

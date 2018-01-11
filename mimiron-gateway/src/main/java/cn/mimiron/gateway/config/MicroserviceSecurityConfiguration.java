@@ -1,8 +1,8 @@
 package cn.mimiron.gateway.config;
 
+import cn.mimiron.core.security.AuthoritiesConstants;
 import cn.mimiron.gateway.config.oauth2.OAuth2JwtAccessTokenConverter;
 import cn.mimiron.gateway.config.oauth2.OAuth2Properties;
-import cn.mimiron.gateway.security.AuthoritiesConstants;
 import cn.mimiron.gateway.security.oauth2.OAuth2SignatureVerifierClient;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cloud.client.loadbalancer.RestTemplateCustomizer;

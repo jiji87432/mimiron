@@ -1,15 +1,15 @@
 package cn.mimiron.uaa.service;
 
+import cn.mimiron.core.security.AuthoritiesConstants;
+import cn.mimiron.core.security.SecurityUtils;
 import cn.mimiron.uaa.config.Constants;
 import cn.mimiron.uaa.domain.Authority;
 import cn.mimiron.uaa.domain.User;
 import cn.mimiron.uaa.repository.AuthorityRepository;
 import cn.mimiron.uaa.repository.UserRepository;
-import cn.mimiron.uaa.security.AuthoritiesConstants;
 import cn.mimiron.uaa.service.dto.UserDTO;
 import cn.mimiron.uaa.service.util.RandomUtil;
 import cn.mimiron.uaa.web.rest.vm.ManagedUserVM;
-import cn.mimiron.uaa.security.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.CacheManager;

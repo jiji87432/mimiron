@@ -1,10 +1,9 @@
 package cn.mimiron.service.config;
 
+import cn.mimiron.core.security.AuthoritiesConstants;
 import cn.mimiron.service.config.oauth2.OAuth2JwtAccessTokenConverter;
-import cn.mimiron.service.security.oauth2.OAuth2SignatureVerifierClient;
 import cn.mimiron.service.config.oauth2.OAuth2Properties;
-import cn.mimiron.service.security.AuthoritiesConstants;
-
+import cn.mimiron.service.security.oauth2.OAuth2SignatureVerifierClient;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cloud.client.loadbalancer.RestTemplateCustomizer;
 import org.springframework.context.annotation.Bean;

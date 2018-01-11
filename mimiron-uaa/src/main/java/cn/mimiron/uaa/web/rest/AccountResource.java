@@ -1,8 +1,8 @@
 package cn.mimiron.uaa.web.rest;
 
+import cn.mimiron.core.security.SecurityUtils;
 import cn.mimiron.uaa.domain.User;
 import cn.mimiron.uaa.repository.UserRepository;
-import cn.mimiron.uaa.security.SecurityUtils;
 import cn.mimiron.uaa.service.MailService;
 import cn.mimiron.uaa.service.UserService;
 import cn.mimiron.uaa.service.dto.UserDTO;

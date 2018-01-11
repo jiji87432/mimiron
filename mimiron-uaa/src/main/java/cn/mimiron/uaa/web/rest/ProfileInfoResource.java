@@ -1,7 +1,7 @@
 package cn.mimiron.uaa.web.rest;
 
+import cn.mimiron.core.config.DefaultProfileUtil;
 import cn.mimiron.core.config.MimironProperties;
-import cn.mimiron.uaa.config.DefaultProfileUtil;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

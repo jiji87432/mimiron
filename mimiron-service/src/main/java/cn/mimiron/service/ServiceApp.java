@@ -1,9 +1,9 @@
 package cn.mimiron.service;
 
+import cn.mimiron.core.config.DefaultProfileUtil;
 import cn.mimiron.core.config.MimironConstants;
 import cn.mimiron.service.client.OAuth2InterceptedFeignConfiguration;
 import cn.mimiron.service.config.ApplicationProperties;
-import cn.mimiron.service.config.DefaultProfileUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;

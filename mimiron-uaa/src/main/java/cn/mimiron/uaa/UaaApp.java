@@ -1,8 +1,8 @@
 package cn.mimiron.uaa;
 
+import cn.mimiron.core.config.DefaultProfileUtil;
 import cn.mimiron.core.config.MimironConstants;
 import cn.mimiron.uaa.config.ApplicationProperties;
-import cn.mimiron.uaa.config.DefaultProfileUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;

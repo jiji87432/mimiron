@@ -1,8 +1,8 @@
 package cn.mimiron.gateway;
 
+import cn.mimiron.core.config.DefaultProfileUtil;
 import cn.mimiron.core.config.MimironConstants;
 import cn.mimiron.gateway.config.ApplicationProperties;
-import cn.mimiron.gateway.config.DefaultProfileUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;

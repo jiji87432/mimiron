@@ -1,5 +1,6 @@
 package cn.mimiron.uaa.security;
 
+import cn.mimiron.core.security.SecurityUtils;
 import cn.mimiron.uaa.config.Constants;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.stereotype.Component;

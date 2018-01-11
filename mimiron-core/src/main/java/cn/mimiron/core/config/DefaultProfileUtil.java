@@ -1,10 +1,10 @@
-package cn.mimiron.service.config;
+package cn.mimiron.core.config;
 
-import cn.mimiron.core.config.MimironConstants;
 import org.springframework.boot.SpringApplication;
 import org.springframework.core.env.Environment;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Utility class to load a Spring profile to be used as default
@@ -26,7 +26,7 @@ public final class DefaultProfileUtil {
      * @param app the Spring application
      */
     public static void addDefaultProfile(SpringApplication app) {
-        Map<String, Object> defProperties = new HashMap<>();
+        Map<String, Object> defProperties = new HashMap<>(1);
         /*
         * The default profile to use when no other profiles are defined
         * This cannot be set in the <code>application.yml</code> file.

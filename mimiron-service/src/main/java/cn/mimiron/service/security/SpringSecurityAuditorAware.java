@@ -1,7 +1,7 @@
 package cn.mimiron.service.security;
 
+import cn.mimiron.core.security.SecurityUtils;
 import cn.mimiron.service.config.Constants;
-
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.stereotype.Component;
 

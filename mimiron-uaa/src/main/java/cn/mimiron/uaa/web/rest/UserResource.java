@@ -1,9 +1,10 @@
 package cn.mimiron.uaa.web.rest;
 
+import cn.mimiron.core.security.AuthoritiesConstants;
+import cn.mimiron.core.web.util.ResponseUtil;
 import cn.mimiron.uaa.config.Constants;
 import cn.mimiron.uaa.domain.User;
 import cn.mimiron.uaa.repository.UserRepository;
-import cn.mimiron.uaa.security.AuthoritiesConstants;
 import cn.mimiron.uaa.service.MailService;
 import cn.mimiron.uaa.service.UserService;
 import cn.mimiron.uaa.service.dto.UserDTO;
@@ -13,7 +14,6 @@ import cn.mimiron.uaa.web.rest.errors.LoginAlreadyUsedException;
 import cn.mimiron.uaa.web.rest.util.HeaderUtil;
 import cn.mimiron.uaa.web.rest.util.PaginationUtil;
 import cn.mimiron.uaa.web.rest.vm.ManagedUserVM;
-import cn.mimiron.core.web.util.ResponseUtil;
 import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

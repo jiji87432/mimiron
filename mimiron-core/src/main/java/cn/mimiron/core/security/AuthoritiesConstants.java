@@ -1,4 +1,4 @@
-package cn.mimiron.uaa.security;
+package cn.mimiron.core.security;
 
 /**
  * Constants for Spring Security authorities.

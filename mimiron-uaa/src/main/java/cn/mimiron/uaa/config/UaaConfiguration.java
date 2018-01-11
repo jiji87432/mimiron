@@ -1,7 +1,7 @@
 package cn.mimiron.uaa.config;
 
 import cn.mimiron.core.config.MimironProperties;
-import cn.mimiron.uaa.security.AuthoritiesConstants;
+import cn.mimiron.core.security.AuthoritiesConstants;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

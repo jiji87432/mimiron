@@ -1,4 +1,4 @@
-package cn.mimiron.service.security;
+package cn.mimiron.core.security;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;

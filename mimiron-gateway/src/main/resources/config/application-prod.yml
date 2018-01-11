@@ -49,7 +49,5 @@ oauth2:
 
 application:
   gateway:
-    rate-limiting:
-      enabled: false
     authorized-microservices-endpoints: # Access Control Policy, if left empty for a route, all endpoints will be accessible
       app1: /api # recommended prod configuration

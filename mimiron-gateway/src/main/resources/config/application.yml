@@ -5,6 +5,28 @@ zuul:
   semaphore:
     max-semaphores: 500
   ignoredServices: 'consul,gateway'
+  ratelimit:
+    key-prefix: gateway-rate-limiting
+    enabled: true
+    repository: CONSUL
+    behind-proxy: true
+    default-policy-list: #optional - will apply unless specific policy exists
+      - limit: 10 #optional - request number limit per refresh interval window
+        quota: 1000 #optional - request time limit per refresh interval window (in seconds)
+        refresh-interval: 60 #default value (in seconds)
+        type: #optional
+          - user
+          - origin
+          - url
+    policy-list:
+      service:
+        - limit: 1 #optional - request number limit per refresh interval window
+          quota: 1000 #optional - request time limit per refresh interval window (in seconds)
+          refresh-interval: 60 #default value (in seconds)
+          type: #optional
+            - user
+            - origin
+            - url
 
 hystrix:
   command:

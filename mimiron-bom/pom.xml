@@ -32,7 +32,7 @@
         <springfox.version>2.7.0</springfox.version>
         <hibernate.version>5.2.10.Final</hibernate.version>
         <hazelcast-hibernate52.version>1.2</hazelcast-hibernate52.version>
-        <bucket4j.version>3.0.1</bucket4j.version>
+        <ratelimit.version>1.4.0.RELEASE</ratelimit.version>
         <spring-cloud-zipkin.version>1.2.5.RELEASE</spring-cloud-zipkin.version>
 
         <profile.swagger/>
@@ -86,14 +86,9 @@
             </dependency>
 
             <dependency>
-                <groupId>com.github.vladimir-bukhtoyarov</groupId>
-                <artifactId>bucket4j-core</artifactId>
-                <version>${bucket4j.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.vladimir-bukhtoyarov</groupId>
-                <artifactId>bucket4j-jcache</artifactId>
-                <version>${bucket4j.version}</version>
+                <groupId>com.marcosbarbero.cloud</groupId>
+                <artifactId>spring-cloud-zuul-ratelimit</artifactId>
+                <version>${ratelimit.version}</version>
             </dependency>
 
             <dependency>

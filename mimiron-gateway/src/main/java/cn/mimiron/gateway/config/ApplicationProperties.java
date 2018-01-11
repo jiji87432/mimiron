@@ -25,12 +25,6 @@ public class ApplicationProperties {
 
     public static class Gateway {
 
-        private final RateLimiting rateLimiting = new RateLimiting();
-
-        public RateLimiting getRateLimiting() {
-            return rateLimiting;
-        }
-
         private Map<String, List<String>> authorizedMicroservicesEndpoints = new LinkedHashMap<>();
 
         public Map<String, List<String>> getAuthorizedMicroservicesEndpoints() {
@@ -41,38 +35,6 @@ public class ApplicationProperties {
             this.authorizedMicroservicesEndpoints = authorizedMicroservicesEndpoints;
         }
 
-        public static class RateLimiting {
-
-            private boolean enabled = false;
-
-            private long limit = 100_000L;
-
-            private int durationInSeconds = 3_600;
-
-            public boolean isEnabled() {
-                return enabled;
-            }
-
-            public void setEnabled(boolean enabled) {
-                this.enabled = enabled;
-            }
-
-            public long getLimit() {
-                return this.limit;
-            }
-
-            public void setLimit(long limit) {
-                this.limit = limit;
-            }
-
-            public int getDurationInSeconds() {
-                return durationInSeconds;
-            }
-
-            public void setDurationInSeconds(int durationInSeconds) {
-                this.durationInSeconds = durationInSeconds;
-            }
-        }
     }
 
 }

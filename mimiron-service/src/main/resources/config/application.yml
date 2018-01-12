@@ -15,13 +15,6 @@ spring:
         instanceId: ${spring.application.name}:${spring.application.instance-id:${random.value}}
   jackson:
     serialization.write_dates_as_timestamps: false
-  jpa:
-    open-in-view: false
-    hibernate:
-      ddl-auto: none
-      naming:
-        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
-        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
   mvc:
     favicon:
       enabled: false
@@ -56,7 +49,7 @@ mimiron:
     default-include-pattern: /api/.*
     title: service API
     description: service API documentation
-    version: 0.0.1
+    version: ${info.project.version}
     terms-of-service-url:
     contact-name:
     contact-url:

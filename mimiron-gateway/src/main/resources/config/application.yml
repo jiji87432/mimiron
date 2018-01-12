@@ -11,7 +11,7 @@ zuul:
     repository: CONSUL
     behind-proxy: true
     default-policy-list: #optional - will apply unless specific policy exists
-      - limit: 10 #optional - request number limit per refresh interval window
+      - limit: 100 #optional - request number limit per refresh interval window
         quota: 1000 #optional - request time limit per refresh interval window (in seconds)
         refresh-interval: 60 #default value (in seconds)
         type: #optional
@@ -20,7 +20,7 @@ zuul:
           - url
     policy-list:
       service:
-        - limit: 1 #optional - request number limit per refresh interval window
+        - limit: 100 #optional - request number limit per refresh interval window
           quota: 1000 #optional - request time limit per refresh interval window (in seconds)
           refresh-interval: 60 #default value (in seconds)
           type: #optional
@@ -81,7 +81,7 @@ mimiron:
     default-include-pattern: /api/.*
     title: gateway API
     description: gateway API documentation
-    version: 0.0.1
+    version: ${info.project.version}
     terms-of-service-url:
     contact-name:
     contact-url:

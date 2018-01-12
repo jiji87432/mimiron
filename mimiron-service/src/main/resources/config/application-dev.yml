@@ -15,27 +15,6 @@ spring:
         prefer-ip-address: true
       host: localhost
       port: 8500
-  datasource:
-    type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:h2:file:./mimiron-service/target/h2db/db/service;DB_CLOSE_DELAY=-1
-    username: service
-    password:
-  h2:
-    console:
-      enabled: false
-  jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
-    database: H2
-    show-sql: true
-    properties:
-      hibernate.id.new_generator_mappings: true
-      hibernate.cache.use_second_level_cache: true
-      hibernate.cache.use_query_cache: false
-      hibernate.generate_statistics: true
-      hibernate.cache.region.factory_class: com.hazelcast.hibernate.HazelcastCacheRegionFactory
-      hibernate.cache.hazelcast.instance_name: service
-      hibernate.cache.use_minimal_puts: true
-      hibernate.cache.hazelcast.use_lite_member: true
   mail:
     host: localhost
     port: 25
@@ -54,10 +33,6 @@ server:
   port: 8081
 
 mimiron:
-  cache: # Cache configuration
-    hazelcast: # Hazelcast distributed cache
-      time-to-live-seconds: 3600
-      backup-count: 1
   # CORS is disabled by default on microservices, as you should access them through a gateway.
   # If you want to enable it, please uncomment the configuration below.
   # cors:

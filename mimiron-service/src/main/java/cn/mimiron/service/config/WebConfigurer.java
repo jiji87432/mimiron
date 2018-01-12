@@ -1,6 +1,5 @@
 package cn.mimiron.service.config;
 
-import cn.mimiron.core.config.MimironConstants;
 import cn.mimiron.core.config.MimironProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +16,6 @@ import org.springframework.web.filter.CorsFilter;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRegistration;
 
 /**
  * Configuration of web application with Servlet 3.0 APIs.
@@ -44,9 +42,6 @@ public class WebConfigurer implements ServletContextInitializer, EmbeddedServlet
         if (env.getActiveProfiles().length != 0) {
             log.info("Web application configuration, using profiles: {}", (Object[]) env.getActiveProfiles());
         }
-        if (env.acceptsProfiles(MimironConstants.SPRING_PROFILE_DEVELOPMENT)) {
-            initH2Console(servletContext);
-        }
         log.info("Web application fully configured");
     }
 
@@ -72,14 +67,4 @@ public class WebConfigurer implements ServletContextInitializer, EmbeddedServlet
         return new CorsFilter(source);
     }
 
-    /**
-     * Initializes H2 console.
-     */
-    private void initH2Console(ServletContext servletContext) {
-        log.debug("Initialize H2 console");
-        ServletRegistration.Dynamic h2ConsoleServlet = servletContext.addServlet("H2Console", new org.h2.server.web.WebServlet());
-        h2ConsoleServlet.addMapping("/h2-console/*");
-        h2ConsoleServlet.setInitParameter("-properties", "mimiron-service/src/main/resources/");
-        h2ConsoleServlet.setLoadOnStartup(1);
-    }
 }

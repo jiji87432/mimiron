@@ -60,7 +60,7 @@ mimiron:
     default-include-pattern: /api/.*
     title: uaa API
     description: uaa API documentation
-    version: 0.0.1
+    version: ${info.project.version}
     terms-of-service-url:
     contact-name:
     contact-url:

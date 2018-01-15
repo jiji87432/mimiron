@@ -14,8 +14,6 @@ import javax.validation.constraints.NotNull;
 @ConfigurationProperties(prefix = "mimiron", ignoreUnknownFields = false)
 public class MimironProperties {
 
-    private final Cache cache = new Cache();
-
     private final Mail mail = new Mail();
 
     private final Security security = new Security();
@@ -27,10 +25,6 @@ public class MimironProperties {
     private final Ribbon ribbon = new Ribbon();
 
     private final Registry registry = new Registry();
-
-    public Cache getCache() {
-        return cache;
-    }
 
     public Mail getMail() {
         return mail;
@@ -54,39 +48,6 @@ public class MimironProperties {
 
     public Ribbon getRibbon() {
         return ribbon;
-    }
-
-    public static class Cache {
-
-        private final Hazelcast hazelcast = new Hazelcast();
-
-        public Hazelcast getHazelcast() {
-            return hazelcast;
-        }
-
-        public static class Hazelcast {
-
-            private int timeToLiveSeconds = 3600;
-
-            private int backupCount = 1;
-
-            public int getTimeToLiveSeconds() {
-                return timeToLiveSeconds;
-            }
-
-            public void setTimeToLiveSeconds(int timeToLiveSeconds) {
-                this.timeToLiveSeconds = timeToLiveSeconds;
-            }
-
-            public int getBackupCount() {
-                return backupCount;
-            }
-
-            public void setBackupCount(int backupCount) {
-                this.backupCount = backupCount;
-            }
-        }
-
     }
 
     public static class Mail {

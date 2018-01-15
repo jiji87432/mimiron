@@ -12,7 +12,6 @@ import cn.mimiron.uaa.service.util.RandomUtil;
 import cn.mimiron.uaa.web.rest.vm.ManagedUserVM;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.cache.CacheManager;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -39,21 +38,16 @@ public class UserService {
 
     private final Logger log = LoggerFactory.getLogger(UserService.class);
 
-    private static final String USERS_CACHE = "users";
-
     private final UserRepository userRepository;
 
     private final PasswordEncoder passwordEncoder;
 
     private final AuthorityRepository authorityRepository;
 
-    private final CacheManager cacheManager;
-
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository, CacheManager cacheManager) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authorityRepository = authorityRepository;
-        this.cacheManager = cacheManager;
     }
 
     public Optional<User> activateRegistration(String key) {
@@ -63,7 +57,6 @@ public class UserService {
                 // activate given user for the registration key.
                 user.setActivated(true);
                 user.setActivationKey(null);
-                cacheManager.getCache(USERS_CACHE).evict(user.getLogin());
                 log.debug("Activated user: {}", user);
                 return user;
             });
@@ -78,7 +71,6 @@ public class UserService {
                 user.setPassword(passwordEncoder.encode(newPassword));
                 user.setResetKey(null);
                 user.setResetDate(null);
-                cacheManager.getCache(USERS_CACHE).evict(user.getLogin());
                 return user;
             });
     }
@@ -89,7 +81,6 @@ public class UserService {
             .map(user -> {
                 user.setResetKey(RandomUtil.generateResetKey());
                 user.setResetDate(Instant.now());
-                cacheManager.getCache(USERS_CACHE).evict(user.getLogin());
                 return user;
             });
     }
@@ -163,7 +154,6 @@ public class UserService {
             user.setEmail(email);
             user.setLangKey(langKey);
             user.setImageUrl(imageUrl);
-            cacheManager.getCache(USERS_CACHE).evict(user.getLogin());
             log.debug("Changed Information for User: {}", user);
         });
     }
@@ -190,7 +180,6 @@ public class UserService {
                 userDTO.getAuthorities().stream()
                     .map(authorityRepository::findOne)
                     .forEach(managedAuthorities::add);
-                cacheManager.getCache(USERS_CACHE).evict(user.getLogin());
                 log.debug("Changed Information for User: {}", user);
                 return user;
             })
@@ -200,7 +189,6 @@ public class UserService {
     public void deleteUser(String login) {
         userRepository.findOneByLogin(login).ifPresent(user -> {
             userRepository.delete(user);
-            cacheManager.getCache(USERS_CACHE).evict(login);
             log.debug("Deleted User: {}", user);
         });
     }
@@ -209,7 +197,6 @@ public class UserService {
         userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).ifPresent(user -> {
             String encryptedPassword = passwordEncoder.encode(password);
             user.setPassword(encryptedPassword);
-            cacheManager.getCache(USERS_CACHE).evict(user.getLogin());
             log.debug("Changed password for User: {}", user);
         });
     }
@@ -245,7 +232,6 @@ public class UserService {
         for (User user : users) {
             log.debug("Deleting not activated user {}", user.getLogin());
             userRepository.delete(user);
-            cacheManager.getCache(USERS_CACHE).evict(user.getLogin());
         }
     }
 

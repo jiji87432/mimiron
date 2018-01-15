@@ -10,6 +10,8 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -38,6 +40,8 @@ import java.util.Collection;
 /**
  * @author zhangxd
  */
+@EnableAsync
+@EnableScheduling
 @Configuration
 @EnableAuthorizationServer
 public class UaaConfiguration extends AuthorizationServerConfigurerAdapter implements ApplicationContextAware {

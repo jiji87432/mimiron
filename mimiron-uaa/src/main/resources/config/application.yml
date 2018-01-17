@@ -15,13 +15,6 @@ spring:
         instanceId: ${spring.application.name}:${spring.application.instance-id:${random.value}}
   jackson:
     serialization.write_dates_as_timestamps: false
-  jpa:
-    open-in-view: false
-    hibernate:
-      ddl-auto: none
-      naming:
-        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
-        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
   messages:
     basename: i18n/messages
   mvc:
@@ -40,6 +33,20 @@ server:
   session:
     cookie:
       http-only: true
+
+mybatis:
+  type-aliases-package: cn.mimiron.uaa.model
+  mapper-locations: classpath:mapper/*.xml
+
+mapper:
+  not-empty: false
+  identity: MYSQL
+
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
 
 info:
   project:

@@ -1,68 +1,33 @@
-DROP TABLE IF EXISTS mmr_user;
-CREATE TABLE mmr_user (
-    id                 BIGINT AUTO_INCREMENT NOT NULL,
-    login              VARCHAR(50)           NOT NULL,
-    password_hash      VARCHAR(60),
-    first_name         VARCHAR(50),
-    last_name          VARCHAR(50),
-    email              VARCHAR(100),
-    image_url          VARCHAR(256),
-    activated          BOOLEAN               NOT NULL,
-    lang_key           VARCHAR(6),
-    activation_key     VARCHAR(20),
-    reset_key          VARCHAR(20),
-    created_by         VARCHAR(50)           NOT NULL,
-    created_date       TIMESTAMP,
-    reset_date         TIMESTAMP,
-    last_modified_by   VARCHAR(50),
-    last_modified_date TIMESTAMP,
-    CONSTRAINT PK_MMR_USER PRIMARY KEY (id),
-    CONSTRAINT ux_user_login UNIQUE (login),
-    CONSTRAINT ux_user_email UNIQUE (email)
-);
-CREATE UNIQUE INDEX idx_user_login
-    ON mmr_user (login);
-CREATE UNIQUE INDEX idx_user_email
-    ON mmr_user (email);
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user`  (
+    `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `login` varchar(50) NOT NULL COMMENT '登录名',
+    `password` varchar(60) DEFAULT NULL COMMENT '密码',
+    `first_name` varchar(50) DEFAULT NULL COMMENT '名',
+    `last_name` varchar(50) DEFAULT NULL COMMENT '姓',
+    `email` varchar(100) DEFAULT NULL COMMENT '邮件',
+    `image_url` varchar(256) DEFAULT NULL COMMENT '头像地址',
+    `is_activated` tinyint(1) UNSIGNED NOT NULL COMMENT '激活标记',
+    `activation_key` varchar(20) DEFAULT NULL COMMENT '激活验证码',
+    `reset_key` varchar(20) DEFAULT NULL COMMENT '重置密码验证码',
+    `reset_date` datetime(0) DEFAULT NULL COMMENT '充值密码时间',
+    `gmt_create` datetime(0) DEFAULT NULL COMMENT '创建时间',
+    `gmt_modified` datetime(0) DEFAULT NULL COMMENT '更新时间',
+    `is_deleted` tinyint(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '删除标记',
+    PRIMARY KEY (`id`),
+    UNIQUE INDEX `uk_login`(`login`),
+    UNIQUE INDEX `uk_email`(`email`)
+) ENGINE = InnoDB COMMENT = '用户';
 
-DROP TABLE IF EXISTS mmr_authority;
-CREATE TABLE mmr_authority (
-    name VARCHAR(50) NOT NULL,
-    CONSTRAINT PK_MMR_AUTHORITY PRIMARY KEY (name)
-);
-DROP TABLE IF EXISTS mmr_user_authority;
-CREATE TABLE mmr_user_authority (
-    user_id        BIGINT      NOT NULL,
-    authority_name VARCHAR(50) NOT NULL
-);
-ALTER TABLE mmr_user_authority
-    ADD PRIMARY KEY (user_id, authority_name);
-ALTER TABLE mmr_user_authority
-    ADD CONSTRAINT fk_authority_name FOREIGN KEY (authority_name) REFERENCES mmr_authority (name);
-ALTER TABLE mmr_user_authority
-    ADD CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES mmr_user (id);
+DROP TABLE IF EXISTS `authority`;
+CREATE TABLE `authority`  (
+    `name` varchar(50) NOT NULL COMMENT '角色',
+    PRIMARY KEY (`name`)
+) ENGINE = InnoDB COMMENT = '角色';
 
-DROP TABLE IF EXISTS mmr_persistent_audit_event;
-CREATE TABLE mmr_persistent_audit_event (
-    event_id   BIGINT AUTO_INCREMENT NOT NULL,
-    principal  VARCHAR(50)           NOT NULL,
-    event_date TIMESTAMP,
-    event_type VARCHAR(255),
-    CONSTRAINT PK_MMR_PERSISTENT_AUDIT_EVENT PRIMARY KEY (event_id)
-);
-DROP TABLE IF EXISTS mmr_persistent_audit_evt_data;
-CREATE TABLE mmr_persistent_audit_evt_data (
-    event_id BIGINT       NOT NULL,
-    name     VARCHAR(150) NOT NULL,
-    value    VARCHAR(255)
-);
-ALTER TABLE mmr_persistent_audit_evt_data
-    ADD PRIMARY KEY (event_id, name);
-CREATE INDEX idx_persistent_audit_event
-    ON mmr_persistent_audit_event (principal, event_date);
-CREATE INDEX idx_persistent_audit_evt_data
-    ON mmr_persistent_audit_evt_data (event_id);
-ALTER TABLE mmr_persistent_audit_evt_data
-    ADD CONSTRAINT fk_evt_pers_audit_evt_data FOREIGN KEY (event_id) REFERENCES mmr_persistent_audit_event (event_id);
-
-
+DROP TABLE IF EXISTS `user_authority`;
+CREATE TABLE `user_authority`  (
+    `user_id` bigint(20) NOT NULL COMMENT '用户ID',
+    `authority_name` varchar(50) NOT NULL COMMENT '角色',
+    PRIMARY KEY (`user_id`, `authority_name`)
+) ENGINE = InnoDB COMMENT = '用户角色';

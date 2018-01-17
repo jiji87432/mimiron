@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+  <properties resource="generator/generator.properties"/>
+
+  <context id="Mysql" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+    <property name="beginningDelimiter" value="`"/>
+    <property name="endingDelimiter" value="`"/>
+
+    <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+      <property name="mappers" value="cn.mimiron.core.mapper.BaseMapper"/>
+    </plugin>
+
+    <jdbcConnection driverClass="${jdbc_driver}"
+                    connectionURL="${jdbc_url}"
+                    userId="${jdbc_username}"
+                    password="${jdbc_password}">
+    </jdbcConnection>
+
+    <javaModelGenerator targetPackage="cn.mimiron.uaa.model" targetProject="src/main/java"/>
+
+    <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources"/>
+
+    <javaClientGenerator targetPackage="cn.mimiron.uaa.mapper" targetProject="src/main/java" type="XMLMAPPER"/>
+
+    <table tableName="%">
+      <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+      <columnRenamingRule searchString="^is_" replaceString=""/>
+    </table>
+  </context>
+</generatorConfiguration>

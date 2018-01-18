@@ -13,7 +13,6 @@ CREATE TABLE `user`  (
     `reset_date` datetime(0) DEFAULT NULL COMMENT '充值密码时间',
     `gmt_create` datetime(0) DEFAULT NULL COMMENT '创建时间',
     `gmt_modified` datetime(0) DEFAULT NULL COMMENT '更新时间',
-    `is_deleted` tinyint(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '删除标记',
     PRIMARY KEY (`id`),
     UNIQUE INDEX `uk_login`(`login`),
     UNIQUE INDEX `uk_email`(`email`)

@@ -41,14 +41,7 @@ public class UserDTO {
 
     private boolean activated = false;
 
-    @Size(min = 2, max = 6)
-    private String langKey;
-
-    private String createdBy;
-
     private Instant createdDate;
-
-    private String lastModifiedBy;
 
     private Instant lastModifiedDate;
 

@@ -37,16 +37,28 @@ server:
 mybatis:
   type-aliases-package: cn.mimiron.uaa.model
   mapper-locations: classpath:mapper/*.xml
+  configuration:
+    cache-enabled: true
+    lazy-loading-enabled: true
+    aggressive-lazy-loading: true
+    auto-mapping-behavior: partial
+    default-executor-type: simple
+    map-underscore-to-camel-case: true
+    jdbc-type-for-null: null
 
 mapper:
-  not-empty: false
+  mappers:
+    - cn.mimiron.core.mapper.BaseMapper
   identity: MYSQL
 
 pagehelper:
   helper-dialect: mysql
+  offset-as-page-num: true
+  row-bounds-with-count: true
+  page-size-zero: true
   reasonable: true
   support-methods-arguments: true
-  params: count=countSql
+  params: pageNum=start;pageSize=limit;count=countSql;
 
 info:
   project:

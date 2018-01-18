@@ -1,6 +1,6 @@
 package cn.mimiron.uaa.security;
 
-import cn.mimiron.uaa.mapper.UserDao;
+import cn.mimiron.uaa.dao.UserDao;
 import cn.mimiron.uaa.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +11,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
 import java.util.Locale;
@@ -38,9 +37,7 @@ public class DomainUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(final String login) {
         log.debug("Authenticating {}", login);
         String lowercaseLogin = login.toLowerCase(Locale.ENGLISH);
-        Example example = Example.builder(cn.mimiron.uaa.model.User.class).build();
-        example.createCriteria().andEqualTo("login", lowercaseLogin);
-        User user = userDao.selectOneByExample(example);
+        User user = userDao.selectOneWithAuthorityByLogin(lowercaseLogin);
 
         if (user == null) {
             throw new UsernameNotFoundException("User " + lowercaseLogin + " was not found in the database");

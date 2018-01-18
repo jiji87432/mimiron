@@ -1,4 +1,4 @@
-package cn.mimiron.core.mapper;
+package cn.mimiron.core.dao;
 
 import tk.mybatis.mapper.common.Mapper;
 import tk.mybatis.mapper.common.MySqlMapper;

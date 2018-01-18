@@ -14,7 +14,7 @@
     <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin" />
     <plugin type="org.mybatis.generator.plugins.ToStringPlugin" />
     <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
-      <property name="mappers" value="cn.mimiron.core.mapper.BaseDao"/>
+      <property name="mappers" value="cn.mimiron.core.dao.BaseDao"/>
     </plugin>
 
     <jdbcConnection driverClass="${jdbc_driver}"
@@ -27,7 +27,7 @@
 
     <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources"/>
 
-    <javaClientGenerator targetPackage="cn.mimiron.uaa.mapper" targetProject="src/main/java" type="XMLMAPPER"/>
+    <javaClientGenerator targetPackage="cn.mimiron.uaa.dao" targetProject="src/main/java" type="XMLMAPPER"/>
 
     <table tableName="%" mapperName="{0}Dao">
       <generatedKey column="id" sqlStatement="Mysql" identity="true"/>

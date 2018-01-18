@@ -48,7 +48,7 @@ mybatis:
 
 mapper:
   mappers:
-    - cn.mimiron.core.mapper.BaseDao
+    - cn.mimiron.core.dao.BaseDao
   identity: MYSQL
 
 pagehelper:

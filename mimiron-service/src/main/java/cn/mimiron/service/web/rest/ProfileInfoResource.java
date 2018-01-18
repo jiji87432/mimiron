@@ -2,9 +2,9 @@ package cn.mimiron.service.web.rest;
 
 import cn.mimiron.core.config.DefaultProfileUtil;
 import cn.mimiron.core.config.MimironProperties;
+import cn.mimiron.core.security.AuthoritiesConstants;
 import org.springframework.core.env.Environment;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,12 +31,11 @@ public class ProfileInfoResource {
     }
 
     @GetMapping("/hello")
-    @Secured("ROLE_ADMIN")
+    @Secured(AuthoritiesConstants.ADMIN)
     public String hello() {
         return "hello";
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/profile-info")
     public ProfileInfoVM getActiveProfiles() {
         String[] activeProfiles = DefaultProfileUtil.getActiveProfiles(env);

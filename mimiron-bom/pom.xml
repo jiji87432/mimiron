@@ -30,8 +30,11 @@
     <spring-boot.version>1.5.9.RELEASE</spring-boot.version>
     <spring-cloud.version>Dalston.SR4</spring-cloud.version>
     <springfox.version>2.7.0</springfox.version>
-    <hibernate.version>5.2.10.Final</hibernate.version>
     <ratelimit.version>1.4.0.RELEASE</ratelimit.version>
+    <druid-starter.version>1.1.6</druid-starter.version>
+    <tk-mapper.version>3.5.0</tk-mapper.version>
+    <tk-mapper-starter.version>1.2.1</tk-mapper-starter.version>
+    <pagehelper.version>1.2.3</pagehelper.version>
     <spring-cloud-zipkin.version>1.2.5.RELEASE</spring-cloud-zipkin.version>
 
     <profile.swagger/>
@@ -82,6 +85,27 @@
         <groupId>com.marcosbarbero.cloud</groupId>
         <artifactId>spring-cloud-zuul-ratelimit</artifactId>
         <version>${ratelimit.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.alibaba</groupId>
+        <artifactId>druid-spring-boot-starter</artifactId>
+        <version>${druid-starter.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>tk.mybatis</groupId>
+        <artifactId>mapper</artifactId>
+        <version>${tk-mapper.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>tk.mybatis</groupId>
+        <artifactId>mapper-spring-boot-starter</artifactId>
+        <version>${tk-mapper-starter.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.github.pagehelper</groupId>
+        <artifactId>pagehelper-spring-boot-starter</artifactId>
+        <version>${pagehelper.version}</version>
       </dependency>
 
       <dependency>

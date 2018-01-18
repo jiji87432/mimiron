@@ -64,20 +64,17 @@
     <dependency>
       <groupId>com.alibaba</groupId>
       <artifactId>druid-spring-boot-starter</artifactId>
-      <version>1.1.6</version>
     </dependency>
 
     <!--mapper-->
     <dependency>
       <groupId>tk.mybatis</groupId>
       <artifactId>mapper-spring-boot-starter</artifactId>
-      <version>1.2.1</version>
     </dependency>
     <!--pagehelper-->
     <dependency>
       <groupId>com.github.pagehelper</groupId>
       <artifactId>pagehelper-spring-boot-starter</artifactId>
-      <version>1.2.3</version>
     </dependency>
 
     <dependency>
@@ -187,7 +184,7 @@
           <dependency>
             <groupId>tk.mybatis</groupId>
             <artifactId>mapper</artifactId>
-            <version>3.5.0</version>
+            <version>${tk-mapper.version}</version>
           </dependency>
         </dependencies>
       </plugin>

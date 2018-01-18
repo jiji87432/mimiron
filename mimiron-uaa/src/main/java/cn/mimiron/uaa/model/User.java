@@ -1,7 +1,9 @@
 package cn.mimiron.uaa.model;
 
-import java.util.Date;
 import javax.persistence.*;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 public class User {
     /**
@@ -79,6 +81,9 @@ public class User {
      */
     @Column(name = "gmt_modified")
     private Date gmtModified;
+
+    @Transient
+    public Set<Authority> authorities = new HashSet<>();
 
     /**
      * 获取主键
@@ -312,6 +317,14 @@ public class User {
      */
     public void setGmtModified(Date gmtModified) {
         this.gmtModified = gmtModified;
+    }
+
+    public Set<Authority> getAuthorities() {
+        return authorities;
+    }
+
+    public void setAuthorities(Set<Authority> authorities) {
+        this.authorities = authorities;
     }
 
     @Override

@@ -53,7 +53,7 @@ public class UaaWebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         web.ignoring()
             .antMatchers(HttpMethod.OPTIONS, "/**")
             .antMatchers("/swagger-ui/index.html")
-            .antMatchers("/h2-console/**");
+        ;
     }
 
 }

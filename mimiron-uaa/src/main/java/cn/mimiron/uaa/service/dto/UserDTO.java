@@ -1,14 +1,14 @@
 package cn.mimiron.uaa.service.dto;
 
 import cn.mimiron.uaa.config.Constants;
-import cn.mimiron.uaa.domain.Authority;
-import cn.mimiron.uaa.domain.User;
+import cn.mimiron.uaa.model.Authority;
+import cn.mimiron.uaa.model.User;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import java.time.Instant;
+import java.util.Date;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -41,9 +41,9 @@ public class UserDTO {
 
     private boolean activated = false;
 
-    private Instant createdDate;
+    private Date gmtCreate;
 
-    private Instant lastModifiedDate;
+    private Date gmtModified;
 
     private Set<String> authorities;
 
@@ -53,16 +53,15 @@ public class UserDTO {
 
     public UserDTO(User user) {
         this(user.getId(), user.getLogin(), user.getFirstName(), user.getLastName(),
-            user.getEmail(), user.getActivated(), user.getImageUrl(), user.getLangKey(),
-            user.getCreatedBy(), user.getCreatedDate(), user.getLastModifiedBy(), user.getLastModifiedDate(),
+            user.getEmail(), user.getActivated(), user.getImageUrl(),
+            user.getGmtCreate(), user.getGmtModified(),
             user.getAuthorities().stream().map(Authority::getName)
                 .collect(Collectors.toSet()));
     }
 
     public UserDTO(Long id, String login, String firstName, String lastName,
-                   String email, boolean activated, String imageUrl, String langKey,
-                   String createdBy, Instant createdDate, String lastModifiedBy, Instant lastModifiedDate,
-                   Set<String> authorities) {
+                   String email, boolean activated, String imageUrl,
+                   Date gmtCreate, Date gmtModified, Set<String> authorities) {
 
         this.id = id;
         this.login = login;
@@ -71,11 +70,8 @@ public class UserDTO {
         this.email = email;
         this.activated = activated;
         this.imageUrl = imageUrl;
-        this.langKey = langKey;
-        this.createdBy = createdBy;
-        this.createdDate = createdDate;
-        this.lastModifiedBy = lastModifiedBy;
-        this.lastModifiedDate = lastModifiedDate;
+        this.gmtCreate = gmtCreate;
+        this.gmtModified = gmtModified;
         this.authorities = authorities;
     }
 
@@ -115,28 +111,16 @@ public class UserDTO {
         return activated;
     }
 
-    public String getLangKey() {
-        return langKey;
+    public Date getGmtCreate() {
+        return gmtCreate;
     }
 
-    public String getCreatedBy() {
-        return createdBy;
+    public Date getGmtModified() {
+        return gmtModified;
     }
 
-    public Instant getCreatedDate() {
-        return createdDate;
-    }
-
-    public String getLastModifiedBy() {
-        return lastModifiedBy;
-    }
-
-    public Instant getLastModifiedDate() {
-        return lastModifiedDate;
-    }
-
-    public void setLastModifiedDate(Instant lastModifiedDate) {
-        this.lastModifiedDate = lastModifiedDate;
+    public void setGmtModified(Date gmtModified) {
+        this.gmtModified = gmtModified;
     }
 
     public Set<String> getAuthorities() {
@@ -152,12 +136,9 @@ public class UserDTO {
             ", email='" + email + '\'' +
             ", imageUrl='" + imageUrl + '\'' +
             ", activated=" + activated +
-            ", langKey='" + langKey + '\'' +
-            ", createdBy=" + createdBy +
-            ", createdDate=" + createdDate +
-            ", lastModifiedBy='" + lastModifiedBy + '\'' +
-            ", lastModifiedDate=" + lastModifiedDate +
+            ", gmtCreate=" + gmtCreate +
+            ", gmtModified=" + gmtModified +
             ", authorities=" + authorities +
-            "}";
+            '}';
     }
 }

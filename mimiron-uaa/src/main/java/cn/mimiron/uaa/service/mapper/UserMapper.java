@@ -1,7 +1,7 @@
 package cn.mimiron.uaa.service.mapper;
 
-import cn.mimiron.uaa.domain.Authority;
-import cn.mimiron.uaa.domain.User;
+import cn.mimiron.uaa.model.Authority;
+import cn.mimiron.uaa.model.User;
 import cn.mimiron.uaa.service.dto.UserDTO;
 import org.springframework.stereotype.Service;
 
@@ -44,7 +44,6 @@ public class UserMapper {
             user.setEmail(userDTO.getEmail());
             user.setImageUrl(userDTO.getImageUrl());
             user.setActivated(userDTO.isActivated());
-            user.setLangKey(userDTO.getLangKey());
             Set<Authority> authorities = this.authoritiesFromStrings(userDTO.getAuthorities());
             if (authorities != null) {
                 user.setAuthorities(authorities);

@@ -1,7 +1,7 @@
 package cn.mimiron.uaa.service;
 
-import cn.mimiron.uaa.domain.User;
 import cn.mimiron.core.config.MimironProperties;
+import cn.mimiron.uaa.model.User;
 import org.apache.commons.lang3.CharEncoding;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -75,7 +75,7 @@ public class MailService {
 
     @Async
     public void sendEmailFromTemplate(User user, String templateName, String titleKey) {
-        Locale locale = Locale.forLanguageTag(user.getLangKey());
+        Locale locale = Locale.forLanguageTag("en");
         Context context = new Context(locale);
         context.setVariable(USER, user);
         context.setVariable(BASE_URL, mimironProperties.getMail().getBaseUrl());

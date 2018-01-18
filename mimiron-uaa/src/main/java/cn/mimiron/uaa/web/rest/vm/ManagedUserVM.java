@@ -3,7 +3,7 @@ package cn.mimiron.uaa.web.rest.vm;
 import cn.mimiron.uaa.service.dto.UserDTO;
 
 import javax.validation.constraints.Size;
-import java.time.Instant;
+import java.util.Date;
 import java.util.Set;
 
 /**
@@ -23,12 +23,11 @@ public class ManagedUserVM extends UserDTO {
     }
 
     public ManagedUserVM(Long id, String login, String password, String firstName, String lastName,
-                         String email, boolean activated, String imageUrl, String langKey,
-                         String createdBy, Instant createdDate, String lastModifiedBy, Instant lastModifiedDate,
-                         Set<String> authorities) {
+                         String email, boolean activated, String imageUrl,
+                         Date gmtCreate, Date gmtModified, Set<String> authorities) {
 
-        super(id, login, firstName, lastName, email, activated, imageUrl, langKey,
-            createdBy, createdDate, lastModifiedBy, lastModifiedDate, authorities);
+        super(id, login, firstName, lastName, email, activated, imageUrl,
+            gmtCreate, gmtModified, authorities);
         this.password = password;
     }
 

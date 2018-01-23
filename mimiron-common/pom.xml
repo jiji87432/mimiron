@@ -5,15 +5,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>cn.mimiron</groupId>
-  <artifactId>mimiron-aggregate</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <artifactId>mimiron-common</artifactId>
+  <version>1.0.0</version>
   <packaging>pom</packaging>
 
   <modules>
-    <module>mimiron-bom</module>
-    <module>mimiron-common</module>
-    <module>mimiron-uaa</module>
-    <module>mimiron-gateway</module>
-    <module>mimiron-service</module>
+    <module>mimiron-core</module>
   </modules>
 </project>

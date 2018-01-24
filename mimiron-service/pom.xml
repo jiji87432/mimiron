@@ -296,10 +296,8 @@
         </dependency>
       </dependencies>
       <properties>
-        <!-- log configuration -->
-        <logback.loglevel>DEBUG</logback.loglevel>
         <!-- default Spring profiles -->
-        <spring.profiles.active>dev,swagger</spring.profiles.active>
+        <spring.profiles.active>dev</spring.profiles.active>
       </properties>
     </profile>
     <profile>
@@ -320,8 +318,6 @@
         </plugins>
       </build>
       <properties>
-        <!-- log configuration -->
-        <logback.loglevel>INFO</logback.loglevel>
         <!-- default Spring profiles -->
         <spring.profiles.active>prod${profile.swagger}</spring.profiles.active>
       </properties>

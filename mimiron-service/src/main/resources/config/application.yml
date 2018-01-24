@@ -1,3 +1,10 @@
+feign:
+  hystrix:
+    enabled: true
+
+hystrix:
+  share-security-context: true
+
 management:
   security:
     roles: ADMIN

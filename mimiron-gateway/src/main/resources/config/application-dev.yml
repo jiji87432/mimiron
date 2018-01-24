@@ -1,3 +1,8 @@
+logging:
+  level:
+    ROOT: debug
+    cn.mimiron: debug
+
 spring:
   profiles:
     active: dev
@@ -6,7 +11,7 @@ spring:
     restart:
       enabled: true
     livereload:
-      enabled: true
+      enabled: false
   jackson:
     serialization.indent_output: true
   cloud:

@@ -1,5 +1,7 @@
 package cn.mimiron.core.config;
 
+import org.springframework.http.MediaType;
+
 /**
  * Mimiron constants.
  *
@@ -17,6 +19,8 @@ public final class MimironConstants {
      * Spring profile used to disable swagger
      */
     public static final String SPRING_PROFILE_SWAGGER = "swagger";
+
+    public final static String TEXT_HTML_UTF8_VALUE = MediaType.TEXT_HTML_VALUE + ";charset=UTF-8";
 
     private MimironConstants() {
     }

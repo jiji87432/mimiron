@@ -1,8 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration>
-    <include resource="org/springframework/boot/logging/logback/base.xml"/>
-    <jmxConfigurator/>
+  <include resource="org/springframework/boot/logging/logback/base.xml"/>
+  <jmxConfigurator/>
 
-    <logger name="cn.mimiron" level="#logback.loglevel#"/>
+  <logger name="javax.activation" level="WARN"/>
+  <logger name="javax.xml.bind" level="WARN"/>
+  <logger name="com.sun" level="WARN"/>
+  <logger name="io.undertow" level="WARN"/>
+  <logger name="io.undertow.websockets.jsr" level="ERROR"/>
+  <logger name="org.apache" level="WARN"/>
+  <logger name="org.hibernate.validator" level="WARN"/>
+  <logger name="org.mybatis" level="WARN"/>
+  <logger name="tk.mybatis" level="WARN"/>
+  <logger name="com.alibaba.druid" level="WARN"/>
+  <logger name="org.springframework" level="WARN"/>
+  <logger name="org.springframework.web" level="WARN"/>
+  <logger name="org.springframework.security" level="WARN"/>
+  <logger name="org.springframework.cache" level="WARN"/>
+  <logger name="org.xnio" level="WARN"/>
+  <logger name="springfox" level="WARN"/>
+
+  <shutdownHook class="ch.qos.logback.core.hook.DelayingShutdownHook"/>
+
 </configuration>

@@ -1,5 +1,6 @@
 package cn.mimiron.gateway.config;
 
+import cn.mimiron.core.config.MimironConstants;
 import cn.mimiron.core.config.MimironProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,6 +43,7 @@ public class WebConfigurer implements ServletContextInitializer, EmbeddedServlet
         if (env.getActiveProfiles().length != 0) {
             log.info("Web application configuration, using profiles: {}", (Object[]) env.getActiveProfiles());
         }
+        log.info("Web application fully configured");
     }
 
     /**
@@ -50,7 +52,7 @@ public class WebConfigurer implements ServletContextInitializer, EmbeddedServlet
     @Override
     public void customize(ConfigurableEmbeddedServletContainer container) {
         MimeMappings mappings = new MimeMappings(MimeMappings.DEFAULT);
-        mappings.add("html", "text/html;charset=utf-8");
+        mappings.add("html", MimironConstants.TEXT_HTML_UTF8_VALUE);
         container.setMimeMappings(mappings);
     }
 
@@ -61,6 +63,7 @@ public class WebConfigurer implements ServletContextInitializer, EmbeddedServlet
         if (config.getAllowedOrigins() != null && !config.getAllowedOrigins().isEmpty()) {
             log.debug("Registering CORS filter");
             source.registerCorsConfiguration("/api/**", config);
+            source.registerCorsConfiguration("/management/**", config);
             source.registerCorsConfiguration("/v2/api-docs", config);
             source.registerCorsConfiguration("/*/api/**", config);
             source.registerCorsConfiguration("/*/oauth/**", config);

@@ -1,3 +1,8 @@
+logging:
+  level:
+    ROOT: info
+    cn.mimiron: info
+
 spring:
   devtools:
     restart:

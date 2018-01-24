@@ -6,7 +6,7 @@
 
   <groupId>cn.mimiron</groupId>
   <artifactId>mimiron-gateway</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0.0-SNAPSHOT</version>
 
   <properties>
     <!-- Build properties -->

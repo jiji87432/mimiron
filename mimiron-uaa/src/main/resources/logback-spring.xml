@@ -20,6 +20,7 @@
   <logger name="org.springframework.cache" level="WARN"/>
   <logger name="org.xnio" level="WARN"/>
   <logger name="springfox" level="WARN"/>
+  <logger name="sun.net.www" level="INFO"/>
 
   <shutdownHook class="ch.qos.logback.core.hook.DelayingShutdownHook"/>
 

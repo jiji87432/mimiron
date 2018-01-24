@@ -10,6 +10,7 @@ import org.springframework.boot.web.servlet.ServletContextInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
+import org.springframework.http.MediaType;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
@@ -26,6 +27,8 @@ import javax.servlet.ServletException;
 public class WebConfigurer implements ServletContextInitializer, EmbeddedServletContainerCustomizer {
 
     private final Logger log = LoggerFactory.getLogger(WebConfigurer.class);
+
+    public final static String TEXT_HTML_UTF8_VALUE = MediaType.TEXT_HTML_VALUE + ";charset=UTF-8";
 
     private final Environment env;
 
@@ -51,7 +54,7 @@ public class WebConfigurer implements ServletContextInitializer, EmbeddedServlet
     @Override
     public void customize(ConfigurableEmbeddedServletContainer container) {
         MimeMappings mappings = new MimeMappings(MimeMappings.DEFAULT);
-        mappings.add("html", "text/html;charset=utf-8");
+        mappings.add("html", TEXT_HTML_UTF8_VALUE);
         container.setMimeMappings(mappings);
     }
 
@@ -62,6 +65,7 @@ public class WebConfigurer implements ServletContextInitializer, EmbeddedServlet
         if (config.getAllowedOrigins() != null && !config.getAllowedOrigins().isEmpty()) {
             log.debug("Registering CORS filter");
             source.registerCorsConfiguration("/api/**", config);
+            source.registerCorsConfiguration("/management/**", config);
             source.registerCorsConfiguration("/v2/api-docs", config);
         }
         return new CorsFilter(source);

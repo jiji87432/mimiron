@@ -1,8 +1,11 @@
 package cn.mimiron.uaa.model;
 
+import org.apache.commons.lang3.StringUtils;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 public class User {
@@ -118,7 +121,7 @@ public class User {
      * @param login 登录名
      */
     public void setLogin(String login) {
-        this.login = login;
+        this.login = StringUtils.lowerCase(login, Locale.ENGLISH);;
     }
 
     /**

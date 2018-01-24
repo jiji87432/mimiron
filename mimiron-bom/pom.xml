@@ -30,7 +30,7 @@
     <springfox.version>2.7.0</springfox.version>
     <ratelimit.version>1.4.0.RELEASE</ratelimit.version>
     <druid-starter.version>1.1.6</druid-starter.version>
-    <tk-mapper.version>3.5.0</tk-mapper.version>
+    <tk-mapper.version>3.5.2</tk-mapper.version>
     <tk-mapper-starter.version>1.2.1</tk-mapper-starter.version>
     <pagehelper.version>1.2.3</pagehelper.version>
     <spring-cloud-zipkin.version>1.2.5.RELEASE</spring-cloud-zipkin.version>

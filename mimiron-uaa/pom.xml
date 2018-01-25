@@ -96,12 +96,10 @@
       <artifactId>druid-spring-boot-starter</artifactId>
     </dependency>
 
-    <!--mapper-->
     <dependency>
       <groupId>tk.mybatis</groupId>
       <artifactId>mapper-spring-boot-starter</artifactId>
     </dependency>
-    <!--pagehelper-->
     <dependency>
       <groupId>com.github.pagehelper</groupId>
       <artifactId>pagehelper-spring-boot-starter</artifactId>

@@ -48,6 +48,9 @@ spring:
       discovery:
         enabled: true
 
+flyway:
+  locations: classpath:/script
+
 server:
   port: 9999
 

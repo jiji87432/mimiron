@@ -32,6 +32,7 @@
     <druid-starter.version>1.1.6</druid-starter.version>
     <tk-mapper-starter.version>1.2.3</tk-mapper-starter.version>
     <pagehelper.version>1.2.3</pagehelper.version>
+    <flyway.version>5.0.6</flyway.version>
     <spring-cloud-zipkin.version>1.2.5.RELEASE</spring-cloud-zipkin.version>
 
     <spring-boot.version>1.5.9.RELEASE</spring-boot.version>
@@ -99,6 +100,12 @@
         <groupId>com.github.pagehelper</groupId>
         <artifactId>pagehelper-spring-boot-starter</artifactId>
         <version>${pagehelper.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.flywaydb</groupId>
+        <artifactId>flyway-core</artifactId>
+        <version>${flyway.version}</version>
       </dependency>
 
       <dependency>

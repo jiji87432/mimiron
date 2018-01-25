@@ -21,6 +21,7 @@
   <logger name="org.xnio" level="WARN"/>
   <logger name="springfox" level="WARN"/>
   <logger name="sun.net.www" level="INFO"/>
+  <logger name="org.flywaydb.core" level="WARN"/>
 
   <shutdownHook class="ch.qos.logback.core.hook.DelayingShutdownHook"/>
 

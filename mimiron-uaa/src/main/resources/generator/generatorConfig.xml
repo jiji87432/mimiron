@@ -23,11 +23,11 @@
                     password="${jdbc_password}">
     </jdbcConnection>
 
-    <javaModelGenerator targetPackage="cn.mimiron.uaa.model" targetProject="src/main/java"/>
+    <javaModelGenerator targetPackage="${model_target_package}" targetProject="src/main/java"/>
 
     <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources"/>
 
-    <javaClientGenerator targetPackage="cn.mimiron.uaa.dao" targetProject="src/main/java" type="XMLMAPPER"/>
+    <javaClientGenerator targetPackage="${dao_target_package}" targetProject="src/main/java" type="XMLMAPPER"/>
 
     <table tableName="%" mapperName="{0}Dao">
       <generatedKey column="id" sqlStatement="Mysql" identity="true"/>

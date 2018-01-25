@@ -85,8 +85,7 @@ public class User {
     @Column(name = "gmt_modified")
     private Date gmtModified;
 
-    @Transient
-    public Set<Authority> authorities = new HashSet<>();
+    private Set<Authority> authorities = new HashSet<>();
 
     /**
      * 获取主键

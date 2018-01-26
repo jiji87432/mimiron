@@ -21,7 +21,8 @@ spring:
         healthCheckPath: /management/health
         instanceId: ${spring.application.name}:${spring.application.instance-id:${random.value}}
   jackson:
-    serialization.write_dates_as_timestamps: false
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
   mvc:
     favicon:
       enabled: false

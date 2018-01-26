@@ -37,7 +37,7 @@ public class DomainUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(final String login) {
         log.debug("Authenticating {}", login);
         String lowercaseLogin = login.toLowerCase(Locale.ENGLISH);
-        User user = userDao.selectOneWithAuthorityByLogin(lowercaseLogin);
+        User user = userDao.selectOneWithAuthorityByLoginOrEmail(lowercaseLogin);
 
         if (user == null) {
             throw new UsernameNotFoundException("User " + lowercaseLogin + " was not found in the database");
@@ -50,7 +50,7 @@ public class DomainUserDetailsService implements UserDetailsService {
             .map(authority -> new SimpleGrantedAuthority(authority.getName()))
             .collect(Collectors.toList());
 
-        return new org.springframework.security.core.userdetails.User(lowercaseLogin,
+        return new org.springframework.security.core.userdetails.User(user.getLogin(),
             user.getPassword(),
             grantedAuthorities);
 

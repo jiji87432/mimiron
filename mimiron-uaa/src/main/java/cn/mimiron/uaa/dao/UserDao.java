@@ -5,6 +5,6 @@ import cn.mimiron.uaa.model.User;
 
 public interface UserDao extends BaseDao<User> {
 
-    User selectOneWithAuthorityByLogin(String login);
+    User selectOneWithAuthorityByLoginOrEmail(String login);
 
 }

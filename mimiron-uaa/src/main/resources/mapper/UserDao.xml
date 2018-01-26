@@ -25,7 +25,7 @@
                 resultMap="cn.mimiron.uaa.dao.AuthorityDao.BaseResultMap"/>
   </resultMap>
 
-  <select id="selectOneWithAuthorityByLogin" resultMap="UserAuthorityMap">
+  <select id="selectOneWithAuthorityByLoginOrEmail" resultMap="UserAuthorityMap">
     SELECT
       u.id,
       u.login,
@@ -46,6 +46,6 @@
       INNER JOIN user_authority ua ON u.id = ua.user_id
       INNER JOIN authority a ON ua.authority_name = a.NAME
     WHERE
-      u.login = #{login}
+      u.login = #{login} OR u.email = #{login}
   </select>
 </mapper>

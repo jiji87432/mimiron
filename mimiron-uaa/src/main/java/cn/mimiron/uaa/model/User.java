@@ -120,7 +120,7 @@ public class User {
      * @param login 登录名
      */
     public void setLogin(String login) {
-        this.login = StringUtils.lowerCase(login, Locale.ENGLISH);;
+        this.login = StringUtils.lowerCase(login, Locale.ENGLISH);
     }
 
     /**
@@ -192,7 +192,7 @@ public class User {
      * @param email 邮件
      */
     public void setEmail(String email) {
-        this.email = email;
+        this.email = StringUtils.lowerCase(email, Locale.ENGLISH);
     }
 
     /**

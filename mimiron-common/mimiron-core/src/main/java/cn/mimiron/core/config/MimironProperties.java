@@ -22,16 +22,8 @@ public class MimironProperties {
 
     private final CorsConfiguration cors = new CorsConfiguration();
 
-    private final Ribbon ribbon = new Ribbon();
-
-    private final Registry registry = new Registry();
-
     public Mail getMail() {
         return mail;
-    }
-
-    public Registry getRegistry() {
-        return registry;
     }
 
     public Security getSecurity() {
@@ -44,10 +36,6 @@ public class MimironProperties {
 
     public CorsConfiguration getCors() {
         return cors;
-    }
-
-    public Ribbon getRibbon() {
-        return ribbon;
     }
 
     public static class Mail {
@@ -316,29 +304,4 @@ public class MimironProperties {
         }
     }
 
-    public static class Ribbon {
-
-        private String[] displayOnActiveProfiles;
-
-        public String[] getDisplayOnActiveProfiles() {
-            return displayOnActiveProfiles;
-        }
-
-        public void setDisplayOnActiveProfiles(String[] displayOnActiveProfiles) {
-            this.displayOnActiveProfiles = displayOnActiveProfiles;
-        }
-    }
-
-    private static class Registry {
-
-        private String password;
-
-        public String getPassword() {
-            return password;
-        }
-
-        public void setPassword(String password) {
-            this.password = password;
-        }
-    }
 }

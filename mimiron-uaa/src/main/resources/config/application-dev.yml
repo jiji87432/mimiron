@@ -36,7 +36,7 @@ spring:
     host: smtp.163.com
     port: 25
     username: mimiron_service@163.com
-    password: 13671240120
+    password: 313JYBUjbfkwfX58
   messages:
     cache-seconds: 1
   thymeleaf:

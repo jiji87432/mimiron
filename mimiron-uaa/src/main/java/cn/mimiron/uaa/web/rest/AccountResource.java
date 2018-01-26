@@ -1,11 +1,14 @@
 package cn.mimiron.uaa.web.rest;
 
 import cn.mimiron.uaa.model.User;
+import cn.mimiron.uaa.service.MailService;
 import cn.mimiron.uaa.service.UserService;
 import cn.mimiron.uaa.service.dto.UserDTO;
 import cn.mimiron.uaa.web.rest.errors.EmailAlreadyUsedException;
+import cn.mimiron.uaa.web.rest.errors.EmailNotFoundException;
 import cn.mimiron.uaa.web.rest.errors.InternalServerErrorException;
 import cn.mimiron.uaa.web.rest.errors.InvalidPasswordException;
+import cn.mimiron.uaa.web.rest.vm.KeyAndPasswordVM;
 import cn.mimiron.uaa.web.rest.vm.ManagedUserVM;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -28,8 +31,11 @@ public class AccountResource {
 
     private final UserService userService;
 
-    public AccountResource(UserService userService) {
+    private final MailService mailService;
+
+    public AccountResource(UserService userService, MailService mailService) {
         this.userService = userService;
+        this.mailService = mailService;
     }
 
     /**
@@ -64,7 +70,7 @@ public class AccountResource {
      *
      * @param userDTO the current user information
      * @throws EmailAlreadyUsedException 400 (Bad Request) if the email is already used
-     * @throws RuntimeException 500 (Internal Server Error) if the user login wasn't found
+     * @throws RuntimeException          500 (Internal Server Error) if the user login wasn't found
      */
     @PutMapping("/account")
     public void saveAccount(@Valid @RequestBody UserDTO userDTO) {
@@ -83,6 +89,33 @@ public class AccountResource {
             throw new InvalidPasswordException();
         }
         userService.changePassword(password);
+    }
+
+    /**
+     * POST   /account/reset-password/init : Send an email to reset the password of the user
+     *
+     * @param mail the mail of the user
+     * @throws EmailNotFoundException 400 (Bad Request) if the email address is not registered
+     */
+    @PostMapping(path = "/account/reset-password/init")
+    public void requestPasswordReset(@RequestBody String mail) {
+        User user = userService.requestPasswordReset(mail);
+        mailService.sendPasswordResetMail(user);
+    }
+
+    /**
+     * POST   /account/reset-password/finish : Finish to reset the password of the user
+     *
+     * @param keyAndPassword the generated key and the new password
+     * @throws InvalidPasswordException 400 (Bad Request) if the password is incorrect
+     * @throws RuntimeException         500 (Internal Server Error) if the password could not be reset
+     */
+    @PostMapping(path = "/account/reset-password/finish")
+    public void finishPasswordReset(@RequestBody KeyAndPasswordVM keyAndPassword) {
+        if (!checkPasswordLength(keyAndPassword.getNewPassword())) {
+            throw new InvalidPasswordException();
+        }
+        userService.completePasswordReset(keyAndPassword.getNewPassword(), keyAndPassword.getKey());
     }
 
     private static boolean checkPasswordLength(String password) {

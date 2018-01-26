@@ -1,20 +1,29 @@
 package cn.mimiron.uaa.service;
 
+import cn.mimiron.core.security.AuthoritiesConstants;
 import cn.mimiron.core.security.SecurityUtils;
+import cn.mimiron.uaa.dao.UserAuthorityDao;
 import cn.mimiron.uaa.dao.UserDao;
 import cn.mimiron.uaa.model.User;
+import cn.mimiron.uaa.model.UserAuthority;
 import cn.mimiron.uaa.service.dto.UserDTO;
 import cn.mimiron.uaa.service.util.RandomUtil;
 import cn.mimiron.uaa.web.rest.errors.EmailAlreadyUsedException;
 import cn.mimiron.uaa.web.rest.errors.EmailNotFoundException;
 import cn.mimiron.uaa.web.rest.errors.InternalServerErrorException;
+import cn.mimiron.uaa.web.rest.errors.LoginAlreadyUsedException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -26,13 +35,72 @@ import java.util.Locale;
 @Transactional
 public class UserService {
 
+    private final Logger log = LoggerFactory.getLogger(UserService.class);
+
     private final UserDao userDao;
+
+    private final UserAuthorityDao userAuthorityDao;
 
     private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserDao userDao, PasswordEncoder passwordEncoder) {
+    public UserService(UserDao userDao, UserAuthorityDao userAuthorityDao, PasswordEncoder passwordEncoder) {
         this.userDao = userDao;
+        this.userAuthorityDao = userAuthorityDao;
         this.passwordEncoder = passwordEncoder;
+    }
+
+    public User registerUser(UserDTO userDTO, String password) {
+        Example loginExample = new Example(User.class);
+        loginExample.createCriteria().andEqualTo("login", userDTO.getLogin().toLowerCase());
+        User loginUser = userDao.selectOneByExample(loginExample);
+        if (loginUser != null) {
+            throw new LoginAlreadyUsedException();
+        }
+
+        Example emailExample = new Example(User.class);
+        emailExample.createCriteria().andEqualTo("email", userDTO.getEmail().toLowerCase());
+        User emailUser = userDao.selectOneByExample(emailExample);
+        if (emailUser != null) {
+            throw new EmailAlreadyUsedException();
+        }
+
+        User newUser = new User();
+        String encryptedPassword = passwordEncoder.encode(password);
+        newUser.setLogin(userDTO.getLogin());
+        newUser.setPassword(encryptedPassword);
+        newUser.setFirstName(userDTO.getFirstName());
+        newUser.setLastName(userDTO.getLastName());
+        newUser.setEmail(userDTO.getEmail());
+        newUser.setImageUrl(userDTO.getImageUrl());
+        // new user is not active
+        newUser.setActivated(false);
+        // new user gets registration key
+        newUser.setActivationKey(RandomUtil.generateActivationKey());
+        userDao.insertUseGeneratedKeys(newUser);
+
+        UserAuthority userAuthority = new UserAuthority();
+        userAuthority.setUserId(newUser.getId());
+        userAuthority.setAuthorityName(AuthoritiesConstants.USER);
+        userAuthorityDao.insert(userAuthority);
+
+        log.debug("Created Information for User: {}", newUser);
+        return newUser;
+    }
+
+    public void activateRegistration(String key) {
+        Example example = new Example(User.class);
+        example.createCriteria()
+            .andEqualTo("activationKey", key)
+        ;
+        User user = userDao.selectOneByExample(example);
+        if (user == null) {
+            throw new InternalServerErrorException("No user was found for this activation key");
+        }
+
+        user.setActivated(true);
+        user.setActivationKey(null);
+        user.setGmtModified(new Date());
+        userDao.updateByPrimaryKey(user);
     }
 
     public void changePassword(String password) {
@@ -116,4 +184,24 @@ public class UserService {
         user.setGmtModified(new Date());
         userDao.updateByPrimaryKey(user);
     }
+
+    /**
+     * Not activated users should be automatically deleted after 3 days.
+     * <p>
+     * This is scheduled to get fired everyday, at 01:00 (am).
+     */
+    @Scheduled(cron = "0 0 1 * * ?")
+    public void removeNotActivatedUsers() {
+        Example example = new Example(User.class);
+        example.createCriteria()
+            .andEqualTo("activated", false)
+            .andLessThan("gmtCreate", Instant.now().minus(3, ChronoUnit.DAYS))
+        ;
+        List<User> users = userDao.selectByExample(example);
+        for (User user : users) {
+            log.debug("Deleting not activated user {}", user.getLogin());
+            userDao.delete(user);
+        }
+    }
+
 }

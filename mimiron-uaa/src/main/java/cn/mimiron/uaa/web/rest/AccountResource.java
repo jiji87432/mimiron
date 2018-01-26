@@ -4,15 +4,13 @@ import cn.mimiron.uaa.model.User;
 import cn.mimiron.uaa.service.MailService;
 import cn.mimiron.uaa.service.UserService;
 import cn.mimiron.uaa.service.dto.UserDTO;
-import cn.mimiron.uaa.web.rest.errors.EmailAlreadyUsedException;
-import cn.mimiron.uaa.web.rest.errors.EmailNotFoundException;
-import cn.mimiron.uaa.web.rest.errors.InternalServerErrorException;
-import cn.mimiron.uaa.web.rest.errors.InvalidPasswordException;
+import cn.mimiron.uaa.web.rest.errors.*;
 import cn.mimiron.uaa.web.rest.vm.KeyAndPasswordVM;
 import cn.mimiron.uaa.web.rest.vm.ManagedUserVM;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -36,6 +34,35 @@ public class AccountResource {
     public AccountResource(UserService userService, MailService mailService) {
         this.userService = userService;
         this.mailService = mailService;
+    }
+
+    /**
+     * POST  /register : register the user.
+     *
+     * @param managedUserVM the managed user View Model
+     * @throws InvalidPasswordException 400 (Bad Request) if the password is incorrect
+     * @throws EmailAlreadyUsedException 400 (Bad Request) if the email is already used
+     * @throws LoginAlreadyUsedException 400 (Bad Request) if the login is already used
+     */
+    @PostMapping("/register")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void registerAccount(@Valid @RequestBody ManagedUserVM managedUserVM) {
+        if (!checkPasswordLength(managedUserVM.getPassword())) {
+            throw new InvalidPasswordException();
+        }
+        User user = userService.registerUser(managedUserVM, managedUserVM.getPassword());
+        mailService.sendActivationEmail(user);
+    }
+
+    /**
+     * GET  /activate : activate the registered user.
+     *
+     * @param key the activation key
+     * @throws RuntimeException 500 (Internal Server Error) if the user couldn't be activated
+     */
+    @GetMapping("/activate")
+    public void activateAccount(@RequestParam(value = "key") String key) {
+        userService.activateRegistration(key);
     }
 
     /**

@@ -8,8 +8,8 @@ import tk.mybatis.spring.annotation.MapperScan;
  * @author zhangxd
  */
 @Configuration
-@MapperScan(basePackages = "cn.mimiron.uaa.dao")
 @EnableTransactionManagement
+@MapperScan(basePackages = "cn.mimiron.uaa.mapper")
 public class DatabaseConfiguration {
 
 }

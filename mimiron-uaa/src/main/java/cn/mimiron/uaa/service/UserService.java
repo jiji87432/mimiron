@@ -2,8 +2,8 @@ package cn.mimiron.uaa.service;
 
 import cn.mimiron.core.security.AuthoritiesConstants;
 import cn.mimiron.core.security.SecurityUtils;
-import cn.mimiron.uaa.dao.UserAuthorityDao;
-import cn.mimiron.uaa.dao.UserDao;
+import cn.mimiron.uaa.mapper.UserAuthorityMapper;
+import cn.mimiron.uaa.mapper.UserMapper;
 import cn.mimiron.uaa.model.User;
 import cn.mimiron.uaa.model.UserAuthority;
 import cn.mimiron.uaa.service.dto.UserDTO;
@@ -37,29 +37,29 @@ public class UserService {
 
     private final Logger log = LoggerFactory.getLogger(UserService.class);
 
-    private final UserDao userDao;
+    private final UserMapper userMapper;
 
-    private final UserAuthorityDao userAuthorityDao;
+    private final UserAuthorityMapper userAuthorityMapper;
 
     private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserDao userDao, UserAuthorityDao userAuthorityDao, PasswordEncoder passwordEncoder) {
-        this.userDao = userDao;
-        this.userAuthorityDao = userAuthorityDao;
+    public UserService(UserMapper userMapper, UserAuthorityMapper userAuthorityMapper, PasswordEncoder passwordEncoder) {
+        this.userMapper = userMapper;
+        this.userAuthorityMapper = userAuthorityMapper;
         this.passwordEncoder = passwordEncoder;
     }
 
     public User registerUser(UserDTO userDTO, String password) {
         Example loginExample = new Example(User.class);
         loginExample.createCriteria().andEqualTo("login", userDTO.getLogin().toLowerCase());
-        User loginUser = userDao.selectOneByExample(loginExample);
+        User loginUser = userMapper.selectOneByExample(loginExample);
         if (loginUser != null) {
             throw new LoginAlreadyUsedException();
         }
 
         Example emailExample = new Example(User.class);
         emailExample.createCriteria().andEqualTo("email", userDTO.getEmail().toLowerCase());
-        User emailUser = userDao.selectOneByExample(emailExample);
+        User emailUser = userMapper.selectOneByExample(emailExample);
         if (emailUser != null) {
             throw new EmailAlreadyUsedException();
         }
@@ -76,12 +76,14 @@ public class UserService {
         newUser.setActivated(false);
         // new user gets registration key
         newUser.setActivationKey(RandomUtil.generateActivationKey());
-        userDao.insertUseGeneratedKeys(newUser);
+        newUser.setGmtCreate(new Date());
+        newUser.setGmtModified(new Date());
+        userMapper.insertUseGeneratedKeys(newUser);
 
         UserAuthority userAuthority = new UserAuthority();
         userAuthority.setUserId(newUser.getId());
         userAuthority.setAuthorityName(AuthoritiesConstants.USER);
-        userAuthorityDao.insert(userAuthority);
+        userAuthorityMapper.insert(userAuthority);
 
         log.debug("Created Information for User: {}", newUser);
         return newUser;
@@ -92,7 +94,7 @@ public class UserService {
         example.createCriteria()
             .andEqualTo("activationKey", key)
         ;
-        User user = userDao.selectOneByExample(example);
+        User user = userMapper.selectOneByExample(example);
         if (user == null) {
             throw new InternalServerErrorException("No user was found for this activation key");
         }
@@ -100,23 +102,23 @@ public class UserService {
         user.setActivated(true);
         user.setActivationKey(null);
         user.setGmtModified(new Date());
-        userDao.updateByPrimaryKey(user);
+        userMapper.updateByPrimaryKey(user);
     }
 
     public void changePassword(String password) {
         String login = SecurityUtils.getCurrentUserLogin();
         User user = new User();
         user.setLogin(login);
-        user = userDao.selectOne(user);
+        user = userMapper.selectOne(user);
         user.setPassword(passwordEncoder.encode(password));
         user.setGmtModified(new Date());
-        userDao.updateByPrimaryKeySelective(user);
+        userMapper.updateByPrimaryKeySelective(user);
     }
 
     @Transactional(readOnly = true)
     public User getUserWithAuthorities() {
         String login = SecurityUtils.getCurrentUserLogin();
-        return userDao.selectOneWithAuthorityByLoginOrEmail(login);
+        return userMapper.selectOneWithAuthorityByLoginOrEmail(login);
     }
 
     public void updateCurrentAccount(UserDTO userDTO) {
@@ -127,13 +129,13 @@ public class UserService {
 
         Example emailExample = new Example(User.class);
         emailExample.createCriteria().andEqualTo("email", userDTO.getEmail());
-        User existingUser = userDao.selectOneByExample(emailExample);
+        User existingUser = userMapper.selectOneByExample(emailExample);
         if (existingUser != null && (!userLogin.equalsIgnoreCase(existingUser.getLogin()))) {
             throw new EmailAlreadyUsedException();
         }
         Example loginExample = new Example(User.class);
         loginExample.createCriteria().andEqualTo("login", userLogin);
-        User user = userDao.selectOneByExample(loginExample);
+        User user = userMapper.selectOneByExample(loginExample);
         if (user == null) {
             throw new InternalServerErrorException("User could not be found");
         }
@@ -144,13 +146,13 @@ public class UserService {
         updateUser.setEmail(userDTO.getEmail());
         updateUser.setImageUrl(userDTO.getImageUrl());
         updateUser.setGmtModified(new Date());
-        userDao.updateByPrimaryKeySelective(updateUser);
+        userMapper.updateByPrimaryKeySelective(updateUser);
     }
 
     public User requestPasswordReset(String mail) {
         Example example = new Example(User.class);
         example.createCriteria().andEqualTo("email", mail.toLowerCase(Locale.ENGLISH));
-        User user = userDao.selectOneByExample(example);
+        User user = userMapper.selectOneByExample(example);
         if (user == null) {
             throw new EmailNotFoundException();
         }
@@ -159,7 +161,7 @@ public class UserService {
         updateUser.setResetKey(RandomUtil.generateResetKey());
         updateUser.setResetDate(new Date());
         updateUser.setGmtModified(new Date());
-        userDao.updateByPrimaryKeySelective(updateUser);
+        userMapper.updateByPrimaryKeySelective(updateUser);
 
         user.setResetKey(updateUser.getResetKey());
         user.setResetDate(updateUser.getResetDate());
@@ -173,7 +175,7 @@ public class UserService {
             .andEqualTo("resetKey", key)
             .andGreaterThanOrEqualTo("resetDate", Instant.now().minusSeconds(86400))
         ;
-        User user = userDao.selectOneByExample(example);
+        User user = userMapper.selectOneByExample(example);
         if (user == null) {
             throw new InternalServerErrorException("No user was found for this reset key");
         }
@@ -182,7 +184,7 @@ public class UserService {
         user.setResetKey(null);
         user.setResetDate(null);
         user.setGmtModified(new Date());
-        userDao.updateByPrimaryKey(user);
+        userMapper.updateByPrimaryKey(user);
     }
 
     /**
@@ -197,10 +199,10 @@ public class UserService {
             .andEqualTo("activated", false)
             .andLessThan("gmtCreate", Instant.now().minus(3, ChronoUnit.DAYS))
         ;
-        List<User> users = userDao.selectByExample(example);
+        List<User> users = userMapper.selectByExample(example);
         for (User user : users) {
             log.debug("Deleting not activated user {}", user.getLogin());
-            userDao.delete(user);
+            userMapper.delete(user);
         }
     }
 

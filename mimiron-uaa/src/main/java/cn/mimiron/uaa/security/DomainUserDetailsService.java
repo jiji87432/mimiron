@@ -1,6 +1,6 @@
 package cn.mimiron.uaa.security;
 
-import cn.mimiron.uaa.dao.UserDao;
+import cn.mimiron.uaa.mapper.UserMapper;
 import cn.mimiron.uaa.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,10 +26,10 @@ public class DomainUserDetailsService implements UserDetailsService {
 
     private final Logger log = LoggerFactory.getLogger(DomainUserDetailsService.class);
 
-    private final UserDao userDao;
+    private final UserMapper userMapper;
 
-    public DomainUserDetailsService(UserDao userDao) {
-        this.userDao = userDao;
+    public DomainUserDetailsService(UserMapper userMapper) {
+        this.userMapper = userMapper;
     }
 
     @Override
@@ -37,7 +37,7 @@ public class DomainUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(final String login) {
         log.debug("Authenticating {}", login);
         String lowercaseLogin = login.toLowerCase(Locale.ENGLISH);
-        User user = userDao.selectOneWithAuthorityByLoginOrEmail(lowercaseLogin);
+        User user = userMapper.selectOneWithAuthorityByLoginOrEmail(lowercaseLogin);
 
         if (user == null) {
             throw new UsernameNotFoundException("User " + lowercaseLogin + " was not found in the database");

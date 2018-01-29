@@ -6,7 +6,7 @@
 <generatorConfiguration>
   <properties resource="generator/generator.properties"/>
 
-  <context id="Mysql" targetRuntime="tk.mybatis.mapper.generator.TkMyBatis3SimpleImpl" defaultModelType="flat">
+  <context id="Mysql" targetRuntime="MyBatis3Simple" defaultModelType="flat">
     <property name="javaFileEncoding" value="UTF-8"/>
     <property name="beginningDelimiter" value="`"/>
     <property name="endingDelimiter" value="`"/>
@@ -14,7 +14,7 @@
     <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin" />
     <plugin type="org.mybatis.generator.plugins.ToStringPlugin" />
     <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
-      <property name="mappers" value="cn.mimiron.core.dao.BaseDao"/>
+      <property name="mappers" value="cn.mimiron.core.mapper.BaseMapper"/>
     </plugin>
 
     <jdbcConnection driverClass="${jdbc_driver}"
@@ -27,9 +27,9 @@
 
     <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources"/>
 
-    <javaClientGenerator targetPackage="${dao_target_package}" targetProject="src/main/java" type="XMLMAPPER"/>
+    <javaClientGenerator targetPackage="${mapper_target_package}" targetProject="src/main/java" type="XMLMAPPER"/>
 
-    <table tableName="%" mapperName="{0}Dao">
+    <table tableName="%">
       <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
       <columnRenamingRule searchString="^is_" replaceString=""/>
     </table>

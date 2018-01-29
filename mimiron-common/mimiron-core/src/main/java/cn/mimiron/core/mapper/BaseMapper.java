@@ -1,4 +1,4 @@
-package cn.mimiron.core.dao;
+package cn.mimiron.core.mapper;
 
 import tk.mybatis.mapper.common.Mapper;
 import tk.mybatis.mapper.common.MySqlMapper;
@@ -8,5 +8,5 @@ import tk.mybatis.mapper.common.MySqlMapper;
  *
  * @author zhangxd
  */
-public interface BaseDao<T> extends Mapper<T>, MySqlMapper<T> {
+public interface BaseMapper<T> extends Mapper<T>, MySqlMapper<T> {
 }

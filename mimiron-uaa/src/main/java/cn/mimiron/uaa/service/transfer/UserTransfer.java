@@ -1,4 +1,4 @@
-package cn.mimiron.uaa.service.mapper;
+package cn.mimiron.uaa.service.transfer;
 
 import cn.mimiron.uaa.model.Authority;
 import cn.mimiron.uaa.model.User;
@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
  * @author zhangxd
  */
 @Service
-public class UserMapper {
+public class UserTransfer {
 
     public UserDTO userToUserDTO(User user) {
         return new UserDTO(user);

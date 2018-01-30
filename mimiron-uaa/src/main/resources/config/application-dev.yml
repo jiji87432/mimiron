@@ -7,11 +7,6 @@ spring:
   profiles:
     active: dev
     include: swagger
-  devtools:
-    restart:
-      enabled: true
-    livereload:
-      enabled: false
   jackson:
     serialization.indent_output: true
   cloud:

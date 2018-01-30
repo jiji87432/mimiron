@@ -341,13 +341,6 @@
       <activation>
         <activeByDefault>true</activeByDefault>
       </activation>
-      <dependencies>
-        <dependency>
-          <groupId>org.springframework.boot</groupId>
-          <artifactId>spring-boot-devtools</artifactId>
-          <optional>true</optional>
-        </dependency>
-      </dependencies>
       <properties>
         <!-- default Spring profiles -->
         <spring.profiles.active>dev</spring.profiles.active>
@@ -355,21 +348,6 @@
     </profile>
     <profile>
       <id>prod</id>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-maven-plugin</artifactId>
-            <executions>
-              <execution>
-                <goals>
-                  <goal>build-info</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
       <properties>
         <!-- default Spring profiles -->
         <spring.profiles.active>prod${profile.swagger}</spring.profiles.active>

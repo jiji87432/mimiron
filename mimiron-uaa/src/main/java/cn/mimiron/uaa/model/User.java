@@ -2,7 +2,10 @@ package cn.mimiron.uaa.model;
 
 import org.apache.commons.lang3.StringUtils;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Locale;
@@ -96,6 +99,11 @@ public class User {
         return id;
     }
 
+    public User withId(Long id) {
+        this.setId(id);
+        return this;
+    }
+
     /**
      * 设置主键
      *
@@ -112,6 +120,11 @@ public class User {
      */
     public String getLogin() {
         return login;
+    }
+
+    public User withLogin(String login) {
+        this.setLogin(login);
+        return this;
     }
 
     /**
@@ -132,6 +145,11 @@ public class User {
         return password;
     }
 
+    public User withPassword(String password) {
+        this.setPassword(password);
+        return this;
+    }
+
     /**
      * 设置密码
      *
@@ -148,6 +166,11 @@ public class User {
      */
     public String getFirstName() {
         return firstName;
+    }
+
+    public User withFirstName(String firstName) {
+        this.setFirstName(firstName);
+        return this;
     }
 
     /**
@@ -168,6 +191,11 @@ public class User {
         return lastName;
     }
 
+    public User withLastName(String lastName) {
+        this.setLastName(lastName);
+        return this;
+    }
+
     /**
      * 设置姓
      *
@@ -184,6 +212,11 @@ public class User {
      */
     public String getEmail() {
         return email;
+    }
+
+    public User withEmail(String email) {
+        this.setEmail(email);
+        return this;
     }
 
     /**
@@ -204,6 +237,11 @@ public class User {
         return imageUrl;
     }
 
+    public User withImageUrl(String imageUrl) {
+        this.setImageUrl(imageUrl);
+        return this;
+    }
+
     /**
      * 设置头像地址
      *
@@ -220,6 +258,11 @@ public class User {
      */
     public Boolean getActivated() {
         return activated;
+    }
+
+    public User withActivated(Boolean activated) {
+        this.setActivated(activated);
+        return this;
     }
 
     /**
@@ -240,6 +283,11 @@ public class User {
         return activationKey;
     }
 
+    public User withActivationKey(String activationKey) {
+        this.setActivationKey(activationKey);
+        return this;
+    }
+
     /**
      * 设置激活验证码
      *
@@ -256,6 +304,11 @@ public class User {
      */
     public String getResetKey() {
         return resetKey;
+    }
+
+    public User withResetKey(String resetKey) {
+        this.setResetKey(resetKey);
+        return this;
     }
 
     /**
@@ -276,6 +329,11 @@ public class User {
         return resetDate;
     }
 
+    public User withResetDate(Date resetDate) {
+        this.setResetDate(resetDate);
+        return this;
+    }
+
     /**
      * 设置充值密码时间
      *
@@ -294,6 +352,11 @@ public class User {
         return gmtCreate;
     }
 
+    public User withGmtCreate(Date gmtCreate) {
+        this.setGmtCreate(gmtCreate);
+        return this;
+    }
+
     /**
      * 设置创建时间
      *
@@ -310,6 +373,11 @@ public class User {
      */
     public Date getGmtModified() {
         return gmtModified;
+    }
+
+    public User withGmtModified(Date gmtModified) {
+        this.setGmtModified(gmtModified);
+        return this;
     }
 
     /**

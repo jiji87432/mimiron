@@ -18,6 +18,11 @@ public class Authority {
         return name;
     }
 
+    public Authority withName(String name) {
+        this.setName(name);
+        return this;
+    }
+
     /**
      * 设置角色
      *

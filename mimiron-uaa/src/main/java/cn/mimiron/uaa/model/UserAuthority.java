@@ -27,6 +27,11 @@ public class UserAuthority {
         return userId;
     }
 
+    public UserAuthority withUserId(Long userId) {
+        this.setUserId(userId);
+        return this;
+    }
+
     /**
      * 设置用户ID
      *
@@ -43,6 +48,11 @@ public class UserAuthority {
      */
     public String getAuthorityName() {
         return authorityName;
+    }
+
+    public UserAuthority withAuthorityName(String authorityName) {
+        this.setAuthorityName(authorityName);
+        return this;
     }
 
     /**

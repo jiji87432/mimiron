@@ -11,6 +11,7 @@
     <property name="beginningDelimiter" value="`"/>
     <property name="endingDelimiter" value="`"/>
 
+    <plugin type="org.mybatis.generator.plugins.FluentBuilderMethodsPlugin" />
     <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin" />
     <plugin type="org.mybatis.generator.plugins.ToStringPlugin" />
     <plugin type="tk.mybatis.mapper.generator.MapperPlugin">

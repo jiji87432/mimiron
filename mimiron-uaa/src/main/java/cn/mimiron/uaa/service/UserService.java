@@ -64,25 +64,23 @@ public class UserService {
             throw new EmailAlreadyUsedException();
         }
 
-        User newUser = new User();
         String encryptedPassword = passwordEncoder.encode(password);
-        newUser.setLogin(userDTO.getLogin());
-        newUser.setPassword(encryptedPassword);
-        newUser.setFirstName(userDTO.getFirstName());
-        newUser.setLastName(userDTO.getLastName());
-        newUser.setEmail(userDTO.getEmail());
-        newUser.setImageUrl(userDTO.getImageUrl());
-        // new user is not active
-        newUser.setActivated(false);
-        // new user gets registration key
-        newUser.setActivationKey(RandomUtil.generateActivationKey());
-        newUser.setGmtCreate(new Date());
-        newUser.setGmtModified(new Date());
+        User newUser = new User()
+            .withLogin(userDTO.getLogin())
+            .withPassword(encryptedPassword)
+            .withFirstName(userDTO.getFirstName())
+            .withLastName(userDTO.getLastName())
+            .withEmail(userDTO.getEmail())
+            .withImageUrl(userDTO.getImageUrl())
+            .withActivated(false)
+            .withActivationKey(RandomUtil.generateActivationKey())
+            .withGmtCreate(new Date())
+            .withGmtModified(new Date());
         userMapper.insertUseGeneratedKeys(newUser);
 
-        UserAuthority userAuthority = new UserAuthority();
-        userAuthority.setUserId(newUser.getId());
-        userAuthority.setAuthorityName(AuthoritiesConstants.USER);
+        UserAuthority userAuthority = new UserAuthority()
+            .withUserId(newUser.getId())
+            .withAuthorityName(AuthoritiesConstants.USER);
         userAuthorityMapper.insert(userAuthority);
 
         log.debug("Created Information for User: {}", newUser);
@@ -99,20 +97,20 @@ public class UserService {
             throw new InternalServerErrorException("No user was found for this activation key");
         }
 
-        user.setActivated(true);
-        user.setActivationKey(null);
-        user.setGmtModified(new Date());
+        user.withActivated(true)
+            .withActivationKey(null)
+            .withGmtModified(new Date());
         userMapper.updateByPrimaryKey(user);
     }
 
     public void changePassword(String password) {
-        String login = SecurityUtils.getCurrentUserLogin();
-        User user = new User();
-        user.setLogin(login);
-        user = userMapper.selectOne(user);
-        user.setPassword(passwordEncoder.encode(password));
-        user.setGmtModified(new Date());
-        userMapper.updateByPrimaryKeySelective(user);
+        Example example = new Example(User.class);
+        example.createCriteria()
+            .andEqualTo("login", SecurityUtils.getCurrentUserLogin());
+        User user = new User()
+            .withPassword(passwordEncoder.encode(password))
+            .withGmtModified(new Date());
+        userMapper.updateByExampleSelective(user, example);
     }
 
     @Transactional(readOnly = true)
@@ -139,13 +137,13 @@ public class UserService {
         if (user == null) {
             throw new InternalServerErrorException("User could not be found");
         }
-        User updateUser = new User();
-        updateUser.setId(user.getId());
-        updateUser.setFirstName(userDTO.getFirstName());
-        updateUser.setLastName(userDTO.getLastName());
-        updateUser.setEmail(userDTO.getEmail());
-        updateUser.setImageUrl(userDTO.getImageUrl());
-        updateUser.setGmtModified(new Date());
+        User updateUser = new User()
+            .withId(user.getId())
+            .withFirstName(userDTO.getFirstName())
+            .withLastName(userDTO.getLastName())
+            .withEmail(userDTO.getEmail())
+            .withImageUrl(userDTO.getImageUrl())
+            .withGmtModified(new Date());
         userMapper.updateByPrimaryKeySelective(updateUser);
     }
 
@@ -156,16 +154,16 @@ public class UserService {
         if (user == null) {
             throw new EmailNotFoundException();
         }
-        User updateUser = new User();
-        updateUser.setId(user.getId());
-        updateUser.setResetKey(RandomUtil.generateResetKey());
-        updateUser.setResetDate(new Date());
-        updateUser.setGmtModified(new Date());
+        User updateUser = new User()
+            .withId(user.getId())
+            .withResetKey(RandomUtil.generateResetKey())
+            .withResetDate(new Date())
+            .withGmtModified(new Date());
         userMapper.updateByPrimaryKeySelective(updateUser);
 
-        user.setResetKey(updateUser.getResetKey());
-        user.setResetDate(updateUser.getResetDate());
-        user.setGmtModified(updateUser.getGmtModified());
+        user.withResetKey(updateUser.getResetKey())
+            .withResetDate(updateUser.getResetDate())
+            .withGmtModified(updateUser.getGmtModified());
         return user;
     }
 
@@ -180,10 +178,10 @@ public class UserService {
             throw new InternalServerErrorException("No user was found for this reset key");
         }
 
-        user.setPassword(passwordEncoder.encode(newPassword));
-        user.setResetKey(null);
-        user.setResetDate(null);
-        user.setGmtModified(new Date());
+        user.withPassword(passwordEncoder.encode(newPassword))
+            .withResetKey(null)
+            .withResetDate(null)
+            .withGmtModified(new Date());
         userMapper.updateByPrimaryKey(user);
     }
 

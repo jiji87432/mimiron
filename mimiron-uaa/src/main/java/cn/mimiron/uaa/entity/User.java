@@ -1,6 +1,7 @@
 package cn.mimiron.uaa.entity;
 
 import java.util.Date;
+import com.baomidou.mybatisplus.annotations.TableLogic;
 import com.baomidou.mybatisplus.annotations.Version;
 import cn.mimiron.core.entity.BaseEntity;
 
@@ -56,6 +57,11 @@ public class User extends BaseEntity {
      * 充值密码时间
      */
     private Date resetDate;
+    /**
+     * 删除标记
+     */
+    @TableLogic
+    private Boolean deleted;
 
 
     public String getLogin() {
@@ -138,6 +144,14 @@ public class User extends BaseEntity {
         this.resetDate = resetDate;
     }
 
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -151,6 +165,7 @@ public class User extends BaseEntity {
         ", activationKey=" + activationKey +
         ", resetKey=" + resetKey +
         ", resetDate=" + resetDate +
+        ", deleted=" + deleted +
         "}";
     }
 }

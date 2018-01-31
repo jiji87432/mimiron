@@ -7,8 +7,8 @@
     <result column="id" property="id" />
     <result column="gmt_create" property="gmtCreate" />
     <result column="gmt_modified" property="gmtModified" />
-    <result column="is_deleted" property="isDeleted" />
         <result column="name" property="name" />
+        <result column="is_deleted" property="deleted" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -16,8 +16,7 @@
 id,
 gmt_create AS gmtCreate,
 gmt_modified AS gmtModified,
-is_deleted AS isDeleted,
-        name
+        name, is_deleted
     </sql>
 
 </mapper>

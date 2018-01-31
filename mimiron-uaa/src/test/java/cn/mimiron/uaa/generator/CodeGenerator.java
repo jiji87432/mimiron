@@ -1,7 +1,7 @@
 package cn.mimiron.uaa.generator;
 
-import cn.mimiron.core.generator.Generator;
-import com.baomidou.mybatisplus.generator.AutoGenerator;
+import cn.mimiron.core.generator.BaseGenerator;
+import cn.mimiron.core.generator.SimpleGenerator;
 import org.junit.Test;
 
 /**
@@ -11,8 +11,11 @@ import org.junit.Test;
  */
 public class CodeGenerator {
 
-    private static final String[] INCLUDE_TABLES = new String[]{
+    private static final String[] BASE_INCLUDE_TABLES = new String[]{
         "user", "role"
+    };
+    private static final String[] SIMPLE_INCLUDE_TABLES = new String[]{
+        "user_role"
     };
     private static final String BASE_PACKAGE = "cn.mimiron.uaa";
     private static final String DB_URL = "jdbc:mysql://localhost:3306/mimiron-uaa";
@@ -22,17 +25,28 @@ public class CodeGenerator {
     private static final String AUTHOR = "zhangxd";
 
     @Test
-    public void generateCode() {
-        generateByTables();
-    }
-
-    private void generateByTables() {
-        new AutoGenerator()
-            .setGlobalConfig(Generator.globalConfig(AUTHOR))
-            .setDataSource(Generator.dataSourceConfig(DB_URL, DB_USERNAME, DB_PASSWORD))
-            .setStrategy(Generator.strategyConfig(INCLUDE_TABLES))
-            .setPackageInfo(Generator.packageConfig(BASE_PACKAGE))
+    public void generateBaseCode() {
+        new BaseGenerator()
+            .globalConfig(AUTHOR)
+            .dataSourceConfig(DB_URL, DB_USERNAME, DB_PASSWORD)
+            .packageConfig(BASE_PACKAGE)
+            .injectionConfig()
+            .templateConfig()
+            .strategyConfig(BASE_INCLUDE_TABLES)
             .execute();
     }
+
+    @Test
+    public void generateSimpleCode() {
+        new SimpleGenerator()
+            .globalConfig(AUTHOR)
+            .dataSourceConfig(DB_URL, DB_USERNAME, DB_PASSWORD)
+            .packageConfig(BASE_PACKAGE)
+            .injectionConfig()
+            .templateConfig()
+            .strategyConfig(SIMPLE_INCLUDE_TABLES)
+            .execute();
+    }
+
 
 }

@@ -1,7 +1,5 @@
 package cn.mimiron.core.entity;
 
-import com.baomidou.mybatisplus.annotations.TableLogic;
-
 import java.io.Serializable;
 import java.util.Date;
 
@@ -23,11 +21,6 @@ public abstract class BaseEntity implements Serializable {
      * 更新时间
      */
     private Date gmtModified;
-    /**
-     * 删除标记
-     */
-    @TableLogic
-    private Boolean deleted;
 
     public Long getId() {
         return id;
@@ -53,11 +46,4 @@ public abstract class BaseEntity implements Serializable {
         this.gmtModified = gmtModified;
     }
 
-    public Boolean getDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(Boolean deleted) {
-        this.deleted = deleted;
-    }
 }

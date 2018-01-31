@@ -30,8 +30,7 @@
     <springfox.version>2.7.0</springfox.version>
     <ratelimit.version>1.4.0.RELEASE</ratelimit.version>
     <druid-starter.version>1.1.6</druid-starter.version>
-    <tk-mapper-starter.version>1.2.3</tk-mapper-starter.version>
-    <pagehelper.version>1.2.3</pagehelper.version>
+    <mybatis-plus-boot-starter.version>2.1.9</mybatis-plus-boot-starter.version>
     <flyway.version>5.0.6</flyway.version>
     <spring-cloud-zipkin.version>1.2.5.RELEASE</spring-cloud-zipkin.version>
 
@@ -92,14 +91,9 @@
         <version>${druid-starter.version}</version>
       </dependency>
       <dependency>
-        <groupId>tk.mybatis</groupId>
-        <artifactId>mapper-spring-boot-starter</artifactId>
-        <version>${tk-mapper-starter.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.github.pagehelper</groupId>
-        <artifactId>pagehelper-spring-boot-starter</artifactId>
-        <version>${pagehelper.version}</version>
+        <groupId>com.baomidou</groupId>
+        <artifactId>mybatis-plus-boot-starter</artifactId>
+        <version>${mybatis-plus-boot-starter.version}</version>
       </dependency>
 
       <dependency>

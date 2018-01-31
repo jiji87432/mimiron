@@ -1,6 +1,5 @@
-package cn.mimiron.uaa.generator;
+package cn.mimiron.core.generator;
 
-import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
 import com.baomidou.mybatisplus.generator.config.GlobalConfig;
 import com.baomidou.mybatisplus.generator.config.PackageConfig;
@@ -9,61 +8,40 @@ import com.baomidou.mybatisplus.generator.config.converts.MySqlTypeConvert;
 import com.baomidou.mybatisplus.generator.config.rules.DbColumnType;
 import com.baomidou.mybatisplus.generator.config.rules.DbType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
-import org.junit.Test;
 
 /**
- * 代码生成
- *
  * @author zhangxd
  */
 public class Generator {
 
-    private static final String[] INCLUDE_TABLES = new String[]{
-        "user", "authority"
-    };
-    private static final String BASE_PACKAGE = "cn.mimiron.uaa";
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/mimiron-uaa";
-    private static final String DB_USERNAME = "root";
-    private static final String DB_PASSWORD = "root";
-
-    @Test
-    public void generateCode() {
-        generateByTables();
+    public static PackageConfig packageConfig(String basePackage) {
+        return new PackageConfig()
+            .setParent(basePackage)
+            .setController("controller")
+            .setEntity("entity")
+            .setXml("mapper.mapping");
     }
 
-    private void generateByTables() {
-        new AutoGenerator().setGlobalConfig(globalConfig())
-            .setDataSource(dataSourceConfig())
-            .setStrategy(strategyConfig())
-            .setPackageInfo(
-                new PackageConfig()
-                    .setParent(BASE_PACKAGE)
-                    .setController("controller")
-                    .setEntity("entity")
-            ).execute();
-    }
-
-    private GlobalConfig globalConfig() {
+    public static GlobalConfig globalConfig(String author) {
         return new GlobalConfig()
             .setActiveRecord(false)
-            .setAuthor("zhangxd")
+            .setAuthor(author)
             .setOutputDir("src/main/java")
             .setEnableCache(false)
             .setBaseResultMap(true)
             .setBaseColumnList(true)
             .setOpen(false)
-            .setFileOverride(true);
+            .setFileOverride(false);
     }
 
-    private DataSourceConfig dataSourceConfig() {
+    public static DataSourceConfig dataSourceConfig(String dbUrl, String username, String password) {
         return new DataSourceConfig()
             .setDbType(DbType.MYSQL)
-            .setUrl(DB_URL)
-            .setUsername(DB_USERNAME)
-            .setPassword(DB_PASSWORD)
+            .setUrl(dbUrl)
+            .setUsername(username)
+            .setPassword(password)
             .setDriverName("com.mysql.jdbc.Driver")
             .setTypeConvert(new MySqlTypeConvert() {
-                // 字段转换
                 @Override
                 public DbColumnType processTypeConvert(String fieldType) {
                     if (fieldType.startsWith("tinyint(1)")) {
@@ -74,7 +52,7 @@ public class Generator {
             });
     }
 
-    private StrategyConfig strategyConfig() {
+    public static StrategyConfig strategyConfig(String[] includeTables) {
         return new StrategyConfig()
             .setEntityLombokModel(false)
             .setDbColumnUnderline(true)
@@ -87,10 +65,10 @@ public class Generator {
             .setEntityBooleanColumnRemoveIsPrefix(true)
             .setRestControllerStyle(true)
             .setControllerMappingHyphenStyle(true)
-            .setSuperEntityColumns("id", "gmt_create", "gmt_modified")
+            .setSuperEntityColumns("id", "gmt_create", "gmt_modified", "is_deleted")
             .setLogicDeleteFieldName("is_deleted")
             .setVersionFieldName("version")
-            .setInclude(INCLUDE_TABLES);
+            .setInclude(includeTables);
     }
 
 }

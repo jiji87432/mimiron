@@ -1,4 +1,4 @@
-package cn.mimiron.uaa.web.rest.vm;
+package cn.mimiron.uaa.controller.vm;
 
 /**
  * View Model object for storing the user's key and password.

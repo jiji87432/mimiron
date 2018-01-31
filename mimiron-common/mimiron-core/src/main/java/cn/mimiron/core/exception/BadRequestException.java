@@ -1,4 +1,4 @@
-package cn.mimiron.uaa.web.rest.errors;
+package cn.mimiron.core.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

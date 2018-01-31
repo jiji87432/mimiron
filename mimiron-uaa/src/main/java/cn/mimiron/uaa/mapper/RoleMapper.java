@@ -1,16 +1,16 @@
 package cn.mimiron.uaa.mapper;
 
-import cn.mimiron.uaa.entity.User;
+import cn.mimiron.uaa.entity.Role;
 import cn.mimiron.core.mapper.BaseMapper;
 
 /**
  * <p>
- * 用户 Mapper 接口
+ * 角色 Mapper 接口
  * </p>
  *
  * @author zhangxd
  * @since 2018-02-01
  */
-public interface UserMapper extends BaseMapper<User> {
+public interface RoleMapper extends BaseMapper<Role> {
 
 }

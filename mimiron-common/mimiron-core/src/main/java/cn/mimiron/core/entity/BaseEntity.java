@@ -1,8 +1,6 @@
 package cn.mimiron.core.entity;
 
-import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.enums.IdType;
+import com.baomidou.mybatisplus.annotations.TableLogic;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -15,19 +13,21 @@ public abstract class BaseEntity implements Serializable {
     /**
      * 主键
      */
-    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     /**
      * 创建时间
      */
-    @TableField(value = "gmt_create")
     private Date gmtCreate;
     /**
      * 更新时间
      */
-    @TableField(value = "gmt_modified")
     private Date gmtModified;
+    /**
+     * 删除标记
+     */
+    @TableLogic
+    private Boolean deleted;
 
     public Long getId() {
         return id;
@@ -51,5 +51,13 @@ public abstract class BaseEntity implements Serializable {
 
     public void setGmtModified(Date gmtModified) {
         this.gmtModified = gmtModified;
+    }
+
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
     }
 }

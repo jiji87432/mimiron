@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableTransactionManagement
 @MapperScan(basePackages = "cn.mimiron.uaa.mapper")
-public class DatabaseConfiguration {
+public class MybatisConfiguration {
 
     /**
      * mybatis-plus SQL执行效率插件【生产环境可以关闭】

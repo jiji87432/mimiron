@@ -2,6 +2,8 @@ package cn.mimiron.uaa.controller.vm;
 
 /**
  * View Model object for storing the user's key and password.
+ *
+ * @author zhangxd
  */
 public class KeyAndPasswordVM {
 

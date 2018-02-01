@@ -4,20 +4,48 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="cn.mimiron.uaa.entity.User">
-        <id column="id" property="id" />
-        <result column="gmt_create" property="gmtCreate" />
-        <result column="gmt_modified" property="gmtModified" />
-        <result column="login" property="login" />
-        <result column="password" property="password" />
-        <result column="first_name" property="firstName" />
-        <result column="last_name" property="lastName" />
-        <result column="email" property="email" />
-        <result column="image_url" property="imageUrl" />
-        <result column="is_activated" property="activated" />
-        <result column="activation_key" property="activationKey" />
-        <result column="reset_key" property="resetKey" />
-        <result column="reset_date" property="resetDate" />
-        <result column="is_deleted" property="deleted" />
+        <id column="id" property="id"/>
+        <result column="gmt_create" property="gmtCreate"/>
+        <result column="gmt_modified" property="gmtModified"/>
+        <result column="login" property="login"/>
+        <result column="password" property="password"/>
+        <result column="first_name" property="firstName"/>
+        <result column="last_name" property="lastName"/>
+        <result column="email" property="email"/>
+        <result column="image_url" property="imageUrl"/>
+        <result column="is_activated" property="activated"/>
+        <result column="activation_key" property="activationKey"/>
+        <result column="reset_key" property="resetKey"/>
+        <result column="reset_date" property="resetDate"/>
+        <result column="is_deleted" property="deleted"/>
     </resultMap>
 
+    <resultMap id="UserRoleMap" extends="BaseResultMap" type="cn.mimiron.uaa.entity.User">
+        <collection property="roles" columnPrefix="role_"
+                    resultMap="cn.mimiron.uaa.mapper.RoleMapper.BaseResultMap"/>
+    </resultMap>
+
+    <select id="selectOneWithRoleByLoginOrEmail" resultMap="UserRoleMap">
+        SELECT
+        u.id,
+        u.login,
+        u.`password`,
+        u.first_name,
+        u.last_name,
+        u.email,
+        u.image_url,
+        u.is_activated,
+        u.activation_key,
+        u.reset_key,
+        u.reset_date,
+        u.gmt_create,
+        u.gmt_modified,
+        r.`name` role_name
+        FROM
+        USER u
+        INNER JOIN user_role ur ON u.id = ur.user_id AND u.is_deleted = 0
+        INNER JOIN role r ON ur.role_id = r.id AND r.is_deleted = 0
+        WHERE
+        u.login = #{login} OR u.email = #{login}
+    </select>
 </mapper>

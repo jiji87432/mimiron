@@ -11,16 +11,16 @@ public abstract class BaseEntity implements Serializable {
     /**
      * 主键
      */
-    private Long id;
+    protected Long id;
 
     /**
      * 创建时间
      */
-    private Date gmtCreate;
+    protected Date gmtCreate;
     /**
      * 更新时间
      */
-    private Date gmtModified;
+    protected Date gmtModified;
 
     public Long getId() {
         return id;
@@ -46,4 +46,12 @@ public abstract class BaseEntity implements Serializable {
         this.gmtModified = gmtModified;
     }
 
+    @Override
+    public String toString() {
+        return "BaseEntity{" +
+            "id=" + id +
+            ", gmtCreate=" + gmtCreate +
+            ", gmtModified=" + gmtModified +
+            '}';
+    }
 }

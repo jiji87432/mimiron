@@ -19,9 +19,9 @@ public class UserRole implements Serializable {
      */
     private Long userId;
     /**
-     * 角色
+     * 角色ID
      */
-    private String roleId;
+    private Long roleId;
 
 
     public Long getUserId() {
@@ -32,19 +32,19 @@ public class UserRole implements Serializable {
         this.userId = userId;
     }
 
-    public String getRoleId() {
+    public Long getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(String roleId) {
+    public void setRoleId(Long roleId) {
         this.roleId = roleId;
     }
 
     @Override
     public String toString() {
         return "UserRole{" +
-        ", userId=" + userId +
-        ", roleId=" + roleId +
-        "}";
+            ", userId=" + userId +
+            ", roleId=" + roleId +
+            "}";
     }
 }

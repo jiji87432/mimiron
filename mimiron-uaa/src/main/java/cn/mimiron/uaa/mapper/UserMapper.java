@@ -13,4 +13,11 @@ import cn.mimiron.core.mapper.BaseMapper;
  */
 public interface UserMapper extends BaseMapper<User> {
 
+    /**
+     * 根据登录名或邮箱查询用户及角色
+     *
+     * @param lowercaseLogin
+     * @return
+     */
+    User selectOneWithRoleByLoginOrEmail(String lowercaseLogin);
 }

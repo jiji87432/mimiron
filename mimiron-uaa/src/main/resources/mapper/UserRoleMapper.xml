@@ -4,8 +4,8 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="cn.mimiron.uaa.entity.UserRole">
-        <id column="user_id" property="userId" />
-        <id column="role_id" property="roleId" />
+        <id column="user_id" property="userId"/>
+        <id column="role_id" property="roleId"/>
     </resultMap>
 
 </mapper>

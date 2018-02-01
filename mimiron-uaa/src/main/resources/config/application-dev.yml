@@ -43,6 +43,11 @@ spring:
       discovery:
         enabled: true
 
+mybatis-plus:
+  global-config:
+    #刷新mapper
+    refresh-mapper: true
+
 flyway:
   locations: classpath:/script
 

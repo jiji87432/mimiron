@@ -4,9 +4,9 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="cn.mimiron.uaa.entity.User">
-    <result column="id" property="id" />
-    <result column="gmt_create" property="gmtCreate" />
-    <result column="gmt_modified" property="gmtModified" />
+        <id column="id" property="id" />
+        <result column="gmt_create" property="gmtCreate" />
+        <result column="gmt_modified" property="gmtModified" />
         <result column="login" property="login" />
         <result column="password" property="password" />
         <result column="first_name" property="firstName" />
@@ -19,13 +19,5 @@
         <result column="reset_date" property="resetDate" />
         <result column="is_deleted" property="deleted" />
     </resultMap>
-
-    <!-- 通用查询结果列 -->
-    <sql id="Base_Column_List">
-id,
-gmt_create AS gmtCreate,
-gmt_modified AS gmtModified,
-        login, password, first_name, last_name, email, image_url, is_activated, activation_key, reset_key, reset_date, is_deleted
-    </sql>
 
 </mapper>

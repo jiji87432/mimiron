@@ -1,8 +1,7 @@
 package cn.mimiron.uaa.entity;
 
-import com.baomidou.mybatisplus.annotations.TableLogic;
-import com.baomidou.mybatisplus.annotations.Version;
 import cn.mimiron.core.entity.BaseEntity;
+import com.baomidou.mybatisplus.annotations.TableLogic;
 
 /**
  * <p>
@@ -35,7 +34,7 @@ public class Role extends BaseEntity {
         this.name = name;
     }
 
-    public Boolean getDeleted() {
+    public Boolean isDeleted() {
         return deleted;
     }
 

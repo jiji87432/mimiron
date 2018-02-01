@@ -1,9 +1,9 @@
 package cn.mimiron.uaa.entity;
 
-import java.util.Date;
-import com.baomidou.mybatisplus.annotations.TableLogic;
-import com.baomidou.mybatisplus.annotations.Version;
 import cn.mimiron.core.entity.BaseEntity;
+import com.baomidou.mybatisplus.annotations.TableLogic;
+
+import java.util.Date;
 
 /**
  * <p>
@@ -112,7 +112,7 @@ public class User extends BaseEntity {
         this.imageUrl = imageUrl;
     }
 
-    public Boolean getActivated() {
+    public Boolean isActivated() {
         return activated;
     }
 
@@ -144,7 +144,7 @@ public class User extends BaseEntity {
         this.resetDate = resetDate;
     }
 
-    public Boolean getDeleted() {
+    public Boolean isDeleted() {
         return deleted;
     }
 

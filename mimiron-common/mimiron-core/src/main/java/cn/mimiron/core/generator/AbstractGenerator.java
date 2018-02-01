@@ -56,7 +56,6 @@ public abstract class AbstractGenerator extends AutoGenerator {
             .setOutputDir("src/main/java")
             .setEnableCache(false)
             .setBaseResultMap(true)
-            .setBaseColumnList(true)
             .setOpen(false)
             .setFileOverride(false);
         this.setGlobalConfig(config);

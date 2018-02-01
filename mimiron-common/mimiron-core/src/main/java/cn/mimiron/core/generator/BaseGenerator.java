@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
  */
 public class BaseGenerator extends AbstractGenerator {
 
+    @Override
     public BaseGenerator templateConfig() {
         TemplateConfig config = new TemplateConfig()
             .setXml(null);
@@ -16,6 +17,7 @@ public class BaseGenerator extends AbstractGenerator {
         return this;
     }
 
+    @Override
     public BaseGenerator strategyConfig(String[] includeTables) {
         StrategyConfig config = new StrategyConfig()
             .setEntityLombokModel(false)

@@ -1,6 +1,7 @@
 package cn.mimiron.uaa.entity;
 
 import cn.mimiron.core.entity.BaseEntity;
+import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableLogic;
 import org.apache.commons.lang3.StringUtils;
 
@@ -67,6 +68,7 @@ public class User extends BaseEntity {
     @TableLogic
     private Boolean deleted;
 
+    @TableField(exist=false)
     private Set<Role> roles = new HashSet<>();
 
 
@@ -118,7 +120,7 @@ public class User extends BaseEntity {
         this.imageUrl = imageUrl;
     }
 
-    public Boolean isActivated() {
+    public Boolean getActivated() {
         return activated;
     }
 
@@ -150,7 +152,7 @@ public class User extends BaseEntity {
         this.resetDate = resetDate;
     }
 
-    public Boolean isDeleted() {
+    public Boolean getDeleted() {
         return deleted;
     }
 

@@ -27,15 +27,15 @@ import javax.validation.Valid;
  */
 @RestController
 @RequestMapping("/api")
-public class AccountResource {
+public class AccountController {
 
-    private final Logger log = LoggerFactory.getLogger(AccountResource.class);
+    private final Logger log = LoggerFactory.getLogger(AccountController.class);
 
     private final IUserService userService;
 
     private final IMailService mailService;
 
-    public AccountResource(IUserService userService, IMailService mailService) {
+    public AccountController(IUserService userService, IMailService mailService) {
         this.userService = userService;
         this.mailService = mailService;
     }

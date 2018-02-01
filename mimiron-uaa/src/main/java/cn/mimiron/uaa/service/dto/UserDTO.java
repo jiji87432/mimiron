@@ -53,7 +53,7 @@ public class UserDTO {
 
     public UserDTO(User user) {
         this(user.getId(), user.getLogin(), user.getFirstName(), user.getLastName(),
-            user.getEmail(), user.isActivated(), user.getImageUrl(),
+            user.getEmail(), user.getActivated(), user.getImageUrl(),
             user.getGmtCreate(), user.getGmtModified(),
             user.getRoles().stream().map(Role::getName)
                 .collect(Collectors.toSet()));

@@ -1,6 +1,7 @@
 package cn.mimiron.uaa.entity;
 
 import cn.mimiron.core.entity.BaseEntity;
+import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableLogic;
 
 import java.util.Objects;
@@ -20,10 +21,12 @@ public class Role extends BaseEntity {
     /**
      * 角色
      */
+    @TableField("name")
     private String name;
     /**
      * 删除标记
      */
+    @TableField("is_deleted")
     @TableLogic
     private Boolean deleted;
 
@@ -36,7 +39,7 @@ public class Role extends BaseEntity {
         this.name = name;
     }
 
-    public Boolean isDeleted() {
+    public Boolean getDeleted() {
         return deleted;
     }
 
@@ -65,8 +68,8 @@ public class Role extends BaseEntity {
     @Override
     public String toString() {
         return "Role{" +
-            ", name=" + name +
-            ", deleted=" + deleted +
-            "}";
+        ", name=" + name +
+        ", deleted=" + deleted +
+        "}";
     }
 }

@@ -189,8 +189,8 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
     @Override
     public void completePasswordReset(String newPassword, String key) {
         Wrapper<User> wrapper = new EntityWrapper<>();
-        wrapper.eq("resetKey", key)
-            .ge("resetDate", Instant.now().minusSeconds(86400));
+        wrapper.eq("reset_key", key)
+            .ge("reset_date", Instant.now().minusSeconds(86400));
         List<User> userList = userMapper.selectList(wrapper);
         if (userList == null || userList.isEmpty()) {
             throw new InternalServerErrorException("No user was found for this reset key");
@@ -211,14 +211,16 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
     @Scheduled(cron = "0 0 1 * * ?")
     public void removeNotActivatedUsers() {
         Wrapper<User> wrapper = new EntityWrapper<>();
-        wrapper.eq("activated", false);
-        wrapper.lt("gmtCreate", Instant.now().minus(3, ChronoUnit.DAYS));
+        wrapper.eq("is_activated", false);
+        wrapper.lt("gmt_create", Instant.now().minus(3, ChronoUnit.DAYS));
         List<User> users = userMapper.selectList(wrapper);
         Set<Long> ids = new HashSet<>();
         for (User user : users) {
             ids.add(user.getId());
         }
-        userMapper.deleteBatchIds(ids);
+        if (!ids.isEmpty()) {
+            userMapper.deleteBatchIds(ids);
+        }
     }
 
 }

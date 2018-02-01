@@ -43,8 +43,8 @@ public class UserRole implements Serializable {
     @Override
     public String toString() {
         return "UserRole{" +
-            ", userId=" + userId +
-            ", roleId=" + roleId +
-            "}";
+        ", userId=" + userId +
+        ", roleId=" + roleId +
+        "}";
     }
 }

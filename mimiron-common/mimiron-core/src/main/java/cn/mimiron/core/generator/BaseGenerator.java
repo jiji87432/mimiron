@@ -21,7 +21,6 @@ public class BaseGenerator extends AbstractGenerator {
     public BaseGenerator strategyConfig(String[] includeTables) {
         StrategyConfig config = new StrategyConfig()
             .setEntityLombokModel(false)
-            .setDbColumnUnderline(true)
             .setNaming(NamingStrategy.underline_to_camel)
             .setSuperEntityClass("cn.mimiron.core.entity.BaseEntity")
             .setSuperMapperClass("cn.mimiron.core.mapper.BaseMapper")
@@ -34,6 +33,7 @@ public class BaseGenerator extends AbstractGenerator {
             .setSuperEntityColumns("id", "gmt_create", "gmt_modified")
             .setLogicDeleteFieldName("is_deleted")
             .setVersionFieldName("version")
+            .entityTableFieldAnnotationEnable(true)
             .setInclude(includeTables);
         this.setStrategy(config);
         return this;

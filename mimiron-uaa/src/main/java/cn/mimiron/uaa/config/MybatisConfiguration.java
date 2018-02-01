@@ -1,6 +1,8 @@
 package cn.mimiron.uaa.config;
 
 import cn.mimiron.core.config.MimironConstants;
+import com.baomidou.mybatisplus.mapper.ISqlInjector;
+import com.baomidou.mybatisplus.mapper.LogicSqlInjector;
 import com.baomidou.mybatisplus.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.plugins.PerformanceInterceptor;
 import org.mybatis.spring.annotation.MapperScan;
@@ -34,4 +36,8 @@ public class MybatisConfiguration {
         return paginationInterceptor;
     }
 
+    @Bean
+    public ISqlInjector sqlInjector() {
+        return new LogicSqlInjector();
+    }
 }

@@ -25,46 +25,57 @@ public class User extends BaseEntity {
     /**
      * 登录名
      */
+    @TableField("login")
     private String login;
     /**
      * 密码
      */
+    @TableField("password")
     private String password;
     /**
      * 名
      */
+    @TableField("first_name")
     private String firstName;
     /**
      * 姓
      */
+    @TableField("last_name")
     private String lastName;
     /**
      * 邮件
      */
+    @TableField("email")
     private String email;
     /**
      * 头像地址
      */
+    @TableField("image_url")
     private String imageUrl;
     /**
      * 激活标记
      */
+    @TableField("is_activated")
     private Boolean activated;
     /**
      * 激活验证码
      */
+    @TableField("activation_key")
     private String activationKey;
     /**
      * 重置密码验证码
      */
+    @TableField("reset_key")
     private String resetKey;
     /**
      * 充值密码时间
      */
+    @TableField("reset_date")
     private Date resetDate;
     /**
      * 删除标记
      */
+    @TableField("is_deleted")
     @TableLogic
     private Boolean deleted;
 
@@ -171,17 +182,17 @@ public class User extends BaseEntity {
     @Override
     public String toString() {
         return "User{" +
-            ", login=" + login +
-            ", password=" + password +
-            ", firstName=" + firstName +
-            ", lastName=" + lastName +
-            ", email=" + email +
-            ", imageUrl=" + imageUrl +
-            ", activated=" + activated +
-            ", activationKey=" + activationKey +
-            ", resetKey=" + resetKey +
-            ", resetDate=" + resetDate +
-            ", deleted=" + deleted +
-            "}";
+        ", login=" + login +
+        ", password=" + password +
+        ", firstName=" + firstName +
+        ", lastName=" + lastName +
+        ", email=" + email +
+        ", imageUrl=" + imageUrl +
+        ", activated=" + activated +
+        ", activationKey=" + activationKey +
+        ", resetKey=" + resetKey +
+        ", resetDate=" + resetDate +
+        ", deleted=" + deleted +
+        "}";
     }
 }

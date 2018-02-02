@@ -1,8 +1,8 @@
 package cn.mimiron.uaa.service.dto;
 
 import cn.mimiron.uaa.config.Constants;
-import cn.mimiron.uaa.model.Authority;
-import cn.mimiron.uaa.model.User;
+import cn.mimiron.uaa.entity.Role;
+import cn.mimiron.uaa.entity.User;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -55,7 +55,7 @@ public class UserDTO {
         this(user.getId(), user.getLogin(), user.getFirstName(), user.getLastName(),
             user.getEmail(), user.getActivated(), user.getImageUrl(),
             user.getGmtCreate(), user.getGmtModified(),
-            user.getAuthorities().stream().map(Authority::getName)
+            user.getRoles().stream().map(Role::getName)
                 .collect(Collectors.toSet()));
     }
 

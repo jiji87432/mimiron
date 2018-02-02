@@ -1,7 +1,7 @@
 package cn.mimiron.uaa.security;
 
+import cn.mimiron.uaa.entity.User;
 import cn.mimiron.uaa.mapper.UserMapper;
-import cn.mimiron.uaa.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
@@ -33,11 +33,11 @@ public class DomainUserDetailsService implements UserDetailsService {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public UserDetails loadUserByUsername(final String login) {
         log.debug("Authenticating {}", login);
         String lowercaseLogin = login.toLowerCase(Locale.ENGLISH);
-        User user = userMapper.selectOneWithAuthorityByLoginOrEmail(lowercaseLogin);
+        User user = userMapper.selectOneWithRoleByLoginOrEmail(lowercaseLogin);
 
         if (user == null) {
             throw new UsernameNotFoundException("User " + lowercaseLogin + " was not found in the database");
@@ -46,8 +46,8 @@ public class DomainUserDetailsService implements UserDetailsService {
             throw new UserNotActivatedException("User " + lowercaseLogin + " was not activated");
         }
 
-        List<GrantedAuthority> grantedAuthorities = user.getAuthorities().stream()
-            .map(authority -> new SimpleGrantedAuthority(authority.getName()))
+        List<GrantedAuthority> grantedAuthorities = user.getRoles().stream()
+            .map(role -> new SimpleGrantedAuthority(role.getName()))
             .collect(Collectors.toList());
 
         return new org.springframework.security.core.userdetails.User(user.getLogin(),

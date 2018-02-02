@@ -7,8 +7,9 @@ import javax.validation.constraints.NotNull;
 
 /**
  * Properties specific to Mimiron.
- *
+ * <p>
  * <p> Properties are configured in the application.yml file. </p>
+ *
  * @author zhangxd
  */
 @ConfigurationProperties(prefix = "mimiron", ignoreUnknownFields = false)

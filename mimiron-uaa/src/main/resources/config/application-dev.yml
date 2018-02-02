@@ -7,11 +7,6 @@ spring:
   profiles:
     active: dev
     include: swagger
-  devtools:
-    restart:
-      enabled: true
-    livereload:
-      enabled: false
   jackson:
     serialization.indent_output: true
   cloud:
@@ -47,6 +42,11 @@ spring:
     locator:
       discovery:
         enabled: true
+
+mybatis-plus:
+  global-config:
+    #刷新mapper
+    refresh-mapper: true
 
 flyway:
   locations: classpath:/script

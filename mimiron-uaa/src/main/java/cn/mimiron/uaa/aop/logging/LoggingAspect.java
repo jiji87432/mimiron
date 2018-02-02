@@ -44,7 +44,7 @@ public class LoggingAspect {
      * Pointcut that matches all Spring beans in the application's main packages.
      */
     @Pointcut("within(cn.mimiron.uaa.service..*)" +
-        " || within(cn.mimiron.uaa.web.rest..*)")
+        " || within(cn.mimiron.uaa.controller..*)")
     public void applicationPackagePointcut() {
         // Method is empty as this is just a Pointcut, the implementations are in the advices.
     }

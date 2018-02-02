@@ -1,51 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.mimiron.uaa.mapper.UserMapper">
-  <resultMap id="BaseResultMap" type="cn.mimiron.uaa.model.User">
-    <!--
-      WARNING - @mbg.generated
-    -->
-    <id column="id" jdbcType="BIGINT" property="id"/>
-    <result column="login" jdbcType="VARCHAR" property="login"/>
-    <result column="password" jdbcType="VARCHAR" property="password"/>
-    <result column="first_name" jdbcType="VARCHAR" property="firstName"/>
-    <result column="last_name" jdbcType="VARCHAR" property="lastName"/>
-    <result column="email" jdbcType="VARCHAR" property="email"/>
-    <result column="image_url" jdbcType="VARCHAR" property="imageUrl"/>
-    <result column="is_activated" jdbcType="BIT" property="activated"/>
-    <result column="activation_key" jdbcType="VARCHAR" property="activationKey"/>
-    <result column="reset_key" jdbcType="VARCHAR" property="resetKey"/>
-    <result column="reset_date" jdbcType="TIMESTAMP" property="resetDate"/>
-    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate"/>
-    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified"/>
-  </resultMap>
 
-  <resultMap id="UserAuthorityMap" extends="BaseResultMap" type="cn.mimiron.uaa.model.User">
-    <collection property="authorities" columnPrefix="authority_"
-                resultMap="cn.mimiron.uaa.mapper.AuthorityMapper.BaseResultMap"/>
-  </resultMap>
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.mimiron.uaa.entity.User">
+        <id column="id" property="id"/>
+        <result column="gmt_create" property="gmtCreate"/>
+        <result column="gmt_modified" property="gmtModified"/>
+        <result column="login" property="login"/>
+        <result column="password" property="password"/>
+        <result column="first_name" property="firstName"/>
+        <result column="last_name" property="lastName"/>
+        <result column="email" property="email"/>
+        <result column="image_url" property="imageUrl"/>
+        <result column="is_activated" property="activated"/>
+        <result column="activation_key" property="activationKey"/>
+        <result column="reset_key" property="resetKey"/>
+        <result column="reset_date" property="resetDate"/>
+        <result column="is_deleted" property="deleted"/>
+    </resultMap>
 
-  <select id="selectOneWithAuthorityByLoginOrEmail" resultMap="UserAuthorityMap">
-    SELECT
-      u.id,
-      u.login,
-      u.`password`,
-      u.first_name,
-      u.last_name,
-      u.email,
-      u.image_url,
-      u.is_activated,
-      u.activation_key,
-      u.reset_key,
-      u.reset_date,
-      u.gmt_create,
-      u.gmt_modified,
-      a.`name` authority_name
-    FROM
-      USER u
-      INNER JOIN user_authority ua ON u.id = ua.user_id
-      INNER JOIN authority a ON ua.authority_name = a.NAME
-    WHERE
-      u.login = #{login} OR u.email = #{login}
-  </select>
+    <resultMap id="UserRoleMap" extends="BaseResultMap" type="cn.mimiron.uaa.entity.User">
+        <collection property="roles" columnPrefix="role_"
+                    resultMap="cn.mimiron.uaa.mapper.RoleMapper.BaseResultMap"/>
+    </resultMap>
+
+    <select id="selectOneWithRoleByLoginOrEmail" resultMap="UserRoleMap">
+        SELECT
+        u.id,
+        u.login,
+        u.`password`,
+        u.first_name,
+        u.last_name,
+        u.email,
+        u.image_url,
+        u.is_activated,
+        u.activation_key,
+        u.reset_key,
+        u.reset_date,
+        u.gmt_create,
+        u.gmt_modified,
+        r.`name` role_name
+        FROM
+        USER u
+        INNER JOIN user_role ur ON u.id = ur.user_id AND u.is_deleted = 0
+        INNER JOIN role r ON ur.role_id = r.id AND r.is_deleted = 0
+        WHERE
+        u.login = #{login} OR u.email = #{login}
+    </select>
 </mapper>

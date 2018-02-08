@@ -45,16 +45,13 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 
     private final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
 
-    private final UserMapper userMapper;
-
     private final RoleMapper roleMapper;
 
     private final UserRoleMapper userRoleMapper;
 
     private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserMapper userMapper, RoleMapper roleMapper, UserRoleMapper userRoleMapper, PasswordEncoder passwordEncoder) {
-        this.userMapper = userMapper;
+    public UserServiceImpl(RoleMapper roleMapper, UserRoleMapper userRoleMapper, PasswordEncoder passwordEncoder) {
         this.roleMapper = roleMapper;
         this.userRoleMapper = userRoleMapper;
         this.passwordEncoder = passwordEncoder;
@@ -64,14 +61,14 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
     public User registerUser(UserDTO userDTO, String password) {
         User loginUser = new User();
         loginUser.setLogin(userDTO.getLogin());
-        loginUser = userMapper.selectOne(loginUser);
+        loginUser = baseMapper.selectOne(loginUser);
         if (loginUser != null) {
             throw new LoginAlreadyUsedException();
         }
 
         User emailUser = new User();
         emailUser.setEmail(userDTO.getEmail());
-        emailUser = userMapper.selectOne(emailUser);
+        emailUser = baseMapper.selectOne(emailUser);
         if (emailUser != null) {
             throw new EmailAlreadyUsedException();
         }
@@ -88,7 +85,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
         newUser.setActivationKey(RandomUtil.generateActivationKey());
         newUser.setGmtCreate(new Date());
         newUser.setGmtModified(new Date());
-        userMapper.insert(newUser);
+        baseMapper.insert(newUser);
 
         Role role = new Role();
         role.setName(AuthoritiesConstants.USER);
@@ -107,7 +104,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
     public void activateRegistration(String key) {
         User user = new User();
         user.setActivationKey(key);
-        user = userMapper.selectOne(user);
+        user = baseMapper.selectOne(user);
         if (user == null) {
             throw new InternalServerErrorException("No user was found for this activation key");
         }
@@ -115,7 +112,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
         user.setActivated(true);
         user.setActivationKey(null);
         user.setGmtModified(new Date());
-        userMapper.updateAllColumnById(user);
+        baseMapper.updateAllColumnById(user);
     }
 
     @Override
@@ -125,14 +122,14 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
         User user = new User();
         user.setPassword(passwordEncoder.encode(password));
         user.setGmtModified(new Date());
-        userMapper.update(user, wrapper);
+        baseMapper.update(user, wrapper);
     }
 
     @Override
     @Transactional(readOnly = true)
     public User getUserWithRoles() {
         String login = SecurityUtils.getCurrentUserLogin();
-        return userMapper.selectOneWithRoleByLoginOrEmail(login);
+        return baseMapper.selectOneWithRoleByLoginOrEmail(login);
     }
 
     @Override
@@ -144,14 +141,14 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 
         User emailUser = new User();
         emailUser.setEmail(userDTO.getEmail());
-        emailUser = userMapper.selectOne(emailUser);
+        emailUser = baseMapper.selectOne(emailUser);
         if (emailUser != null && (!userLogin.equalsIgnoreCase(emailUser.getLogin()))) {
             throw new EmailAlreadyUsedException();
         }
 
         User loginUser = new User();
         loginUser.setLogin(userLogin);
-        loginUser = userMapper.selectOne(loginUser);
+        loginUser = baseMapper.selectOne(loginUser);
         if (loginUser == null) {
             throw new InternalServerErrorException("User could not be found");
         }
@@ -162,14 +159,14 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
         updateUser.setEmail(userDTO.getEmail());
         updateUser.setImageUrl(userDTO.getImageUrl());
         updateUser.setGmtModified(new Date());
-        userMapper.updateById(updateUser);
+        baseMapper.updateById(updateUser);
     }
 
     @Override
     public User requestPasswordReset(String mail) {
         User user = new User();
         user.setEmail(mail);
-        user = userMapper.selectOne(user);
+        user = baseMapper.selectOne(user);
         if (user == null) {
             throw new EmailNotFoundException();
         }
@@ -178,7 +175,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
         updateUser.setResetKey(RandomUtil.generateResetKey());
         updateUser.setResetDate(new Date());
         updateUser.setGmtModified(new Date());
-        userMapper.updateById(updateUser);
+        baseMapper.updateById(updateUser);
 
         user.setResetKey(updateUser.getResetKey());
         user.setResetDate(updateUser.getResetDate());
@@ -191,7 +188,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
         Wrapper<User> wrapper = new EntityWrapper<>();
         wrapper.eq("reset_key", key)
             .ge("reset_date", Instant.now().minusSeconds(86400));
-        List<User> userList = userMapper.selectList(wrapper);
+        List<User> userList = baseMapper.selectList(wrapper);
         if (userList == null || userList.isEmpty()) {
             throw new InternalServerErrorException("No user was found for this reset key");
         }
@@ -200,7 +197,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
         user.setResetKey(null);
         user.setResetDate(null);
         user.setGmtModified(new Date());
-        userMapper.updateAllColumnById(user);
+        baseMapper.updateAllColumnById(user);
     }
 
     /**
@@ -213,13 +210,13 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
         Wrapper<User> wrapper = new EntityWrapper<>();
         wrapper.eq("is_activated", false);
         wrapper.lt("gmt_create", Instant.now().minus(3, ChronoUnit.DAYS));
-        List<User> users = userMapper.selectList(wrapper);
+        List<User> users = baseMapper.selectList(wrapper);
         Set<Long> ids = new HashSet<>();
         for (User user : users) {
             ids.add(user.getId());
         }
         if (!ids.isEmpty()) {
-            userMapper.deleteBatchIds(ids);
+            baseMapper.deleteBatchIds(ids);
         }
     }
 

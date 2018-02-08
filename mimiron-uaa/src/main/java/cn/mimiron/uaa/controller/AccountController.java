@@ -1,5 +1,6 @@
 package cn.mimiron.uaa.controller;
 
+import cn.mimiron.core.controller.BaseController;
 import cn.mimiron.core.exception.InternalServerErrorException;
 import cn.mimiron.uaa.controller.vm.KeyAndPasswordVM;
 import cn.mimiron.uaa.controller.vm.ManagedUserVM;
@@ -27,7 +28,7 @@ import javax.validation.Valid;
  */
 @RestController
 @RequestMapping("/api")
-public class AccountController {
+public class AccountController extends BaseController {
 
     private final Logger log = LoggerFactory.getLogger(AccountController.class);
 
